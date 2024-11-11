@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/11 16:21:31 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:21:14 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <limits.h>
+# include <stdbool.h>
 
 typedef struct s_env
 {
@@ -33,14 +34,17 @@ typedef struct s_node
 {
 	int	fd_in;
 	int	fd_out;
-	char	*entre_pipe;
-	char	*split_ep;
+	char	*command;
+	char	*s_command;
 	struct	s_node *next;
 }				t_node;
 
 // chaques noeuds est un entre pipe 
 typedef struct	s_minishell
 {
+	char	*line;
+	int		exit_code;
+	char	**envp;
 	t_env	*var;
 	t_node	*start_node;
 }				t_minishell;

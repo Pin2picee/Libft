@@ -1,0 +1,42 @@
+
+
+
+
+pre_parsing ->
+				 quotes et double quotes et pipes
+
+				verifie -> cote ouvrante et fermante
+				pipe entre des caracteres
+
+
+
+
+
+
+
+
+
+
+
+
+------------Mago------------
+{
+    creer les noeuds;
+    gerer redirections
+}
+
+fonction -> parcours data->line en append node pour charque pipes
+
+
+
+
+
+
+------------ADIL------------
+{
+	fonctions pre_parsing;
+    creer les splits;
+    gerer les quotes;
+
+}
+
