@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/11 17:21:14 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:48:42 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,16 @@ typedef struct	s_minishell
 	t_env	*var;
 	t_node	*start_node;
 }				t_minishell;
+
 /* FOR PROMPT*/
 char	*get_prompt(void);
 
 
 /*---PARSING---*/
-void	parsing(char	*line);
+int	parsing(t_minishell *data);
+
+int	pre_parsing(char *line); // verif le retour de readline pour voir les erreur qotes et pipes
+
+
 
 #endif
