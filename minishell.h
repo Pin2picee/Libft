@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/12 13:48:42 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:27:29 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <limits.h>
 # include <stdbool.h>
+typedef struct	s_minishell;
 
 typedef struct s_env
 {
@@ -32,11 +33,13 @@ typedef struct s_env
 
 typedef struct s_node 
 {
+	char *hd_end;
 	int	fd_in;
 	int	fd_out;
 	char	*command;
-	char	*s_command;
+	char	**s_command;
 	struct	s_node *next;
+	t_minishell	*data;
 }				t_node;
 
 // chaques noeuds est un entre pipe 
@@ -55,6 +58,7 @@ char	*get_prompt(void);
 
 /*---PARSING---*/
 int	parsing(t_minishell *data);
+int	quote_chr(char *str, int i);
 
 int	pre_parsing(char *line); // verif le retour de readline pour voir les erreur qotes et pipes
 

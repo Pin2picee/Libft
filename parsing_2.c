@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:31:03 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/12 13:46:16 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/13 18:08:07 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,19 @@ int	pipes_chr(char	*readline, int i)
 }
 int	parsing(t_minishell *data)
 {
+	t_node	*node;
+	
 	if (pre_parsing(data->line)) // verif retour readline->main
-		return ()
-	while ()
+		return (1);
+	node = data->start_node;
+	if (cleaning_redirections(data))
+		return (1);
+	create_nodes(data);
+	
+	while (node)
+	{	
+		split_and_clean(node);
+		
+		node = node->next;
+	}
 }

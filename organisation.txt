@@ -12,7 +12,8 @@ pre_parsing ->
 
 
 
-
+--------------------------------------------------------------------------
+-------------------------------------------------------------------------
 
 
 
@@ -25,7 +26,12 @@ pre_parsing ->
     gerer redirections
 }
 
-fonction -> parcours data->line en append node pour charque pipes
+fonction -> parcours data->line en append node pour chaque pipe
+gestion des redirections :
+une fois que le tableau est splite et nettoye de ses quotes et des $, je recupere ce tableau
+m occupe de le reduire en 
+
+echo >>file1"$USER salut"
 
 
 
@@ -35,6 +41,7 @@ fonction -> parcours data->line en append node pour charque pipes
 ------------ADIL------------
 {
 	fonctions pre_parsing; avec la boucle pour chaque noeuds
+    
     creer les splits;
     gerer les quotes;
 
@@ -67,3 +74,9 @@ void	parsing(t_minishell *data)
 }
 
 dsaljdasndasnda | ndnsaidnas | dasdad
+
+'echo' "$user salut" >file2>fil1
+
+'echo' "$user salut" >>>>>>>>>>file2
+
+

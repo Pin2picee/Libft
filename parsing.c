@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:45:22 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/12 13:45:19 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:54:57 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	pipe_syntax(char *line)
 	while (line[++i])
 	{
 		if (line[i] == '\'' || line[i] == '"')
-			i = quote_chr(data, i);
+			i = quote_chr(line, i);
 		if (line[i] && line[i] == '|')
 		{
 			while ((line[i] && line[i] == ' ') || line[i] && line[i] == '|')

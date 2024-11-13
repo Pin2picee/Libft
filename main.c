@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:29 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/12 13:48:58 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:54:35 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ int	main(int argc, char **argv, char **envp)
 	{
 		prompt = get_prompt();
 		data->line = readline(prompt);
+		
 		add_history(data->line);
 		if (!parsing(data))
 			execution(data);
+		//fonction_qui free : TODO/
 	}
     return 0;
 }
