@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_nodes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:14:14 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/13 18:03:13 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/14 15:27:15 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 t_node	*find_last_node(t_minishell *data)
 {
