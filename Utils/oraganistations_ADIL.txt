@@ -37,3 +37,10 @@ fonction redirections qui nettoie les redirections de ma command en fesant les r
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 echo salut >> >file1
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+FAIRE REDIRECTION_SYNTAXE -> verifie >>> ou <<< ou >> >file1 ou > a la fin de la command
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&

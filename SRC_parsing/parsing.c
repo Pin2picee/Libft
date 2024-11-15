@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:45:22 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/15 14:51:44 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:11:08 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ int	pre_parsing(char *line)
 		if(pipe_syntax(line))
 		{
 			printf("Need cmd after pipe");
+			return (1);
+		}
+		if (redirections_syntax(line))
+		{
+			printf("erreur de syntaxe de redirection");
 			return (1);
 		}
 		return (0);

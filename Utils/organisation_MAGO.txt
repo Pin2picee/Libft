@@ -9,7 +9,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     creer les noeuds;                                                                     |
         -> append les nodes pour chaque pipe                                              |
     gerer les quotes;                                                                     |
-        -> une fois les tableau split et redirections faite(ADIL)                          |
+        -> une fois les tableau split et redirections faite(ADIL)                         |
         -> parcourir chaque split de chaque noeud enlever les quotes inutile              |
 }                                                                                         |
                                                                                           |

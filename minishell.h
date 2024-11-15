@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/15 14:51:29 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/15 17:42:41 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_env
 {
 	char	*key;
 	char	*value;
-	struct s_var *next;
+	struct s_env *next;
 }				t_env;
 
 
