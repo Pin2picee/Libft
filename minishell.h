@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <limits.h>
 # include <stdbool.h>
+
 typedef struct	s_minishell;
 
 typedef struct s_env
@@ -62,6 +63,14 @@ int	quote_chr(char *str, int i);
 char	*redirections_handler(char *command);
 int	pre_parsing(char *line); // verif le retour de readline pour voir les erreur qotes et pipes
 
+/*---ENV---*/
+void	free_env_vars(t_minishell *data);
+t_env	*create_var(const char *key, const char *value);
+t_env	*get_env_var(t_env *var_data, const char *key);
+void	init_env(t_minishell *data, char **envp);
+
+/*---EXECUTION---*/
+void	ft_env(t_minishell *data);
 
 
 #endif
