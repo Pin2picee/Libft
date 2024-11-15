@@ -1,0 +1,39 @@
+
+------------ADIL------------
+{
+	fonctions pre_parsing; avec la boucle pour chaque noeuds
+    
+    creer les splits;
+    gerer redirections;
+
+|	
+}
+
+}
+
+Petit MEMO :
+    pre_parsing(data); -> verifie les probleme potentiel
+    *boucle for every noeud
+                ->  create_nodes(data); ->ajoute ou creer un noeud
+	                split_and_clean(data);
+	                print_nodes (data);// faire une fonction debug qui affiche le contenu de chaque noeud;*/
+
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+fonction redirections qui nettoie les redirections de ma command en fesant les redirections .
+
+	*	comment gerer les redirections dans ma chaine de caracter
+	*	parametre : la line du noeud et le caractere
+	------------------------------------------------
+	*	cette fonction est appele si c == '>' ou '<' redirection a faire
+	-----------------------------------------------
+	*	cas possible ->
+						"<" ">" ">>" "<<"
+	*	return (void) -> rien
+
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+echo salut >> >file1

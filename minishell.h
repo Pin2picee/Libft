@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/14 15:24:12 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/11/15 11:38:47 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*get_prompt(void);
 /*---PARSING---*/
 int	parsing(t_minishell *data);
 int	quote_chr(char *str, int i);
-
+char	*redirections_handler(char *command);
 int	pre_parsing(char *line); // verif le retour de readline pour voir les erreur qotes et pipes
 
 
