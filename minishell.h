@@ -6,14 +6,14 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/15 11:38:47 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/15 14:51:29 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "SRC/libft/libft.h"
+# include "libft/libft.h"
 # include "stdio.h"
 # include <readline/readline.h>
 # include <stdlib.h>

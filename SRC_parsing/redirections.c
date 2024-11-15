@@ -6,11 +6,11 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/15 13:03:10 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/15 14:42:19 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	redirection(char *name_f, char c)
 {
