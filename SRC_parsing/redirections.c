@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/15 21:09:36 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/15 21:12:55 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	redirection(char *name_f, char c, t_node *node)
 	i = 0;
 	j = 0;
 	option = 1;// trunc
-	if (c == '<' && !t_strchr("<>", name_f[i]))
+	if (c == '<' && !ft_strchr("<>", name_f[i]))
 		option = 3;
 	else if(name_f[i] == '>' && name_f[i] == c)// si >> append
 		option = 2;
