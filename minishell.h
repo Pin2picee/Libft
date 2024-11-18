@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/16 19:24:21 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/18 22:26:16 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,26 @@ char	*get_prompt(void);
 
 
 /*---PARSING---*/
-int	parsing(t_minishell *data);
-int	quote_chr(char *str, int i);
-char	*redirections_handler(char *command);
-int	pre_parsing(char *line); // verif le retour de readline pour voir les erreur qotes et pipes
+int		parsing(t_minishell *data);
+void	redirections_handler(t_node *node);
+int		pre_parsing(char *line); // verif le retour de readline pour voir les erreur qotes et pipes
+int		tab_len(char *str, int	*len, t_minishell *data);
+void	ft_pass_redirection(char *str, int *i);
+void	create_nodes(t_minishell *data);
+void	append_nodes(t_minishell *data, int start, int end);
+void	add_line_to_node(t_node *node, int start, int end);
+void	split_and_clean(t_node *node);
+void	quotes_var_handler(char **tab, t_minishell *data);
+int		quote_chr(char *str, int i);
+void	ft_cpy_file(char *file, char *name_f, int *i, int j);
+
 
 /*---ENV---*/
 void	free_env_vars(t_minishell *data);
 t_env	*create_var(const char *key, const char *value);
 t_env	*get_env_var(t_env *var_data, const char *key);
 void	init_env(t_minishell *data, char **envp);
+char	*ft_clean_tab(char *str, int len, t_minishell *data);
 
 /*---EXECUTION---*/
 void	ft_env(t_minishell *data);
