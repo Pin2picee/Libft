@@ -32,7 +32,7 @@ fonction redirections qui nettoie les redirections de ma command en fesant les r
 						"<" ">" ">>" "<<"
 	*	return (void) -> rien
 
-
+do_fd() -> fonction qui va open un file et faire les redirections 
 
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
@@ -41,6 +41,15 @@ echo salut >> >file1
 
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-FAIRE REDIRECTION_SYNTAXE -> verifie >>> ou <<< ou >> >file1 ou > a la fin de la command
+
+
+
+
+
+pour les redirection ->>>>>
+
+			parcourir
+
+
 
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&

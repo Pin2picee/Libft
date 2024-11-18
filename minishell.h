@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/15 17:42:41 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/16 19:24:21 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <limits.h>
 # include <stdbool.h>
 
-typedef struct	s_minishell;
+struct	s_minishell;
 
 typedef struct s_env
 {
@@ -38,9 +38,9 @@ typedef struct s_node
 	int	fd_in;
 	int	fd_out;
 	char	*command;
-	char	**s_command;
+	char	**split_command;
 	struct	s_node *next;
-	t_minishell	*data;
+	struct s_minishell	*data;
 }				t_node;
 
 // chaques noeuds est un entre pipe 
