@@ -5,154 +5,208 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 18:28:33 by abelmoha          #+#    #+#             */
+/*   Created: 2024/11/13 18:28:33 by mbetcher          #+#    #+#             */
 /*   Updated: 2024/11/14 19:03:32 by mbetcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-char	**quotes_var_handler(char **tab)
+int	chr_quotes(char *str)
+{
+	int	i;
+	
+	i = 0;
+	while (str[i])
+	{
+		if(str[i] == '\'' || str[i] == '"')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	var_len(char *str, t_minishell *data, int *len)
+{
+	int	i;
+	t_env	*v_e;
+	
+	v_e = data->var;
+	i = 0;
+	while(str[i] && (isalnum(str[i]) || str[i] == '_'))
+		i++;
+	while(v_e) 
+	{
+		if (!ft_strncmp(v_e->key, str, i))
+		{
+		*len = ft_strlen(v_e->value);
+			return(i);
+		}
+		else
+			v_e = v_e->next;
+	}
+	return (i);
+}
+
+int	quotes_len(char *str, char quote, t_minishell *data, int *len)
+{
+	int	i;
+	
+	i = 1;
+	while (str[i] && str[i] != quote)
+	{
+		if(quote == '"' && str[i] == '$')
+		{
+			i++;
+			i += var_len(&str[i], data, len);
+		}
+		else
+			i++;
+	}
+	return (i + 1);
+}
+
+int	tab_len(char *str, int	*len, t_minishell *data)
+{
+	int	i;
+	int	flag;
+	
+	i = 0;
+	flag = chr_quotes(str);
+	while(str[i])
+	{	
+		if(str[i] == '$')
+		{
+			i++;
+			var_len(&str[i], data, len);
+		}
+		if(str[i] == '\'' || str[i] == '"')
+		{
+			i += quotes_len(&str[i], str[i], data, len);
+		}
+		else if(flag == 1)
+		{
+			i++;
+			*len++;
+		}
+		else
+			i++;
+	}
+	return (i);
+}
+
+void	put_var_in_tab(char *str, char *tab, t_minishell *data, int *main_i)
+{
+	int	i;
+	t_env	*v_e;
+	
+	v_e = data->var;
+	i = 0;
+	while(str[i] && (isalnum(str[i]) || str[i] == '_'))
+		i++;
+	while(v_e) 
+	{
+		if (!ft_strncmp(v_e->key, str, i + 1))
+		{
+			ft_strlcat(tab, v_e->value, *main_i);
+			*main_i += ft_strlen(v_e->value);
+			return ;
+		}
+		else
+			v_e = v_e->next;
+	}
+}
+
+char	*ft_clean_tab(char *str, int len, t_minishell *data)
+{
+	char	*tab;
+	int	i;
+	int	j;
+	char	quote;
+	
+	i = 0;
+	j = 0;
+	tab = malloc(len + 1);
+	if (!tab)
+		return (NULL);
+	while (str[i])
+	{
+		if(str[i] == '\'' || str[i] == '"')
+		{
+			quote = str[i++];
+			while(str[i] && str[i] != quote)
+			{
+				if(quote == '"' && str[i] == '$')
+				{
+					i++;
+					put_var_in_tab(&str[i], tab, data, &j);
+				}
+				else
+					tab[j++] = str[i++];
+			}
+		}
+		else
+			tab[j++] = str[i++];
+	}
+	free(str);
+	tab[j] = '\0';
+	return (tab);
+}
+
+void	quotes_var_handler(char **tab, t_minishell *data)
 {
 	char	**clean_tab;
 	int		i;
-	int		j;
 	int		len;
 	char	quote;
-	bool	d_quotes;
 
-	flag = false;
-	j = 0;
 	i = 0;
-	len = 0;
 	while(tab[i])
 	{
-		while(tab[i][j])
-		{
-			len++;
-			if(ft_strchr(&tab[i][j], "'\""))
-			{
-				quote = tab[i][j++];
-				if(quote == '"')
-				{
-					while(tab[i][j++] != quote)
-					{
-					if(tab[i][j] == '$')
-					{
-						i++;
-						len += var_len(&tab[i][j]);
-					}
-					else
-						len++;
-					}
-				}
-				else if(quote == '\'')
-					len += quote_chr2(&tab[i][j]);
-				j++;
-			}
-			j++;
-		}
+		len = 0;
+		tab_len(&tab[i][0], &len, data);
+		printf("%i\n", len);
+		if (len !=0)
+			tab[i] = ft_clean_tab(&tab[i][0], len, data);
+		printf("%s\n", tab[i]);
 		i++;
-	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-ce que je recois : 
-{
-	un tableau splite nettoye des redirections et qui contient tjrs les "" et $
-}
-ce que je dois retourner
-{
-	un **tab nettoye de ses quotes et ou les $ ont ete attribues si existante.
-}
-
-comment m y prendre
-{
-	rentrer dans une boucle tant qu il y a des tabs
-	{
-		si il y a une quote
-		{
-			calculer la len de mon tab mallocquer
-			{
-				comment calculer la len
-				{
-					si j ai une quote '"', 
-					{
-						activer un flag d_quote et incrementer ma len;
-						si je tombe sur $
-						{
-							rentrer dans ma fonction env_var_chr
-							{
-								va prendre la var et la comparer a la cle de toutes les VE
-								{
-									pour eviter de mallocquer je vais faire un strncmp qui 
-									recupere la va et ne compare que les key avec sa len
-									comment recuperer la VE
-									{
-										incrementer tant que tab[i] == caracteres alphanumeriques 
-										ou '_'.
-									}	
-								}
-								mtn que j ai ma VA, je recupere sa len et je continue; 
-							}
-						}
-					}
-					si j ai une quote '\''
-					{
-						simplement implementer la len en ignorant les '\'';
-					}
-				}
-			}
-		}
-		si len est != 0, alors on a trouve des quotes et on malloc un tableau a la taille de
-		cette len
-		 les cas que je dois gerer
-		{
-			- "$USER""b" dans un meme tableau
-			comment m y prendre
-			{
-				utiliser un flag d_quote pour savoir si je gere les $ ou non.
-				refaire le meme proceder que dans le calcul de la len pour recuperer le nom
-				de la VA
-				et ecrire les caracteres dans mon tableau 
-			}
-		}
 		
 	}
-	free lancien tableau contenu dans le **tab si modification il y a eu.
-
-	}
 }
 
-echo slut"'"
+int main(int ac, char **av)
+{
+    (void)ac;
+    t_minishell data;
+    // Initialisation d'un tableau d'exemple pour tester quotes_var_handler
+    char *example_tab[] = {
+        "\'t$est\'",
+        "ex\"a\"mple2",
+        "sample3",
+        NULL
+    };
+	
+    // Appel de la fonction pour tester
+    quotes_var_handler(example_tab, &data);
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
