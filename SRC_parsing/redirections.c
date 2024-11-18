@@ -6,87 +6,61 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/18 13:09:49 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/18 23:41:05 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-// fonction qui renvoie le name_file sans cote les doubles quotes qui entoure le name_file
 
-char	*clean_quotes(char *file)
-{
-	char	copy[FILENAME_MAX];
-	int		i;
-	int		j;
-	char	quotes;
-	
-	i = 0;
-	j = 0;
-	while (file[i])
-	{
-		if (file[i] == '"' || file[i] == '\'')
-		{
-			quotes = file[i];
-			i++;
-			while (file[i] != quotes && file[i])
-			{
-				copy[j] = file[i++];
-				j++;
-			}
-			i++;
-		}
-		if (file[i])
-			copy[j] = file[i++];
-		j++;
-	}
-	return (ft_strdup(copy));
-}
 // fonctions do_fd -> creer un file et qui creer les fd ou les ouvre et les mes dans les noeuds
 void	do_fd(char *filename, int option, t_node *node)
 {
-	
+	int	len;
+
+	len = 0;
+	tab_len(filename, &len, node->data);
+	if (len != 0)
+		filename = ft_clean_tab(filename, len, node->data);// clean les ""
 	if (option == 1)
-		node->fd_out = open(filename, O_CREAT, O_TRUNC); //TRUNC
+		node->fd_out = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0666); //TRUNC
 	if (option == 2)
-		node->fd_out = open(filename, O_CREAT, O_APPEND); // APPEND
+		node->fd_out = open(filename, O_CREAT | O_APPEND | O_WRONLY, 0666); // APPEND
 	if (option == 3)
 		node->fd_in = open(filename, O_RDONLY); // FD_IN
 	if (node->fd_in < 0)
 		perror("Error : File no exist\n");
-	//if (option == 4)
-		//here_doc
+	if (option == 4)
+		ft_here_doc(filename, node);
 	free(filename);
 }
-// fonction
-int	redirection(char *name_f, char c, t_node *node)
+// fonction qui recupere le filname et appel une fonction qui va creer un fichier au filname
+int	redirection(char *name_f, char c, t_node *node, int i)
 {
-	int	i;
 	int	j;
 	char file[FILENAME_MAX];
 	int	option;// 1 = trunc; 2 = append; 3 = redirection d'entre; 4 = here_doc 
 	
-	i = 0;
 	j = 0;
+	ft_bzero(file, FILENAME_MAX);
 	option = 1;// trunc
 	if (c == '<' && ft_strchr("<", name_f[i]))
 		option = 3;
-	else if(name_f[i] == '>' && name_f[i] == c)// si >> append
+	if(name_f[i] == '>' && name_f[i] == c)// si >> append
 		option = 2;
-	else if (name_f[i] == '<' && name_f[i++] == c)// si << here doc
+	if (name_f[i++] == '<' && name_f[i - 1] == c  )// si << here doc
 		option = 4;
 	if (name_f[i] == '>' || name_f[i] == '<') // le cas ou >>> ou <<<
-		return (-42);
-	if (name_f[i - 1] != c && ft_strchr("><", name_f[i - 1]))// le cas ou >< ou ><
-		return (-42);
+		return (ft_printf("test\n"), -42);
+	if (name_f[i - 1] != c && ft_strchr("><", name_f[i--]))// le cas ou >< ou ><
+		return (ft_printf("test\n"), -42);
 	while (name_f[i] == ' ' || name_f[i] == '\t')//passe tant que espace si espace
 		i++;
 	if (ft_strchr("><", name_f[i]))// le cas ou >> >file ou l'inverse
 		return (-42); // fonction printf
-	while (name_f[i] != ' ' && name_f[i] != '\t' && name_f[i] && !ft_strchr("><", name_f[i]))
-		file[j++] = name_f[i++]; // copie du file
-	return (do_fd(clean_quotes(file), option, node), i); // creer le fichier avec append ou trunc et gere le here_doc
+	ft_cpy_file(file, name_f, &i, j);
+	return (do_fd(ft_strdup(file), option, node), i + 1); // creer le fichier avec append ou trunc et gere le here_doc
 }
-
+//la fonction clean_command renvoie la chaine sans > file
 void	clean_commands(t_node *node)
 {
 	char	*str;
@@ -104,52 +78,38 @@ void	clean_commands(t_node *node)
 			
 		}
 		if (ft_strchr("<>", node->command[i]))
-		{
-			ft_pass_redirection
-		}
+			ft_pass_redirection(node->command, &i);// une fonction qui passe le file et les redirections
 		str[j++] = node->command[i++];
 	}
+	free(node->command);
+	node->command = str;
 }
 
-char	*redirections_handler(t_node *node)
+void	redirections_handler(t_node *node)
 {
 	int	i;
+	int	check;
 	
 	i = 0;
 	while (node->command[i])
 	{
 		if (node->command[i] == '"' || node->command[i] == '\'')
 			i = quote_chr(node->command, i) + 1;
-		if (node->command[i] == '>' || node->command[i] == '<')
-			i = redirection(node->command + i + 1, node->command[i], node); // j'envoie juste le > file et il me renvoie a l'espace
-		if (i == -42)
-		{
-			printf("problem with redirection");
-			return (NULL);
-		}
+		check = i;
+		while ((node->command[i] == '>' || node->command[i] == '<') && node->command[i])
+			i += redirection(node->command + i + 1, node->command[i], node, 0); // j'envoie juste le > file et il me renvoie a l'espace
+		if (i == (check += (-42)))
+			return ;
 		i++;
 	}
-	clean_commands(node);
+	if (node->command)
+		clean_commands(node);
+	return ;
 }
-/**
- * plan pour gerer les redirections:
-{
-	ce que je recois:
-	{
-		une ligne non parse 
-	}
-	ce que je dois retourner:
-	{
-		une ligne nettoyer de ses redirections:
-	}
-	les cas que je dois gerer:
-	{
-		s il y a plus de 2 > ou <;
-		si il y a des redirections et rien apres;
-		si cest un hd <<, ne pas le gerer
-		{
-			pa
-		}
-	}
-}
+/*
+	-redirections_handler -> parcours ma chaine et fait envoie
+	 			les redirections dans redirections et les here_doc qu'il y a 
+	-redirections parcours ce qu'il y a apres un chevront 
+				et appel do_fd qui creer le fichier en fonction de la redirection precedente
+*/
 

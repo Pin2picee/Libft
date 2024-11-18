@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:28:33 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/11/18 13:27:34 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/18 18:58:19 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	tab_len(char *str, int	*len, t_minishell *data)
 	i = 0;
 	flag = chr_quotes(str);
 	while(str[i])
-	{	
+	{
 		if(str[i] == '$')
 		{
 			i++;
@@ -82,12 +82,13 @@ int	tab_len(char *str, int	*len, t_minishell *data)
 		}
 		if(str[i] == '\'' || str[i] == '"')
 		{
+			(*len) += quotes_len(&str[i], str[i], data, len);
 			i += quotes_len(&str[i], str[i], data, len);
 		}
 		else if(flag == 1)
 		{
 			i++;
-			*len++;
+			(*len)++;
 		}
 		else
 			i++;
@@ -116,7 +117,7 @@ void	put_var_in_tab(char *str, char *tab, t_minishell *data, int *main_i)
 			v_e = v_e->next;
 	}
 }
-
+// la fonction clean le tableau de ses cotes et des variables d'environements
 char	*ft_clean_tab(char *str, int len, t_minishell *data)
 {
 	char	*tab;
@@ -164,16 +165,16 @@ void	quotes_var_handler(char **tab, t_minishell *data)
 	while(tab[i])
 	{
 		len = 0;
-		tab_len(&tab[i][0], &len, data);
+		tab_len(tab[i], &len, data);
 		printf("%i\n", len);
 		if (len !=0)
-			tab[i] = ft_clean_tab(&tab[i][0], len, data);
+			tab[i] = ft_clean_tab(tab[i], len, data);
 		printf("%s\n", tab[i]);
 		i++;
 		
 	}
 }
-
+/*
 int main(int ac, char **av)
 {
     (void)ac;
@@ -191,6 +192,7 @@ int main(int ac, char **av)
 
     return 0;
 }
+*/
 
 
 

@@ -6,32 +6,11 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:45:22 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/15 15:11:08 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/18 15:39:31 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	pre_parsing(char *line)
-{
-		if(quotes_syntax(line))
-		{
-			printf("Quotes are not close");
-			return (1);
-		}
-		if(pipe_syntax(line))
-		{
-			printf("Need cmd after pipe");
-			return (1);
-		}
-		if (redirections_syntax(line))
-		{
-			printf("erreur de syntaxe de redirection");
-			return (1);
-		}
-		return (0);
-}
-
 
 //donne l'indice du prochaine ' ou "" si pas trouver alors -42
 int	quote_chr(char *str, int i)
@@ -74,7 +53,6 @@ int	quotes_syntax(char *line)
 // verifie si premier caractere est pipe ou si dernier caractere est pipe
 int	pipe_syntax(char *line)
 {
-	char	*line;
 	int	i;
 	bool flag;
     
@@ -98,7 +76,17 @@ int	pipe_syntax(char *line)
 }
 
 
-
-
-
-
+int	pre_parsing(char *line)
+{
+		if(quotes_syntax(line))
+		{
+			printf("Quotes are not close");
+			return (1);
+		}
+		if(pipe_syntax(line))
+		{
+			printf("Need cmd after pipe");
+			return (1);
+		}
+		return (0);
+}
