@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:17:02 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/13 19:08:58 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:48:44 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_split(t_node *node)
 
 void	split_and_clean(t_node *node)
 {
-	node->command = redirections_handler(node->command); // adil -> faire 
+	node->command = redirections_handler(node); // adil -> faire 
 	ft_split(node); //-> //adil
 	quotes_var_handler(node);// -> mago ->enleve les quotes inutiles & attribue les valeurs des variables d'env
 }

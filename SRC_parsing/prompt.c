@@ -6,11 +6,11 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 10:45:45 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/11 12:36:23 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/15 14:51:49 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	ft_host_pwd(char **prompt, int *i)
 {

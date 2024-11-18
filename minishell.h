@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/14 15:24:12 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/11/15 17:42:41 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "SRC/libft/libft.h"
+# include "libft/libft.h"
 # include "stdio.h"
 # include <readline/readline.h>
 # include <stdlib.h>
@@ -21,13 +21,14 @@
 # include <unistd.h>
 # include <limits.h>
 # include <stdbool.h>
+
 typedef struct	s_minishell;
 
 typedef struct s_env
 {
 	char	*key;
 	char	*value;
-	struct s_var *next;
+	struct s_env *next;
 }				t_env;
 
 
@@ -59,9 +60,17 @@ char	*get_prompt(void);
 /*---PARSING---*/
 int	parsing(t_minishell *data);
 int	quote_chr(char *str, int i);
-
+char	*redirections_handler(char *command);
 int	pre_parsing(char *line); // verif le retour de readline pour voir les erreur qotes et pipes
 
+/*---ENV---*/
+void	free_env_vars(t_minishell *data);
+t_env	*create_var(const char *key, const char *value);
+t_env	*get_env_var(t_env *var_data, const char *key);
+void	init_env(t_minishell *data, char **envp);
+
+/*---EXECUTION---*/
+void	ft_env(t_minishell *data);
 
 
 #endif

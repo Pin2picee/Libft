@@ -1,5 +1,3 @@
-
-
  |---------------------------|
  |Ne pas oublier de gerer "<>|
  |ou ><" dans le parsing .   |
@@ -11,29 +9,9 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     creer les noeuds;                                                                     |
         -> append les nodes pour chaque pipe                                              |
     gerer les quotes;                                                                     |
-        -> une fois les tableau split et redirections fait(ADIL)                          |
+        -> une fois les tableau split et redirections faite(ADIL)                         |
         -> parcourir chaque split de chaque noeud enlever les quotes inutile              |
 }                                                                                         |
                                                                                           |
                                                                                           |
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
-------------ADIL------------
-{
-	fonctions pre_parsing; avec la boucle pour chaque noeuds
-    
-    creer les splits;
-    gerer redirections;
-
-|	
-}
-
-}
-
-Petit MEMO :
-
-    *boucle for every noeud
-                ->  pre_parsing(data);
-	                create_nodes(data);
-	                split_and_clean(data);
-	                print_nodes (data);// faire une fonction debug qui affiche le contenu de chaque noeud;*/

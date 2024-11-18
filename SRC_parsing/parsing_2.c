@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:31:03 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/14 15:26:33 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/11/15 14:51:38 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	pipes_chr(char	*readline, int i)
 {
