@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:29 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/18 15:52:24 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/19 11:55:03 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv, char **envp)
 		return (perror("Error\n"), 1);
 	
 	init_env(&data, envp);
+	//petit flag;
 	while (1)
 	{
 		prompt = get_prompt();
