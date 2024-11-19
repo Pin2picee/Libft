@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/18 22:26:16 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/19 20:29:54 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <limits.h>
 # include <stdbool.h>
+#include <string.h>
 
 struct	s_minishell;
 
@@ -70,6 +71,8 @@ void	split_and_clean(t_node *node);
 void	quotes_var_handler(char **tab, t_minishell *data);
 int		quote_chr(char *str, int i);
 void	ft_cpy_file(char *file, char *name_f, int *i, int j);
+int		go_redirection(char *name_f, char c, t_node *node, int i);
+void	init_j_and_option(int *i, int *option);//gagner des lignes
 
 
 /*---ENV---*/
