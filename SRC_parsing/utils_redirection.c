@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:45:51 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/18 23:05:53 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/19 20:22:03 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,28 @@ void	ft_cpy_file(char *file, char *name_f, int *i, int j)
 {
 	char	quote;
 	
-	if (ft_strchr("\"\'", name_f[(*i)]))
+	while (name_f[*i] == ' ' || name_f[*i] == '\t' || ft_strchr("><", name_f[*i]))
+			(*i)++;
+	ft_bzero(file, FILENAME_MAX);
+	while (name_f[*i])
 	{
-		quote = name_f[(*i)];
-		(*i)++;
-		while (name_f[(*i)] != quote)
-			file[j++] = name_f[(*i)++]; // copie du file
-	}
-	else
-	{
-		while (name_f[(*i)] != ' ' && name_f[(*i)] != '\t'
-			&& name_f[(*i)] && !ft_strchr("><", name_f[(*i)]) && name_f[(*i)] != '|')
-			file[j++] = name_f[(*i)++]; // copie du file
+		while (ft_strchr("\"\'", name_f[*i]) && name_f[*i])
+		{
+			quote = name_f[*i];
+			file[j++] = name_f[(*i)++];
+			while (name_f[*i] != quote && name_f[*i])
+				file[j++] = name_f[(*i)++]; // copie du file dans les quotes
+			if (ft_strchr("\"\'", name_f[*i]) && name_f[*i])
+				file[j++] = name_f[(*i)++];
+		}
+		if (name_f[*i] != ' ' && name_f[*i] && !ft_strchr("<>", name_f[*i]))
+		{
+			while (name_f[*i] != ' ' && name_f[*i] != '\t'
+				&& name_f[*i] && !ft_strchr("><", name_f[*i]) && name_f[*i] != '|')
+				file[j++] = name_f[(*i)++]; // copie du file
+		}
+		else
+			break ;
 	}
 }
 
@@ -39,16 +49,28 @@ void	ft_pass_redirection(char *str, int *i)
 		(*i)++;
 	while (str[(*i)] == ' ')	
 		(*i)++;
-	while (str[(*i)])
+	if (ft_strchr("\"\'", str[(*i)]))
 	{
-		if (ft_strchr("\"\'", str[(*i)]))
+		while (ft_strchr("\"\'", str[(*i)]))
 		{
-			quote = str[(*i)];
-			while (str[(*i)] != quote)
+			quote = str[(*i)++];
+			while (str[(*i)] != quote && str[(*i)])
 				(*i)++;
 			(*i)++;
+	
 		}
-		while (!ft_strchr(" \t", str[(*i)]))
-			(*i)++;
 	}
+	while (!ft_strchr("><", str[(*i)]))
+		(*i)++;
+	if (ft_strchr("><", str[(*i)]))
+		return ;
+	while (ft_strchr(" \t", str[(*i)]) && str[(*i)])
+		(*i)++;
+
+}
+
+void	init_j_and_option(int *i, int *option)
+{
+	(*i) = 0;
+	(*option) = 1;//trunc
 }

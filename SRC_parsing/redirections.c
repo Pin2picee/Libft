@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/18 23:41:05 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/19 20:30:56 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void	do_fd(char *filename, int option, t_node *node)
 {
 	int	len;
+	char	*Error;
 
 	len = 0;
 	tab_len(filename, &len, node->data);
@@ -27,38 +28,46 @@ void	do_fd(char *filename, int option, t_node *node)
 		node->fd_out = open(filename, O_CREAT | O_APPEND | O_WRONLY, 0666); // APPEND
 	if (option == 3)
 		node->fd_in = open(filename, O_RDONLY); // FD_IN
-	if (node->fd_in < 0)
-		perror("Error : File no exist\n");
-	if (option == 4)
-		ft_here_doc(filename, node);
+	if (option == 3 && node->fd_in < 0)
+	{
+		Error = ft_strjoin("Minishell: ", filename);
+		perror(Error);
+		free(Error);
+		exit(1);
+	}
+	//if (option == 4)
+		//ft_here_doc(filename, node);
 	free(filename);
 }
+
 // fonction qui recupere le filname et appel une fonction qui va creer un fichier au filname
-int	redirection(char *name_f, char c, t_node *node, int i)
+int	go_redirection(char *name_f, char c, t_node *node, int i)
 {
-	int	j;
 	char file[FILENAME_MAX];
 	int	option;// 1 = trunc; 2 = append; 3 = redirection d'entre; 4 = here_doc 
-	
-	j = 0;
-	ft_bzero(file, FILENAME_MAX);
-	option = 1;// trunc
-	if (c == '<' && ft_strchr("<", name_f[i]))
+	int	j;
+
+	init_j_and_option(&j, &option);//gagner des ligne -> oui gros rat
+	if (c == '<' && !ft_strchr("<>", name_f[i]))// si redire entre
 		option = 3;
 	if(name_f[i] == '>' && name_f[i] == c)// si >> append
 		option = 2;
-	if (name_f[i++] == '<' && name_f[i - 1] == c  )// si << here doc
+	if (name_f[i] == '<' && name_f[i] == c)// si << here doc
 		option = 4;
-	if (name_f[i] == '>' || name_f[i] == '<') // le cas ou >>> ou <<<
-		return (ft_printf("test\n"), -42);
-	if (name_f[i - 1] != c && ft_strchr("><", name_f[i--]))// le cas ou >< ou ><
-		return (ft_printf("test\n"), -42);
-	while (name_f[i] == ' ' || name_f[i] == '\t')//passe tant que espace si espace
-		i++;
-	if (ft_strchr("><", name_f[i]))// le cas ou >> >file ou l'inverse
-		return (-42); // fonction printf
-	ft_cpy_file(file, name_f, &i, j);
-	return (do_fd(ft_strdup(file), option, node), i + 1); // creer le fichier avec append ou trunc et gere le here_doc
+	if ((name_f[i + 1] == '>' || name_f[i + 1] == '<') && ft_strchr("><", name_f[i]))// le cas ou >>> ou <<<
+		return (ft_printf("test1\n"), -42);
+	if (name_f[i] != c && ft_strchr("><", name_f[i]))// le cas ou >< ou ><
+		return (ft_printf("test2\n"), -42);
+	if (name_f[i] == ' ' || name_f[i] == '\t')
+	{
+		while (name_f[i] == ' ' || name_f[i] == '\t')//passe tant que espace si espace
+			i++;
+		if (ft_strchr("><", name_f[i]))// le cas ou >> >file ou l'inverse
+			return (ft_printf("fuck\n"), -42); // fonction printf
+	}
+	if (ft_strchr("\'\"", name_f[i + 1]) && name_f[i])
+		i++;//si append
+	return (ft_cpy_file(file, name_f, &i, j), do_fd(ft_strdup(file), option, node), i + 1); // creer le fichier avec append ou trunc et gere le here_doc
 }
 //la fonction clean_command renvoie la chaine sans > file
 void	clean_commands(t_node *node)
@@ -66,25 +75,27 @@ void	clean_commands(t_node *node)
 	char	*str;
 	int		i;
 	int		j;
-	str = ft_calloc(ft_strlen(node->command), sizeof(char));
+	str = ft_calloc(ft_strlen(node->command) + 1, sizeof(char));
 	i = 0;
 	j = 0;
 	while (node->command[i])
 	{
+		while (node->command[i] && ft_strchr("<>", node->command[i]))
+			ft_pass_redirection(node->command, &i);// une fonction qui passe le file et les redirections
 		if (node->command[i] == '"' || node->command[i] == '\'')
 		{
-			j+= ft_strlcpy(str + j, node->command + i, quote_chr(node->command, i) - i);// a verifier
+			j+= ft_strlcpy(str + j, node->command + i, quote_chr(node->command, i) - i + 2);// a verifier
 			i = quote_chr(node->command, i);
 			
 		}
-		if (ft_strchr("<>", node->command[i]))
-			ft_pass_redirection(node->command, &i);// une fonction qui passe le file et les redirections
-		str[j++] = node->command[i++];
+		else
+			str[j++] = node->command[i++];
 	}
+	//if (i == (ft_strlen(node->command) - 1)
 	free(node->command);
 	node->command = str;
 }
-
+// fonction principal
 void	redirections_handler(t_node *node)
 {
 	int	i;
@@ -97,8 +108,8 @@ void	redirections_handler(t_node *node)
 			i = quote_chr(node->command, i) + 1;
 		check = i;
 		while ((node->command[i] == '>' || node->command[i] == '<') && node->command[i])
-			i += redirection(node->command + i + 1, node->command[i], node, 0); // j'envoie juste le > file et il me renvoie a l'espace
-		if (i == (check += (-42)))
+			i += go_redirection(node->command + i + 1, node->command[i], node, 0); // j'envoie juste le "> file" et il me renvoie apres le name_file
+		if (i == (check += (-42)))// a voir car marche pas
 			return ;
 		i++;
 	}
