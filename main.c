@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:29 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/15 15:33:54 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/19 20:33:55 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,13 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc != 1)
 		return (perror("Error\n"), 1);
+<<<<<<< HEAD
 	setup_signals();
+=======
+	
+>>>>>>> 82f3633f5fc49236e9829d3d76a906e601979f79
 	init_env(&data, envp);
+	//petit flag;
 	while (1)
 	{
 		prompt = get_prompt();
