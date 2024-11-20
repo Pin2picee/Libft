@@ -10,28 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./minishell.h"
+#include "minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {
 	char		*prompt;
-	t_minishell	*data;
+	t_minishell	data;
 	
 	(void)argv;
 	if (argc != 1)
 		return (perror("Error\n"), 1);
+	setup_signals();
 	init_env(&data, envp);
 	while (1)
 	{
 		prompt = get_prompt();
-		data->line = readline(prompt);
-		
-		add_history(data->line);
-		if (!parsing(data))
-			execution(data);
-		//fonction_qui free : TODO/
+		data.line = readline(prompt);
+		if (!data.line)
+		{
+			printf("exit\n");
+			break;
+		}
+		add_history(data.line);
+		if (!parsing(&data))
+			execution(&data);
+		ft_free_all(&data);
 	}
-    return 0;
+	ft_free_all(&data);
+	return 0;
 }
 /*salut test mago*/
 

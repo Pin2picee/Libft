@@ -55,5 +55,5 @@ char	*get_prompt(void)
 	prompt_clean = ft_calloc(ft_strlen(prompt) + 2, sizeof(char));
 	ft_strlcpy(prompt_clean, prompt, ft_strlen(prompt) + 1);
 	free(prompt);
-	return (prompt_clean[i] = '$', prompt_clean);
+	return (prompt_clean[i++] = '$', prompt_clean[i] = ' ', prompt_clean);
 }

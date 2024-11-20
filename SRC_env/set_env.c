@@ -45,8 +45,7 @@ void	init_env(t_minishell *data, char **envp)
 		equal_sign = strchr(envp[i], '=');
 		if (equal_sign)
 		{
-			new_var = create_var(strndup(envp[i],
-						equal_sign - envp[i]), equal_sign + 1);
+			new_var = create_var(strndup(envp[i], equal_sign - envp[i]), equal_sign + 1);
 			if (!data->var)
 				data->var = new_var;
 			else
@@ -57,3 +56,6 @@ void	init_env(t_minishell *data, char **envp)
 	}
 	data->envp = NULL;
 }
+
+// inclure le signe egale dans la key.
+
