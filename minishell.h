@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/19 20:29:54 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:48:55 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ typedef struct s_env
 
 typedef struct s_nodes
 {
-	char *hd_end;
+	char *hd;// Adil la modif ancien -> hd_end
 	int	fd_in;
 	int	fd_out;
 	char	*command;
 	char	**split_command;
 	struct	s_nodes *next;
 	struct s_minishell	*data;
-}				t_nodes;
+}				t_node;
 
 // chaques noeuds est un entre pipe 
 typedef struct	s_minishell
@@ -55,7 +55,7 @@ typedef struct	s_minishell
 	int		exit_code;
 	char	**envp;
 	t_env	*var;
-	t_nodes	*start_node;
+	t_node	*start_node;
 }				t_minishell;
 
 /* FOR PROMPT*/
@@ -63,21 +63,18 @@ char	*get_prompt(void);
 
 
 /*---PARSING---*/
-<<<<<<< HEAD
 void	create_nodes(t_minishell *data);
-int	parsing(t_minishell *data);
-int	quote_chr(char *str, int i);
-char	*redirections_handler(char *command);
-int	pre_parsing(char *line); // verif le retour de readline pour voir les erreur qotes et pipes
-=======
+int		parsing(t_minishell *data);
+int		quote_chr(char *str, int i);
+int		pre_parsing(char *line); // verif le retour de readline pour voir les erreur qotes et pipes
 int		parsing(t_minishell *data);
 void	redirections_handler(t_node *node);
 int		pre_parsing(char *line); // verif le retour de readline pour voir les erreur qotes et pipes
 int		tab_len(char *str, int	*len, t_minishell *data);
 void	ft_pass_redirection(char *str, int *i);
 void	create_nodes(t_minishell *data);
-void	append_nodes(t_minishell *data, int start, int end);
-void	add_line_to_node(t_node *node, int start, int end);
+void	append_nodes(t_minishell *data, int start, int end, char *tab);
+void	add_line_to_node(t_node *node, int start, int end, char *line);
 void	split_and_clean(t_node *node);
 void	quotes_var_handler(char **tab, t_minishell *data);
 int		quote_chr(char *str, int i);
@@ -85,7 +82,6 @@ void	ft_cpy_file(char *file, char *name_f, int *i, int j);
 int		go_redirection(char *name_f, char c, t_node *node, int i);
 void	init_j_and_option(int *i, int *option);//gagner des lignes
 
->>>>>>> 82f3633f5fc49236e9829d3d76a906e601979f79
 
 /*---ENV---*/
 void	free_env_vars(t_minishell *data);

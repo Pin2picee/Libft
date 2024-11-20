@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:17:02 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/19 18:36:40 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:45:16 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	split_and_clean(t_node *node)
 {
-	redirections_handler(node); // adil -> faire 
+	redirections_handler(node); // adil -> fait a tester dans tous les contexte -> apres cette fonction la ligne et clean de > file
 	ft_split(node->command, ' '); //-> //adil
 	quotes_var_handler(node->split_command, node->data);// -> mago ->enleve les quotes inutiles & attribue les valeurs des variables d'env
 }

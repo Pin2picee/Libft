@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/19 20:30:56 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:45:47 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	do_fd(char *filename, int option, t_node *node)
 		exit(1);
 	}
 	//if (option == 4)
-		//ft_here_doc(filename, node);
+		//ft_here_doc(filename, node);//TODO -> 
 	free(filename);
 }
 

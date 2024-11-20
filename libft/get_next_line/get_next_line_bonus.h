@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 18:50:00 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/10/03 21:29:53 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:51:07 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/uio.h>
 # include <unistd.h>
 # include <fcntl.h> // enlever
+# include "../libft.h"
 
 //     Mon buffer temp
 # ifndef BUFFER_SIZE

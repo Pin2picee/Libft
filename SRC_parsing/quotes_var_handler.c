@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:28:33 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/11/18 13:27:34 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:37:47 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ void	quotes_var_handler(char **tab, t_minishell *data)
 		
 	}
 }
-
+/*
 int main(int ac, char **av)
 {
     (void)ac;
@@ -222,6 +222,7 @@ int main(int ac, char **av)
     free(example_tab);
     return 0;
 }
+*/
 
 
 
