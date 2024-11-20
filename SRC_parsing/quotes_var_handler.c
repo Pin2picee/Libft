@@ -39,7 +39,7 @@ int	var_len(char *str, t_minishell *data, int *len)
 	{
 		if (!ft_strncmp(v_e->key, str, i))
 		{
-		*len = ft_strlen(v_e->value);
+			(*len) = ft_strlen(v_e->value);
 			return(i);
 		}
 		else
@@ -61,7 +61,10 @@ int	quotes_len(char *str, char quote, t_minishell *data, int *len)
 			i += var_len(&str[i], data, len);
 		}
 		else
+		{
+			(*len)++;
 			i++;
+		}
 	}
 	return (i + 1);
 }
@@ -82,12 +85,13 @@ int	tab_len(char *str, int	*len, t_minishell *data)
 		}
 		if(str[i] == '\'' || str[i] == '"')
 		{
+		
 			i += quotes_len(&str[i], str[i], data, len);
 		}
 		else if(flag == 1)
 		{
 			i++;
-			*len++;
+			(*len)++;
 		}
 		else
 			i++;
@@ -131,11 +135,16 @@ char	*ft_clean_tab(char *str, int len, t_minishell *data)
 		return (NULL);
 	while (str[i])
 	{
-		if(str[i] == '\'' || str[i] == '"')
+		while(str[i] == '\'' || str[i] == '"')
 		{
 			quote = str[i++];
 			while(str[i] && str[i] != quote)
 			{
+				if (ft_strchr("\'\"", str[i]))
+				{
+					i++;
+					break;
+				}
 				if(quote == '"' && str[i] == '$')
 				{
 					i++;
@@ -143,10 +152,16 @@ char	*ft_clean_tab(char *str, int len, t_minishell *data)
 				}
 				else
 					tab[j++] = str[i++];
+				if (ft_strchr("\'\"", str[i]))
+				{
+					i++;
+					break;
+				}
 			}
 		}
-		else
+		if (!ft_strchr("\'\"", str[i]))
 			tab[j++] = str[i++];
+		
 	}
 	free(str);
 	tab[j] = '\0';
@@ -167,7 +182,7 @@ void	quotes_var_handler(char **tab, t_minishell *data)
 		tab_len(&tab[i][0], &len, data);
 		printf("%i\n", len);
 		if (len !=0)
-			tab[i] = ft_clean_tab(&tab[i][0], len, data);
+			tab[i] = ft_clean_tab(tab[i], len, data);
 		printf("%s\n", tab[i]);
 		i++;
 		
@@ -178,21 +193,35 @@ int main(int ac, char **av)
 {
     (void)ac;
     t_minishell data;
-    // Initialisation d'un tableau d'exemple pour tester quotes_var_handler
-    char *example_tab[] = {
-        "\'t$est\'",
-        "ex\"a\"mple2",
-        "sample3",
-        NULL
-    };
-	
+
+    // Initialisation dynamique d'un tableau de chaînes de caractères malocées
+    char **example_tab = malloc(4 * sizeof(char *));
+    if (!example_tab)
+    {
+        perror("malloc failed");
+        return 1;
+    }
+
+    example_tab[0] = malloc(strlen("\"test\"\"'s'\"") + 1);
+    if (example_tab[0])
+        strcpy(example_tab[0], "\"test\"\"\"'s'");
+    example_tab[1] = malloc(strlen("ex\"a\"mple2") + 1);
+    if (example_tab[1])
+        strcpy(example_tab[1], "ex\"a\"mple2");
+    example_tab[2] = malloc(strlen("sample3") + 1);
+    if (example_tab[2])
+        strcpy(example_tab[2], "sample3");
+    example_tab[3] = NULL; // Terminate the array with NULL
+
     // Appel de la fonction pour tester
     quotes_var_handler(example_tab, &data);
 
+    // Libération de la mémoire allouée
+    for (int i = 0; example_tab[i] != NULL; i++)
+        free(example_tab[i]);
+    free(example_tab);
     return 0;
 }
-
-
 
 
 
