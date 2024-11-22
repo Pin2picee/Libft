@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 18:49:43 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/09/23 19:48:53 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/21 21:06:47 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,15 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &ligne, 0) < 0
 		|| read(fd, 0, 0) < 0)
-		return (free(stash), stash = NULL, NULL);
+		return (free(stash->content), free(stash), stash = NULL, NULL);
 	ligne = NULL;
 	read_and_stash(&stash, fd);
 	if (stash == NULL)
+	{
+		free(stash);
 		return (NULL);
+	}
+		
 	extract_line(stash, &ligne);
 	clean_stash(&stash);
 	if (ligne[0] == '\0')
@@ -136,7 +140,7 @@ void	clean_stash(t_liste **stash)
 		i++;
 	if (last->content && last->content[i] == '\n')
 		i++;
-	clean_node->content = malloc(1 * ((ft_strlenn(last->content) - i) + 1));
+	clean_node->content = malloc(1 * ((ft_strlen(last->content) - i) + 1));
 	if (clean_node->content == NULL)
 		return ;
 	j = 0;

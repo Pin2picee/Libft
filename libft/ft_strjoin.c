@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <marvin@.42.fr>                   +#+  +:+       +#+        */
+/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 20:52:26 by abelmoha          #+#    #+#             */
-/*   Updated: 2023/10/10 21:10:25 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/21 23:46:16 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!new_str)
 		return (NULL);
 	i_new = 0;
-	while (s1[i_new])
+	while ( s1 && s1[i_new])
 	{
 		new_str[i_new] = s1[i_new];
 		i_new++;
 	}
 	i = 0;
-	while (s2[i])
+	while (s2 && s2[i])
 	{
 		new_str[i_new] = s2[i];
 		i++;

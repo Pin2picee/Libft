@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 23:56:24 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/20 17:49:59 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:25:00 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include <signal.h>
 # include "ft_printf/ft_printf.h"
-# include "get_next_line/get_next_line_bonus.h"
+
 typedef struct s_list
 {
 	void			*content;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 18:29:59 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/09/23 19:49:37 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:34:47 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,6 @@ void	generate_line(char **line, t_liste *stash)
 	*line = malloc(sizeof(char) * (len + 1));
 }
 
-int	ft_strlenn(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (*(str++))
-	{
-		i++;
-	}
-	return (i);
-}
 
 void	free_stash(t_liste *stash)
 {

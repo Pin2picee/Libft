@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/20 17:48:55 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/22 00:30:04 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 # define MINISHELL_H
 
 # include "libft/libft.h"
+# include "libft/get_next_line/get_next_line.h"
 # include "stdio.h"
-#include <readline/readline.h>
-#include <readline/history.h> // Nécessaire pour add_history
+# include <readline/readline.h>
+# include <readline/history.h> // Nécessaire pour add_history
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <limits.h>
 # include <stdbool.h>
-#include <string.h>
+# include <string.h>
 
 
 extern int	signal_handler;
@@ -81,6 +82,8 @@ int		quote_chr(char *str, int i);
 void	ft_cpy_file(char *file, char *name_f, int *i, int j);
 int		go_redirection(char *name_f, char c, t_node *node, int i);
 void	init_j_and_option(int *i, int *option);//gagner des lignes
+void	ft_here_doc(char *final_word, t_node *node);
+int	redirections_syntax(char *line);
 
 
 /*---ENV---*/

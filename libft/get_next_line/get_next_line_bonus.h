@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 18:50:00 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/20 17:51:07 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:34:43 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <unistd.h>
 # include <fcntl.h> // enlever
 # include "../libft.h"
-
 //     Mon buffer temp
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
@@ -41,7 +40,6 @@ void		extract_line(t_listes *stash, char **line);
 void		generate_line(char **line, t_listes *stash);
 t_listes	*last_maillon(t_listes *stash);
 int			found_newline(t_listes *stash);
-int			ft_strlen(const char *str);
 void		free_stash(t_listes *stash);
 
 // principal
