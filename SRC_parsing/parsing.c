@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:45:22 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/18 15:39:31 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/22 00:32:00 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,32 @@ int	pipe_syntax(char *line)
 	return (0);
 }
 
+int	redirections_syntax(char *line)
+{
+	int	i;
+	char quotes;
+
+	i = 0;
+	while (line[i])
+	{
+		if (ft_strchr("\'\"", line[i]))
+		{
+			quotes = line[i++];
+			while (line[i] != quotes)
+				i++;
+			i++;
+		}
+		if (ft_strchr("<>", line[i]))
+		{
+			while (line[i] && ft_strchr("<> |", line[i]))
+				i++;
+			if (!line[i])
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
 
 int	pre_parsing(char *line)
 {
@@ -87,6 +113,10 @@ int	pre_parsing(char *line)
 		{
 			printf("Need cmd after pipe");
 			return (1);
+		}
+		if (redirections_syntax(line))
+		{
+			printf("problem redirections");
 		}
 		return (0);
 }

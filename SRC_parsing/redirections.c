@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/20 17:45:47 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/22 00:40:14 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	do_fd(char *filename, int option, t_node *node)
 		free(Error);
 		exit(1);
 	}
-	//if (option == 4)
-		//ft_here_doc(filename, node);//TODO -> 
+	if (option == 4)
+		ft_here_doc(filename, node);//TODO -> 
 	free(filename);
 }
 
@@ -56,7 +56,7 @@ int	go_redirection(char *name_f, char c, t_node *node, int i)
 		option = 4;
 	if ((name_f[i + 1] == '>' || name_f[i + 1] == '<') && ft_strchr("><", name_f[i]))// le cas ou >>> ou <<<
 		return (ft_printf("test1\n"), -42);
-	if (name_f[i] != c && ft_strchr("><", name_f[i]))// le cas ou >< ou ><
+	if ((name_f[i] != c && ft_strchr("><", name_f[i])))// le cas ou >< ou ><
 		return (ft_printf("test2\n"), -42);
 	if (name_f[i] == ' ' || name_f[i] == '\t')
 	{
@@ -75,7 +75,7 @@ void	clean_commands(t_node *node)
 	char	*str;
 	int		i;
 	int		j;
-	str = ft_calloc(ft_strlen(node->command) + 1, sizeof(char));
+	str = ft_calloc((int)ft_strlen(node->command) + 1, sizeof(char));
 	i = 0;
 	j = 0;
 	while (node->command[i])
@@ -106,11 +106,16 @@ void	redirections_handler(t_node *node)
 	{
 		if (node->command[i] == '"' || node->command[i] == '\'')
 			i = quote_chr(node->command, i) + 1;
-		check = i;
 		while ((node->command[i] == '>' || node->command[i] == '<') && node->command[i])
-			i += go_redirection(node->command + i + 1, node->command[i], node, 0); // j'envoie juste le "> file" et il me renvoie apres le name_file
-		if (i == (check += (-42)))// a voir car marche pas
-			return ;
+		{
+			check = go_redirection(node->command + i + 1, node->command[i], node, 0);
+			if (i == (check += (-42)))// a voir car marche pas
+			{
+				//fonction qui free tout
+				return ; // j'envoie juste le "> file" et il me renvoie apres le name_file
+			}	
+			i += check;
+		}
 		i++;
 	}
 	if (node->command)

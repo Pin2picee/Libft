@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_redirection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:45:51 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/20 20:31:33 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/22 00:07:06 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,31 +75,38 @@ void	init_j_and_option(int *i, int *option)
 	(*option) = 1;//trunc
 }
 
+void	verif_here_doc(t_node *node)
+{
+	if (node->hd)
+		free(node->hd);
+	node->hd = NULL;
+}
+
 void	ft_here_doc(char *final_word, t_node *node)
 {
 	char	*buf_line;
 	char	*buf_hd;
-	int		check;
 	
-	if (node->hd)
-		free(node->hd);
+	verif_here_doc(node);
 	while (1)
 	{
+		ft_printf("> ");
 		buf_line = get_next_line(0);
 		if (buf_line != NULL)
 		{
-			if (ft_strncmp(buf_line, final_word, ft_strlen(buf_line) + 1))// si end
-				break;
-			ft_strlcpy(buf_hd, )
-			node->hd = malloc((ft_strlen(buf_line) + ft_strlen(node->hd)) * sizeof(char) + 1);
-			check = ft_strlcat(buf_hd, buf_line, ft_strlen(node->hd) + ft_strlen(buf_line) + 1);
-			if (check != ft_strlen(node->hd))
+			if (ft_strlen(buf_line) - 1 == ft_strlen(final_word) && !ft_strncmp(buf_line, final_word, ft_strlen(buf_line) - 1))// si end
+				break ;
+			buf_hd = ft_calloc(ft_strlen(node->hd) + 1, sizeof(char));
+			if (buf_hd == NULL)
 				return ;
-		free(buf_line);
+			ft_strlcpy(buf_hd, node->hd, ft_strlen(node->hd) + 1);// on copie node->hd dans mon buf
+			free(node->hd);
+			node->hd = ft_strjoin(buf_hd, buf_line);// on join l'ancien ligne avec la nouvelle;
+			free(buf_line);
+			free(buf_hd);
 		}
 	}
-	if (buf_line)
-		free(buf_line);
-	// NE PAS OUBLIER DE LE FREE
+	get_next_line(-42);
+	free(buf_line);// On sort de la boucle seulement si mot de fin et si mot de fin alors il faut free(ma line)->get_next_line
 }
 // il faut supprimer le here_doc precedent dans le pipe seulement
