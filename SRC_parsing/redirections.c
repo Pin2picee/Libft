@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/22 00:40:14 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/11/22 19:18:53 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	do_fd(char *filename, int option, t_node *node)
 	char	*Error;
 
 	len = 0;
+	if (!*filename)
+		return ;
 	tab_len(filename, &len, node->data);
 	if (len != 0)
 		filename = ft_clean_tab(filename, len, node->data);// clean les ""
@@ -109,7 +111,7 @@ void	redirections_handler(t_node *node)
 		while ((node->command[i] == '>' || node->command[i] == '<') && node->command[i])
 		{
 			check = go_redirection(node->command + i + 1, node->command[i], node, 0);
-			if (i == (check += (-42)))// a voir car marche pas
+			if (check == (-42))// a voir car marche pas
 			{
 				//fonction qui free tout
 				return ; // j'envoie juste le "> file" et il me renvoie apres le name_file
