@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/22 19:18:53 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/23 21:58:40 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,28 +72,29 @@ int	go_redirection(char *name_f, char c, t_node *node, int i)
 	return (ft_cpy_file(file, name_f, &i, j), do_fd(ft_strdup(file), option, node), i + 1); // creer le fichier avec append ou trunc et gere le here_doc
 }
 //la fonction clean_command renvoie la chaine sans > file
-void	clean_commands(t_node *node)
+void	clean_commands(t_node *node, int i, int j)
 {
 	char	*str;
-	int		i;
-	int		j;
+
 	str = ft_calloc((int)ft_strlen(node->command) + 1, sizeof(char));
-	i = 0;
-	j = 0;
 	while (node->command[i])
 	{
 		while (node->command[i] && ft_strchr("<>", node->command[i]))
 			ft_pass_redirection(node->command, &i);// une fonction qui passe le file et les redirections
 		if (node->command[i] == '"' || node->command[i] == '\'')
 		{
-			j+= ft_strlcpy(str + j, node->command + i, quote_chr(node->command, i) - i + 2);// a verifier
-			i = quote_chr(node->command, i);
-			
+			if (node->command[i + 1] == node->command[i])
+				i = i + 2;
+			else
+			{
+				ft_strlcpy(str + j, node->command + i, quote_chr(node->command, i) - i + 2);// a verifier
+				j = ft_strlen(str);
+				i = quote_chr(node->command, i) + 1;
+			}
 		}
 		else
 			str[j++] = node->command[i++];
 	}
-	//if (i == (ft_strlen(node->command) - 1)
 	free(node->command);
 	node->command = str;
 }
@@ -121,7 +122,7 @@ void	redirections_handler(t_node *node)
 		i++;
 	}
 	if (node->command)
-		clean_commands(node);
+		clean_commands(node, 0 , 0);
 	return ;
 }
 /*

@@ -6,7 +6,7 @@
 /*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:45:22 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/22 00:53:04 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/11/23 20:19:00 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,7 @@ int	redirections_syntax(char *line)
 	while (line[i])
 	{
 		if (ft_strchr("\'\"", line[i]))
-		{
-			quotes = line[i++];
-			while (line[i] != quotes)
-				i++;
-			i++;
-		}
+			i = quote_chr(line, i) + 1;
 		if (ft_strchr("<>", line[i]))
 		{
 			while (line[i] && ft_strchr("<> |", line[i]))
@@ -97,7 +92,8 @@ int	redirections_syntax(char *line)
 			if (!line[i])
 				return (1);
 		}
-		i++;
+		else
+			i++;
 	}
 	return (0);
 }

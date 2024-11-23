@@ -6,7 +6,7 @@
 /*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:17:02 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/23 00:19:06 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/11/23 22:34:31 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,71 +14,66 @@
 
 // faire un split qui separs les mots des espaces et prend tout la quotes en entier
 
-int	count_word(char *command, int i, int count)
+int	count_word(char *command, int i, int count, bool flag)
 {
+	if (!command[i] || !command)
+		return (i);
 	while (command[i])
 	{
-		if (ft_strchr("\'\"", command[i]))
+		while (command[i] && (command[i] == ' ' || command[i] == '\t'))
 		{
-			count++;
-			i += quote_chr(command, i);
+			flag = 1;
+			i++;
 		}
-		if (command[i] == ' ' || command[i] == '\t')
+		while (command[i] && command[i] != ' ' && command[i] != '\t')
 		{
-			while (command[i] == ' ' || command[i] == '\t')
-				i++;
-		}
-		if (command[i] != ' ' && command[i] == '\t')
-		{
-			while (command[i] != ' ' && command[i] != '\t')
-				i++;
-			if (command[i])
+			if (flag == 1)
+			{
 				count++;
+				flag = 0;
+			}	
+			if (command[i] && ft_strchr("\'\"", command[i]))
+				i = quote_chr(command, i) + 1;
+			else
+				i++;
 		}
-		i++;
 	}
-	return (count_word);
+	return (count);
 }
 
-char	**split_minishell(char *command, char sep)
+int	split_minishell(t_node *node, char *sep, int i, int	j)
 {
-	char	**split;
-	int		i;
-
-	i = 0;
-	while (command[i])
+	int	t;
+	
+	t = 0;
+	node->split = ft_calloc(count_word(node->command, 0, 0, true), sizeof(char *) + 1);
+	if (node->split == NULL)
+		return (printf("malloc error split"), 1);
+	while (node->command[i] && ft_strchr(sep, node->command[i]))
+		i++;
+	j = i;
+	while (node->command[j])
 	{
-		if (ft_strchr("\'\"", command[i]))
+		while (node->command[j] && !ft_strchr(sep, node->command[j]))
 		{
-			*split = ft_strdup()
+			if (node->command[j] && ft_strchr("\'\"", node->command[j]))
+				j = quote_chr(node->command, j) + 1;
+			else
+				j++;
 		}
+		node->split[t] = ft_strldup(node->command + i, j - i);
+		t++;
+		while (node->command[j] && ft_strchr(sep, node->command[j]))
+			j++;
+		i = j;
 	}
+	return (0);
 }
 
 void	split_and_clean(t_node *node)
 {
 	redirections_handler(node); // adil -> fait a tester dans tous les contexte -> apres cette fonction la ligne et clean de > file
-	node->split_command = split_minishell(node->command, ' '); //-> //adil
-	quotes_var_handler(node->split_command, node->data);// -> mago ->enleve les quotes inutiles & attribue les valeurs des variables d'env
+	split_minishell(node, " \t", 0, 0); //-> //adil -> fait
+	quotes_var_handler(node->split, node->data);// -> mago ->enleve les quotes inutiles & attribue les valeurs des variables d'env
 }
 
-int	main(int argc, char **argv)
-{
-	t_node *node;
-	
-	node = malloc (sizeof(t_node));
-	node->command = ft_calloc(1000,  sizeof(char));
-	ft_strlcpy(node->command, argv[1], (size_t)1000);
-	printf("%s\n", node->command);
-	node->fd_in = 0;
-	node->fd_out = 1;
-	node ->hd = NULL;
-	if (redirections_syntax(argv[1]))
-		return (free(node->command), free(node), 0);
-	redirections_handler(node);
-	printf("la commande deviens : %s\n", node->command);
-	printf("le here_doc est : \n%s", node->hd);
-	free(node->command);
-	free(node->hd);
-	free(node);
-}
