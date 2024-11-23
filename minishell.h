@@ -6,7 +6,7 @@
 /*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/22 23:58:22 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/11/23 19:28:27 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_nodes
 	int	fd_in;
 	int	fd_out;
 	char	*command;
-	char	**split_command;
+	char	**split;
 	struct	s_nodes *next;
 	struct s_minishell	*data;
 }				t_node;
@@ -83,6 +83,7 @@ int		go_redirection(char *name_f, char c, t_node *node, int i);
 void	init_j_and_option(int *i, int *option);//gagner des lignes
 void	ft_here_doc(char *final_word, t_node *node);
 int	redirections_syntax(char *line);
+int	split_minishell(t_node *node, char *sep, int i, int	j);
 
 
 /*---ENV---*/

@@ -6,7 +6,7 @@
 /*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 23:56:24 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/21 15:25:00 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/11/23 18:12:18 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_memchr(const void *s, int c, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
+char	*ft_strldup(const char *s, int size);//nouveau
 
 #endif
