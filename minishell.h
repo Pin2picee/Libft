@@ -6,7 +6,7 @@
 /*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/22 00:30:04 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/11/22 23:58:22 by Pin2picee        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <limits.h>
 # include <stdbool.h>
 # include <string.h>
-
 
 extern int	signal_handler;
 
@@ -97,5 +96,7 @@ char	*ft_clean_tab(char *str, int len, t_minishell *data);
 void	execution(t_minishell *data);
 void	ft_env(t_minishell *data);
 
+/*---affichage---*/
+void print_art(void);
 
 #endif
