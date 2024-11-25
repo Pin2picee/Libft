@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strldup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 18:09:31 by Pin2picee         #+#    #+#             */
-/*   Updated: 2024/11/23 19:29:04 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/11/25 17:45:23 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ char	*ft_strldup(const char *s, int size)
 	char	*dst;
 
 	i = 0;
-    if (size < 1)
-        return (NULL);
+	if (size < 1)
+    	return (NULL);
 	dst = malloc(sizeof(char) * (size) + 1);
 	if (dst == NULL)
 		return (NULL);

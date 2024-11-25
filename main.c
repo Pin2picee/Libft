@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:29 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/23 23:12:56 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/11/25 17:55:46 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc != 1)
 		return (perror("Error\n"), 1);
-	setup_signals();//fonction qui configure le signal des touche interactive qui au cas ou ? CTRL + D etc etc ...
+	//setup_signals();//fonction qui configure le signal des touche interactive qui au cas ou ? CTRL + D etc etc ...
 	init_env(&data, envp);
 	print_art();// fonction qui affiche le debut de  notre minishell en beaute
 	while (1)
@@ -33,9 +33,10 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(data.line);
 			if (!parsing(&data))
-				execution(&data);
-			ft_free_no_all(&data);
+				printf("good");
+				//execution(&data);
+			//ft_free_no_all(&data);
 		}
 	}
-	return 0;
+	return (0);
 }

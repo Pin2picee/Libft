@@ -2,7 +2,7 @@ Name = minishell
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 
 GREEN = \033[32m
 RESET = \033[0m

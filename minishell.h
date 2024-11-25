@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/23 19:28:27 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/11/25 18:00:52 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	init_env(t_minishell *data, char **envp);
 char	*ft_clean_tab(char *str, int len, t_minishell *data);
 
 /*---EXECUTION---*/
-void	execution(t_minishell *data);
+//void	execution(t_minishell *data);
 void	ft_env(t_minishell *data);
 
 /*---affichage---*/
