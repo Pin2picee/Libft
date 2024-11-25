@@ -7,7 +7,7 @@ FLAGS = -Wall -Werror -Wextra
 GREEN = \033[32m
 RESET = \033[0m
 
-DIR = SRC_parsing . Utils
+DIR = SRC_parsing . Utils SRC_env
 
 SRC = $(foreach directory, $(DIR), $(wildcard $(directory)/*c))
 
@@ -30,7 +30,7 @@ endef
 all : $(Name)
 
 $(Name): $(SRC_OBJ)
-	$(CC) $(FLAGS) $(SRC_OBJ) $(LIBFT) $(PRINTF) -o $(Name)
+	$(CC) $(FLAGS) $(SRC_OBJ) $(LIBFT) $(PRINTF) -lreadline -o $(Name)
 	@echo -n "$(GREEN)CREATION DE L'EXECUTABLE ->  minishell ...$(RESET)\n"
 	sleep 1
 	@echo -n "$(GREEN)SUCESS $(RESET)\n"
