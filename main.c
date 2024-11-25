@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:29 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/25 17:55:46 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/25 19:05:26 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ int	main(int argc, char **argv, char **envp)
 	{
 		prompt = get_prompt();// recup le prompt
 		data.line = readline(prompt);// un input avec l'affichage du prompt
-		if (!data.line)
-			printf("\n");
+		free(prompt);
+		if (data.line[0] == '\0')
+			continue;
 		else
 		{
 			add_history(data.line);
