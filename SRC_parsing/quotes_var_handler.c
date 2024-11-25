@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_var_handler.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:28:33 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/11/21 15:33:15 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/11/25 21:19:31 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,16 +176,13 @@ void	quotes_var_handler(char **tab, t_minishell *data)
 	char	quote;
 
 	i = 0;
-	while(tab[i])
+	while(tab[i] && tab[i][0])
 	{
 		len = 0;
 		tab_len(&tab[i][0], &len, data);
-		printf("%i\n", len);
-		if (len !=0)
+		if (len != 0)
 			tab[i] = ft_clean_tab(tab[i], len, data);
-		printf("%s\n", tab[i]);
 		i++;
-		
 	}
 }
 /*

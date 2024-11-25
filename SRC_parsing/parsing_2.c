@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:31:03 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/23 22:36:42 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/11/25 20:56:09 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	parsing(t_minishell *data)
 	
 	if (pre_parsing(data->line)) // verif retour readline->main
 		return (1);
-	node = data->start_node;
-	create_nodes(data); 
+	create_nodes(data);
+	node = data->start_node; 
 	while (node) //-> for every pipe : ligne clean et split clean
 	{
 		split_and_clean(node);// clean redirections for command AND split AND clean quotes split
