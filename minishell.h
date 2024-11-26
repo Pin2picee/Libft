@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/25 18:00:52 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:21:21 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct	s_minishell
 	char	**envp;
 	t_env	*var;
 	t_node	*start_node;
+	char	*prompt;
 }				t_minishell;
 
 /* FOR PROMPT*/
@@ -99,5 +100,9 @@ void	ft_env(t_minishell *data);
 
 /*---affichage---*/
 void print_art(void);
+
+/*------FREE-----------*/
+void	ft_reset(t_minishell *data);// reset dans la boucle juste ma ligne et les noeuds
+void	free_all(t_minishell *data);// reset tout pour CTRL + D et exit // suppr env et tout ca
 
 #endif

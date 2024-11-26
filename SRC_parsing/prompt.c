@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 10:45:45 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/15 14:51:49 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:15:22 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ char	*get_prompt(void)
 
 	i = 0;
 	j = 0;
-	prompt = malloc(4096);
+	prompt = ft_calloc(4096, sizeof(char));
 	user = getenv("USER");
 	i += ft_strlcpy(prompt, user, 100);
 	prompt[i++] = '@';
 	ft_host_pwd(&prompt, &i);
-	prompt_clean = ft_calloc(ft_strlen(prompt) + 2, sizeof(char));
+	prompt_clean = ft_calloc(ft_strlen(prompt) + 3, sizeof(char));
 	ft_strlcpy(prompt_clean, prompt, ft_strlen(prompt) + 1);
 	free(prompt);
 	return (prompt_clean[i++] = '$', prompt_clean[i] = ' ', prompt_clean);

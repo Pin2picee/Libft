@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:17:02 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/23 22:34:31 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/11/26 11:21:17 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	split_minishell(t_node *node, char *sep, int i, int	j)
 	int	t;
 	
 	t = 0;
-	node->split = ft_calloc(count_word(node->command, 0, 0, true), sizeof(char *) + 1);
+	node->split = ft_calloc(count_word(node->command, 0, 0, true) + 1, sizeof(char *));
 	if (node->split == NULL)
 		return (printf("malloc error split"), 1);
 	while (node->command[i] && ft_strchr(sep, node->command[i]))

@@ -5,115 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 12:45:22 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/25 19:08:06 by abelmoha         ###   ########.fr       */
+/*   Created: 2024/11/12 13:31:03 by abelmoha          #+#    #+#             */
+/*   Updated: 2024/11/26 13:15:42 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//donne l'indice du prochaine ' ou "" si pas trouver alors -42
-int	quote_chr(char *str, int i)
+int	pipes_chr(char	*readline, int i)
 {
-	char	quote;
+	int	j;
 	
-	quote = str[i];
-	i++;
-	while (str[i] && str[i] != quote)
-	{
-		i++;
-	}
-	if (str[i])
+	j = i + 1;
+	while (readline[j] && readline[j] != readline[i])
+		j++;
+	if (readline[i] == readline[j] && readline[j] == '|')
 		return (i);
 	else
 		return (-42);
 }
-
-//verifie si il y a bien des doublons de " ou ', si un seul alors probleme
-int	quotes_syntax(char *line)
+int	parsing(t_minishell *data)
 {
-	int	i;
-	int add_index;
+	t_node	*node;
 	
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\'' || line[i] == '"')
-		{
-			add_index = quote_chr(line, i);
-			if (add_index == -42)
-				return (1);
-			i = add_index;
-		}
-		i++;
-	}
-	return (0);
-}
-
-// verifie si premier caractere est pipe ou si dernier caractere est pipe
-int	pipe_syntax(char *line)
-{
-	int	i;
-	bool flag;
-    
-	flag = false;
-	i = -1;
-	if (line[0] == '|')
+	data->start_node = NULL;
+	data->exit_code = 0;
+	if (pre_parsing(data->line)) // verif retour readline->main
 		return (1);
-	while (line[++i])
+	//init_node fonction qui init start node
+	create_nodes(data);
+	node = data->start_node;
+	while (node) //-> for every pipe : ligne clean et split clean
 	{
-		if (line[i] == '\'' || line[i] == '"')
-			i = quote_chr(line, i);
-		if (line[i] && line[i] == '|')
-		{
-			while ((line[i] && line[i] == ' ') || line[i] && line[i] == '|')
-				i++;
-			if (line[i] == '\0')
-				return(1);
-		}
+		split_and_clean(node);// clean redirections for command AND split AND clean quotes split
+		node = node->next;
 	}
 	return (0);
-}
-
-int	redirections_syntax(char *line)
-{
-	int	i;
-	char quotes;
-
-	i = 0;
-	while (line[i])
-	{
-		if (ft_strchr("\'\"", line[i]))
-			i = quote_chr(line, i) + 1;
-		if (line[i] && ft_strchr("<>", line[i]))
-		{
-			while (line[i] && ft_strchr("<> |", line[i]))
-				i++;
-			if (!line[i])
-				return (1);
-		}
-		else
-			i++;
-	}
-	return (0);
-}
-
-int	pre_parsing(char *line)
-{
-		if(quotes_syntax(line))
-		{
-			printf("Quotes are not close\n");
-			return (1);
-		}
-		if(pipe_syntax(line))
-		{
-			printf("Need cmd after pipe\n");
-			return (1);
-		}
-		if (redirections_syntax(line))
-		{
-			printf("problem redirections\n");
-			return (1);
-		}
-		return (0);
 }

@@ -6,15 +6,16 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:29 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/25 20:58:07 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:22:41 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+
 int	main(int argc, char **argv, char **envp)
 {
-	char		*prompt;
 	t_minishell	data;
 	int	i = 0;//test
 	
@@ -24,28 +25,30 @@ int	main(int argc, char **argv, char **envp)
 	//setup_signals();//fonction qui configure le signal des touche interactive qui au cas ou ? CTRL + D etc etc ...
 	init_env(&data, envp);
 	print_art();// fonction qui affiche le debut de  notre minishell en beaute
-	data.start_node = NULL;//init_node fonction qui init start node
 	while (1)
 	{
-		prompt = get_prompt();// recup le prompt
-		data.line = readline(prompt);// un input avec l'affichage du prompt
-		free(prompt);
-		if (!(data.line[0] == '\0'))
+		data.prompt = get_prompt();// recup le prompt
+		data.line = readline(data.prompt);// un input avec l'affichage du prompt
+		free(data.prompt);
+		if (data.line[0] == '\0')
 		{
+			free(data.line);
+			continue ;
+		}
 			add_history(data.line);
 			if (!parsing(&data))
 			{
+				i = 0;
 				while (data.start_node->split[i])
 				{
 					printf("\"%s\"", data.start_node->split[i]);
 					i++;
 				}
 				printf("good\n");
-			}
-				
 				//execution(&data);
-			//ft_free_no_all(&data);
-		}
+			}
+			ft_reset(&data);//renitialise la data.line / les noeuds et les free
 	}
+	free_all(&data);// free tous ma data et mes noeuds .
 	return (0);
 }
