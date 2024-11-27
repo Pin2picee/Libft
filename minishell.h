@@ -24,6 +24,8 @@
 # include <limits.h>
 # include <stdbool.h>
 # include <string.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 extern int	signal_handler;
 
@@ -33,6 +35,7 @@ typedef struct s_env
 {
 	char	*key;
 	char	*value;
+	int		is_export_only;	// (0 -> key=value) et (1 -> key) 
 	struct s_env *next;
 }				t_env;
 
@@ -54,6 +57,7 @@ typedef struct	s_minishell
 	char	*line;
 	int		exit_code;
 	char	**envp;
+	char 	**export;
 	t_env	*var;
 	t_node	*start_node;
 	char	*prompt;
@@ -86,17 +90,50 @@ void	ft_here_doc(char *final_word, t_node *node);
 int	redirections_syntax(char *line);
 int	split_minishell(t_node *node, char *sep, int i, int	j);
 
-
-/*---ENV---*/
+/*- - - SRC_ENV - - -*/
+//-> dbug_env.c
+void	display_env(t_minishell *data);
+void	print_export(t_minishell *data);
+void	print_envp(t_minishell *data);
+//-> env_utils.c
 void	free_env_vars(t_minishell *data);
+void 	free_env_array(char **array);
+//-> set_env.c
 t_env	*create_var(const char *key, const char *value);
 t_env	*get_env_var(t_env *var_data, const char *key);
 void	init_env(t_minishell *data, char **envp);
-char	*ft_clean_tab(char *str, int len, t_minishell *data);
+//-> set_export_utils.c
+void	swap_strings(char **a, char **b);
+void	bubble_sort(char **export);
+//-> set_export_tab.c
+size_t	count_env_vars(t_env *env_list);
+char	**allocate_env_tab(size_t count);
+void	fill_env_tab(char **tab, t_env *env_list, size_t count);
+void	convert_env_to_tab(t_minishell *data);
+//-> set_export.c								
+int		parse_name_value(const char *arg, char **name, char **value);
+int		update_env_var(t_env *env_list, const char *name, const char *value);
+void	add_env_var(t_env **env_list, const char *name, const char *value);
+void	update_or_add(t_env **env_list, const char *name, const char *value);
 
-/*---EXECUTION---*/
-//void	execution(t_minishell *data);
+/*- - - SRC_EXECUTION - - -*/
+//-> ft_env
 void	ft_env(t_minishell *data);
+//-> ft_export
+void	ft_printf_export(t_minishell *data);
+void	ft_export(t_minishell *data, const char *arg);
+//-> ft_unset
+void 	unset_env_var(t_env **env_list, const char *name);
+void 	ft_unset(t_minishell *data, const char *arg);
+
+/* - - - SIGNALS - - - */
+void    ft_sigint(int signal);
+void    ft_sigquit(int signal);
+void    setups_signals(void);
+
+
+
+//void	execution(t_minishell *data);
 
 /*---affichage---*/
 void print_art(void);
