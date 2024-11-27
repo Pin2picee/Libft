@@ -6,20 +6,20 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:28:33 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/11/26 21:39:10 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/27 13:01:12 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	chr_quotes(char *str)
+int	chr_quotes_or_d(char *str)
 {
 	int	i;
 	
 	i = 0;
 	while (str[i])
 	{
-		if(str[i] == '\'' || str[i] == '"')
+		if(str[i] == '\'' || str[i] == '"' || str[i] == '$')
 			return (1);
 		i++;
 	}
@@ -79,7 +79,7 @@ int	tab_len(char *str, int	*len, t_minishell *data)
 	int	flag;
 	
 	i = 0;
-	flag = chr_quotes(str);
+	flag = chr_quotes_or_d(str);
 	while(str[i])
 	{	
 		//if()
@@ -136,7 +136,7 @@ char	*ft_clean_tab(char *str, int len, t_minishell *data)
 	
 	i = 0;
 	j = 0;
-	tab = ft_calloc(len + 100, 1);
+	tab = ft_calloc(len + 2, sizeof(char));
 	if (!tab)
 		return (NULL);
 	while (str[i])

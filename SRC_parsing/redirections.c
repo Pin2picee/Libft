@@ -6,19 +6,17 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/26 13:15:24 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/27 13:44:23 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 // fonctions do_fd -> creer un file et qui creer les fd ou les ouvre et les mes dans les noeuds
-void	do_fd(char *filename, int option, t_node *node)
+void	do_fd(char *filename, int option, t_node *node,int len)
 {
-	int	len;
 	char	*Error;
 
-	len = 0;
 	if (!*filename)
 		return ;
 	tab_len(filename, &len, node->data);
@@ -30,12 +28,14 @@ void	do_fd(char *filename, int option, t_node *node)
 		node->fd_out = open(filename, O_CREAT | O_APPEND | O_WRONLY, 0666); // APPEND
 	if (option == 3)
 		node->fd_in = open(filename, O_RDONLY); // FD_IN
-	if (option == 3 && node->fd_in < 0)
+	if (node->fd_in < 0 || node->fd_out < 0)
 	{
 		Error = ft_strjoin("Minishell: ", filename);
 		perror(Error);
 		free(Error);
-		exit(1);
+		free(filename);
+		node->data->exit_code = 1;
+		exit(node->data->exit_code);
 	}
 	if (option == 4)
 		ft_here_doc(filename, node);//TODO -> 
@@ -69,7 +69,7 @@ int	go_redirection(char *name_f, char c, t_node *node, int i)
 	}
 	if (ft_strchr("\'\"", name_f[i + 1]) && name_f[i])
 		i++;//si append
-	return (ft_cpy_file(file, name_f, &i, j), do_fd(ft_strdup(file), option, node), i + 1); // creer le fichier avec append ou trunc et gere le here_doc
+	return (ft_cpy_file(file, name_f, &i, j), do_fd(ft_strdup(file), option, node, 0), i + 1); // creer le fichier avec append ou trunc et gere le here_doc
 }
 //la fonction clean_command renvoie la chaine sans > file
 void	clean_commands(t_node *node, int i, int j)
