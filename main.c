@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc != 1)
 		return (perror("Error\n"), 1);
-	//setup_signals();//fonction qui configure le signal des touche interactive qui au cas ou ? CTRL + D etc etc ...
+	setup_signals();
 	init_env(&data, envp);
 	print_art();// fonction qui affiche le debut de  notre minishell en beaute
 	while (1)
