@@ -54,7 +54,7 @@ int	update_env_var(t_env *env_list, const char *name, const char *value)
     Ajoute une nouvelle variable dans la liste chaînée t_env.
 */
 
-void	add_env_var(t_env **env_list, const char *name, const char *value)
+void	add_env_var(t_env *env_list, const char *name, const char *value)
 {
 	t_env	*new_var;
 
@@ -75,15 +75,15 @@ void	add_env_var(t_env **env_list, const char *name, const char *value)
 		new_var->value = NULL;
 		new_var->is_export_only = 1;
 	}
-	new_var->next = *env_list;
-	*env_list = new_var;
+	new_var->next = env_list;
+	env_list = new_var;
 }
 /*
     Met à jour une variable existante dans t_env, ou en ajoute une nouvelle si elle n'existe pas
 */
 
-void	update_or_add(t_env **env_list, const char *name, const char *value)
+void	update_or_add(t_env *env_list, const char *name, const char *value)
 {
-	if (!update_env_var(*env_list, name, value))
+	if (!update_env_var(env_list, name, value))
 		add_env_var(env_list, name, value);
 }

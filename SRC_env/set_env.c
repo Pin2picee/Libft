@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_env.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/27 21:19:16 by abelmoha          #+#    #+#             */
+/*   Updated: 2024/11/27 21:46:06 by abelmoha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 t_env	*create_var(const char *key, const char *value)
@@ -54,7 +66,6 @@ void	init_env(t_minishell *data, char **envp)
 		}
 		i++;
 	}
-	data->envp = NULL;
 }
 
 // inclure le signe egale dans la key.

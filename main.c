@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:29 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/26 12:22:41 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/27 22:08:14 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc != 1)
 		return (perror("Error\n"), 1);
-	setup_signals();
+	setups_signals();
 	init_env(&data, envp);
 	print_art();// fonction qui affiche le debut de  notre minishell en beaute
 	while (1)
@@ -38,12 +38,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(data.line);
 			if (!parsing(&data))
 			{
-				i = 0;
-				while (data.start_node->split[i])
-				{
-					printf("\"%s\"", data.start_node->split[i]);
-					i++;
-				}
+				ft_export(data.start_node);
 				printf("good\n");
 				//execution(&data);
 			}

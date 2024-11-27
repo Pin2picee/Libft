@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/26 12:21:21 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/27 22:11:07 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,16 @@ void	ft_cpy_file(char *file, char *name_f, int *i, int j);
 int		go_redirection(char *name_f, char c, t_node *node, int i);
 void	init_j_and_option(int *i, int *option);//gagner des lignes
 void	ft_here_doc(char *final_word, t_node *node);
-int	redirections_syntax(char *line);
-int	split_minishell(t_node *node, char *sep, int i, int	j);
+int		redirections_syntax(char *line);
+int		split_minishell(t_node *node, char *sep, int i, int	j);
+char	*ft_clean_tab(char *str, int len, t_minishell *data);
 
+void	ft_export(t_node *node);
 /*- - - SRC_ENV - - -*/
 //-> dbug_env.c
-void	display_env(t_minishell *data);
-void	print_export(t_minishell *data);
-void	print_envp(t_minishell *data);
+//void	display_env(t_minishell *data);
+//void	print_export(t_minishell *data);
+//void	print_envp(t_minishell *data);
 //-> env_utils.c
 void	free_env_vars(t_minishell *data);
 void 	free_env_array(char **array);
@@ -113,15 +115,16 @@ void	convert_env_to_tab(t_minishell *data);
 //-> set_export.c								
 int		parse_name_value(const char *arg, char **name, char **value);
 int		update_env_var(t_env *env_list, const char *name, const char *value);
-void	add_env_var(t_env **env_list, const char *name, const char *value);
-void	update_or_add(t_env **env_list, const char *name, const char *value);
+void	add_env_var(t_env *env_list, const char *name, const char *value);
+void	update_or_add(t_env *env_list, const char *name, const char *value);
 
 /*- - - SRC_EXECUTION - - -*/
 //-> ft_env
 void	ft_env(t_minishell *data);
 //-> ft_export
 void	ft_printf_export(t_minishell *data);
-void	ft_export(t_minishell *data, const char *arg);
+
+
 //-> ft_unset
 void 	unset_env_var(t_env **env_list, const char *name);
 void 	ft_unset(t_minishell *data, const char *arg);

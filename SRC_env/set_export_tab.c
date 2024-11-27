@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_export_tab.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/27 21:19:08 by abelmoha          #+#    #+#             */
+/*   Updated: 2024/11/27 21:45:15 by abelmoha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 /* 
     Compte le nombre de variables dans t_env
@@ -49,7 +61,7 @@ void	fill_env_tab(char **tab, t_env *env_list, size_t count)
 	{
 		if (current->value)
 			tab[i] = malloc(strlen(current->key)
-					+ strlen(current->value) + 4);
+					 + strlen(current->value) + 4);
 		else
 			tab[i] = malloc(strlen(current->key) + 1);
 		if (!tab[i])
@@ -76,10 +88,6 @@ void	convert_env_to_tab(t_minishell *data)
 	size_t	count;
 
 	count = count_env_vars(data->var);
-    // char **envp
-	data->envp = allocate_env_tab(count);
-	fill_env_tab(data->envp, data->var, count);
-    // char **export
-	data->export = allocate_env_tab(count);
+	data->export = allocate_env_tab(count);// char **export
 	fill_env_tab(data->export, data->var, count);
 }

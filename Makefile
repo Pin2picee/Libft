@@ -7,7 +7,7 @@ FLAGS = -Wall -Werror -Wextra
 GREEN = \033[32m
 RESET = \033[0m
 
-DIR = SRC_parsing . Utils SRC_env libft libft/ft_printf libft/get_next_line
+DIR = SRC_parsing . Utils SRC_env libft libft/ft_printf libft/get_next_line SRC_execution
 
 SRC = $(foreach directory, $(DIR), $(wildcard $(directory)/*c))
 

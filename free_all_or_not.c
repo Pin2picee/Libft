@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:35:21 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/27 12:58:50 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/27 21:15:35 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,5 @@ void	free_all(t_minishell *data)
 			free(current_var);//free le noeud
 			current_var = tmp_var;// mon pointeur = au prochaine
 		}
+	free_env_vars(data);
 }

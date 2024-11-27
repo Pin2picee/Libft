@@ -23,7 +23,7 @@ int	ft_echo(t_node *node)
     int i;
     int flag_n;
 
-    flag_n = is_bn(node->split[1]);
+    flag_n = is_bn(node->split[1]);// est ce que option -n ?
     if (flag_n == 1)
         i = 2;
     else
