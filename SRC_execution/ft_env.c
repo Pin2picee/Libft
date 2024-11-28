@@ -9,7 +9,10 @@ void	ft_env(t_minishell *data)
 	current = data->var;
 	while (current)
 	{
-		printf("%s=%s\n", current->key, current->value);
+		if (current->is_export_only == 0 && current->value) 
+			printf("%s=%s\n", current->key, current->value);
+		else if (current->is_export_only == 0 && !current->value)
+			printf("%s=\n", current->key);
 		current = current->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:18:54 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/27 22:06:27 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:36:08 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_printf_export(t_minishell *data)
 
 	i = 0;
 	// faut le trier dabord
+	free_tab(data->export);
 	convert_env_to_tab(data);
 	bubble_sort(data->export);
 	while (data->export[i])
@@ -46,11 +47,11 @@ void	ft_export(t_node *node)
 	{
 		j = 0;
 		if (!ft_strchr(node->split[i], '='))
-			update_or_add(node->data->var, node->split[i], NULL);
+			update_or_add(&(node->data->var), node->split[i], NULL);
 		else
 		{
 				parse_name_value(node->split[i], &name, &value);// attribut la name et la valeur a mes variables
-				update_or_add(node->data->var, name, value);//ajoute ou met a jour ma variable d'environement
+				update_or_add(&(node->data->var), name, value);//ajoute ou met a jour ma variable d'environement
 				free(name);
 				free(value);
 		}
