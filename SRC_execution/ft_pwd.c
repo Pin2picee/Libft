@@ -2,7 +2,7 @@
 
 void	ft_pwd(void)
 {
-	char buffer;
+	char	*buffer;
 
 	buffer = getcwd(NULL, 0);
 	printf("%s", buffer);

@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:29 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/27 22:08:14 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:28:54 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc != 1)
 		return (perror("Error\n"), 1);
-	setups_signals();
+	setups_signals(&data);
 	init_env(&data, envp);
 	print_art();// fonction qui affiche le debut de  notre minishell en beaute
 	while (1)
@@ -38,8 +38,12 @@ int	main(int argc, char **argv, char **envp)
 			add_history(data.line);
 			if (!parsing(&data))
 			{
-				ft_export(data.start_node);
-				printf("good\n");
+				if (!ft_strncmp(data.start_node->split[0], "export", ft_strlen(data.start_node->split[0])))
+					ft_export(data.start_node);
+				else if (!ft_strncmp(data.start_node->split[0], "env", ft_strlen(data.start_node->split[0])))
+					ft_env(&data);
+				else if (!ft_strncmp(data.start_node->split[0], "unset", ft_strlen(data.start_node->split[0])))
+					ft_unset(data.start_node);
 				//execution(&data);
 			}
 			ft_reset(&data);//renitialise la data.line / les noeuds et les free

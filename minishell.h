@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/27 22:11:07 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:44:32 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <signal.h>
 
 extern int	signal_handler;
 
@@ -99,7 +100,7 @@ void	ft_export(t_node *node);
 //void	print_envp(t_minishell *data);
 //-> env_utils.c
 void	free_env_vars(t_minishell *data);
-void 	free_env_array(char **array);
+void	free_tab(char **export);
 //-> set_env.c
 t_env	*create_var(const char *key, const char *value);
 t_env	*get_env_var(t_env *var_data, const char *key);
@@ -115,8 +116,9 @@ void	convert_env_to_tab(t_minishell *data);
 //-> set_export.c								
 int		parse_name_value(const char *arg, char **name, char **value);
 int		update_env_var(t_env *env_list, const char *name, const char *value);
-void	add_env_var(t_env *env_list, const char *name, const char *value);
-void	update_or_add(t_env *env_list, const char *name, const char *value);
+void	add_env_var(t_env **env_list, const char *name, const char *value);
+void	update_or_add(t_env **env_list, const char *name, const char *value);
+
 
 /*- - - SRC_EXECUTION - - -*/
 //-> ft_env
@@ -127,12 +129,12 @@ void	ft_printf_export(t_minishell *data);
 
 //-> ft_unset
 void 	unset_env_var(t_env **env_list, const char *name);
-void 	ft_unset(t_minishell *data, const char *arg);
+void ft_unset(t_node *node);
+
 
 /* - - - SIGNALS - - - */
-void    ft_sigint(int signal);
-void    ft_sigquit(int signal);
-void    setups_signals(void);
+void    setups_signals(t_minishell *data);
+
 
 
 

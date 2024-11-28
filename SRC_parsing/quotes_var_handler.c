@@ -6,12 +6,23 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:28:33 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/11/27 13:01:12 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:16:47 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+int	putnbr_in_tab(t_minishell *data, char *tab)
+{
+	char	*nb;
+	int		len;
+	
+	nb = ft_itoa(data->exit_code);
+	ft_strlcpy(tab, nb, 3);
+	len = ft_strlen(nb);
+	free(nb);
+	return(len);
+}
 int	chr_quotes_or_d(char *str)
 {
 	int	i;
@@ -25,7 +36,6 @@ int	chr_quotes_or_d(char *str)
 	}
 	return (0);
 }
-
 int	var_len(char *str, t_minishell *data, int *len)
 {
 	int	i;
@@ -86,7 +96,13 @@ int	tab_len(char *str, int	*len, t_minishell *data)
 		if(str[i] == '$')
 		{
 			i++;
-			i += var_len(&str[i], data, len);
+			if (str[i] == '?')
+			{
+				*(len) += 3;
+				i++;
+			}
+			else
+				i += var_len(&str[i], data, len);
 			continue;
 		}
 		if(str[i] == '\'' || str[i] == '"')
@@ -144,6 +160,11 @@ char	*ft_clean_tab(char *str, int len, t_minishell *data)
 		while(str[i] == '$')
 		{
 			i++;
+			if (str[i] == '?')
+			{
+				i++;
+				j += putnbr_in_tab(data, &tab[j]);
+			}
 			i += put_var_in_tab(&str[i], tab, data, &j);
 		}
 		while(str[i] == '\'' || str[i] == '"')
