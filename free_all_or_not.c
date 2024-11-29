@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:35:21 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/28 17:38:16 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/29 20:58:58 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	free_node(t_node *node)
 	int	i;
 	
 	i = 0;
+	if (node == NULL)
+		return ;
 	if (node->hd)
 		free(node->hd);
 	if (node->command)
@@ -57,8 +59,9 @@ void	ft_reset(t_minishell *data)
 		free_node(current);// free le contenu du noeuds
 		tmp = current->next;// mon temo pointe sur le prochaine
 		free(current);// je free le noeud actuel
-		current = tmp; // je point sur le prochain
+		current = tmp; // je point sur le prochain	
 	}
+	init_node(current);
 }
 
 void	free_all(t_minishell *data)
@@ -73,7 +76,7 @@ void	free_all(t_minishell *data)
 	if (!data->start_node)
 		return ;
 	current = data->start_node;
-	while (current)
+	while (current != NULL)
 	{
 		free_node(current);// free le contenu du noeuds
 		tmp = current->next;// mon temo pointe sur le prochaine

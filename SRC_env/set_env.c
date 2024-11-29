@@ -6,13 +6,13 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:19:16 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/27 21:46:06 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/29 21:17:58 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_env	*create_var(const char *key, const char *value)
+t_env	*create_var(char *key, const char *value)
 {
 	t_env	*new_var;
 
@@ -25,6 +25,7 @@ t_env	*create_var(const char *key, const char *value)
 	new_var->key = strdup(key);
 	new_var->value = strdup(value);
 	new_var->next = NULL;
+	free(key);
 	return (new_var);
 }
 
@@ -42,7 +43,8 @@ t_env	*get_env_var(t_env *var_data, const char *key)
 	return (NULL);
 }
 
-void	init_env(t_minishell *data, char **envp)
+// fonction qui init env , setup le signal et affiche GLUANT
+void	setup(t_minishell *data, char **envp)
 {
 	t_env	*current;
 	t_env	*new_var;
@@ -52,6 +54,8 @@ void	init_env(t_minishell *data, char **envp)
 	i = 0;
 	current = NULL;
 	data->var = NULL;
+	setups_signals();
+	init_data(data);
 	while (envp[i])
 	{
 		equal_sign = strchr(envp[i], '=');
@@ -66,6 +70,7 @@ void	init_env(t_minishell *data, char **envp)
 		}
 		i++;
 	}
+	print_art();// fonction qui affiche le debut de  notre minishell en beaute
 }
 
 // inclure le signe egale dans la key.

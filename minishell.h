@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/29 18:12:27 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/29 21:17:59 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "libft/libft.h"
 # include "libft/get_next_line/get_next_line.h"
-# include "stdio.h"
+# include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h> // Nécessaire pour add_history
 # include <stdlib.h>
@@ -27,6 +27,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include <errno.h>
 
 extern int	signal_handler;
 
@@ -91,6 +92,9 @@ void	ft_here_doc(char *final_word, t_node *node);
 int		redirections_syntax(char *line);
 int		split_minishell(t_node *node, char *sep, int i, int	j);
 char	*ft_clean_tab(char *str, int len, t_minishell *data);
+void	init_data(t_minishell *data);
+void	init_node(t_node *node);
+
 
 void	ft_export(t_node *node);
 /*- - - SRC_ENV - - -*/
@@ -102,9 +106,11 @@ void	ft_export(t_node *node);
 void	free_env_vars(t_minishell *data);
 void	free_tab(char **export);
 //-> set_env.c
-t_env	*create_var(const char *key, const char *value);
+t_env	*create_var(char *key, const char *value);
 t_env	*get_env_var(t_env *var_data, const char *key);
-void	init_env(t_minishell *data, char **envp);
+void	setup(t_minishell *data, char **envp);
+
+
 //-> set_export_utils.c
 void	swap_strings(char **a, char **b);
 void	bubble_sort(char **export);
@@ -125,11 +131,11 @@ void	update_or_add(t_env **env_list, const char *name, const char *value);
 void	ft_env(t_minishell *data);
 //-> ft_export
 void	ft_printf_export(t_minishell *data);
-
+void	ft_pwd(void);
 
 //-> ft_unset
 void 	unset_env_var(t_env **env_list, const char *name);
-void ft_unset(t_node *node);
+void 	ft_unset(t_node *node);
 
 
 /* - - - SIGNALS - - - */
@@ -141,7 +147,7 @@ void    setups_signals(void);
 //void	execution(t_minishell *data);
 
 /*---affichage---*/
-void print_art(void);
+void 	print_art(void);
 
 /*------FREE-----------*/
 void	ft_reset(t_minishell *data);// reset dans la boucle juste ma ligne et les noeuds

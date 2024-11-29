@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:14:14 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/28 18:17:38 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/29 18:42:08 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,3 @@ void	create_nodes(t_minishell *data)
 	}
 	append_nodes(data, last, i, tab);
 }
-
-
-
-
-
-

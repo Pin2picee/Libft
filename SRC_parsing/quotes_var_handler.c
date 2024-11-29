@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:28:33 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/11/28 18:16:47 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/29 18:48:07 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,6 @@ void	quotes_var_handler(char **tab, t_minishell *data)
 	{
 		len = 0;
 		tab_len(&tab[i][0], &len, data);
-		printf("%d", len);
 		if (len ==  0 && ft_strchr(tab[i], '$'))
 			tab[i] = ft_clean_tab(tab[i], len, data);
 		else if (len != 0)

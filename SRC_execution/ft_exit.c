@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-
+/*
 void    ft_exit(t_minishell *data)
 {
     if (!tab[1] && data->start_node->next == NULL)
@@ -23,3 +23,4 @@ void    ft_exit(t_minishell *data)
         quand l argument n est pas un int; -> bash: exit: n: numeric argument required
     }
     printf("")
+*/
