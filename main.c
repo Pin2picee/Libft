@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:29 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/28 18:28:54 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/29 18:12:14 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc != 1)
 		return (perror("Error\n"), 1);
-	setups_signals(&data);
+	setups_signals();
 	init_env(&data, envp);
 	print_art();// fonction qui affiche le debut de  notre minishell en beaute
 	while (1)

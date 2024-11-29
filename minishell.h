@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/28 18:44:32 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/11/29 18:12:27 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void ft_unset(t_node *node);
 
 
 /* - - - SIGNALS - - - */
-void    setups_signals(t_minishell *data);
+void    setups_signals(void);
 
 
 
