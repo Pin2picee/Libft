@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/29 21:17:59 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/02 13:51:53 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	init_data(t_minishell *data);
 void	init_node(t_node *node);
 
 
-void	ft_export(t_node *node);
 /*- - - SRC_ENV - - -*/
 //-> dbug_env.c
 //void	display_env(t_minishell *data);
@@ -131,7 +130,6 @@ void	update_or_add(t_env **env_list, const char *name, const char *value);
 void	ft_env(t_minishell *data);
 //-> ft_export
 void	ft_printf_export(t_minishell *data);
-void	ft_pwd(void);
 
 //-> ft_unset
 void 	unset_env_var(t_env **env_list, const char *name);
@@ -142,6 +140,13 @@ void 	ft_unset(t_node *node);
 void    setups_signals(void);
 
 
+/*---BULTINS---*/
+void	ft_echo(t_node *node);
+void	ft_env(t_minishell *data);
+void    ft_exit(t_node *node);
+void	ft_export(t_node *node, int i);
+void	ft_pwd(t_minishell *data);
+void 	ft_unset(t_node *node);
 
 
 //void	execution(t_minishell *data);

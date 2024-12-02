@@ -15,4 +15,5 @@ void	ft_env(t_minishell *data)
 			printf("%s=\n", current->key);
 		current = current->next;
 	}
+	data->exit_code = 0;
 }

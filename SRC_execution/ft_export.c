@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:18:54 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/28 18:21:33 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/02 13:50:49 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,12 @@ void	ft_printf_export(t_minishell *data)
 }
 
 // FONCTION qui sera appele dans l'execution
-void	ft_export(t_node *node)
+void	ft_export(t_node *node, int i)
 {
-	int		i;
 	int		j;
 	char	*name;
 	char	*value;
 
-	i = 1;
 	if (node->split[1] == NULL)
 	{
 		ft_printf_export(node->data);
@@ -57,4 +55,5 @@ void	ft_export(t_node *node)
 		}
 		i++;
 	}
+	node->data->exit_code = 0;
 }

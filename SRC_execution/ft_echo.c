@@ -18,7 +18,7 @@ int is_bn(char *str)
     return (1);
 }
 
-int	ft_echo(t_node *node)
+void	ft_echo(t_node *node)
 {
     int i;
     int flag_n;
@@ -36,5 +36,5 @@ int	ft_echo(t_node *node)
     }
     if(!flag_n)
         write(1, "\n", 1);
-	return(0);
+    node->data->exit_code = 0;
 }

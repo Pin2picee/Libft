@@ -40,4 +40,5 @@ void ft_unset(t_node *node)
 		i++;
 	}
 	return ;
+	node->data->start_node = 0;
 }

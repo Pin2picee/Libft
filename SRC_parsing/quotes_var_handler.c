@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:28:33 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/11/29 18:48:07 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:28:20 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,19 @@ int	quotes_len(char *str, char quote, t_minishell *data, int *len)
 	return (i + 1);
 }
 
+void	dollar_handler(char *str, int *len, t_minishell * data, int *i)
+{
+	
+	(*i)++;
+	if (str[*i] == '?')
+	{
+		*(len) += 3;
+		(*i)++;
+	}
+	else
+		(*i) += var_len(&str[*i], data, len);
+}
+
 int	tab_len(char *str, int	*len, t_minishell *data)
 {
 	int	i;
@@ -92,18 +105,10 @@ int	tab_len(char *str, int	*len, t_minishell *data)
 	flag = chr_quotes_or_d(str);
 	while(str[i])
 	{	
-		//if()
 		if(str[i] == '$')
 		{
-			i++;
-			if (str[i] == '?')
-			{
-				*(len) += 3;
-				i++;
-			}
-			else
-				i += var_len(&str[i], data, len);
-			continue;
+			dollar_handler(str, len, data, &i);
+				continue;
 		}
 		if(str[i] == '\'' || str[i] == '"')
 			i += quotes_len(&str[i], str[i], data, len);
