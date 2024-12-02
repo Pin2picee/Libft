@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:28:33 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/12/02 16:28:20 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:38:10 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,61 +221,6 @@ void	quotes_var_handler(char **tab, t_minishell *data)
 		i++;
 	}
 }
-/*
-int main(int ac, char **av)
-{
-    (void)ac;
-    t_minishell data;
-
-    // Initialisation dynamique d'un tableau de chaînes de caractères malocées
-    char **example_tab = malloc(4 * sizeof(char *));
-    if (!example_tab)
-    {
-        perror("malloc failed");
-        return 1;
-    }
-
-    example_tab[0] = malloc(strlen("\"test\"\"'s'\"") + 1);
-    if (example_tab[0])
-        strcpy(example_tab[0], "\"test\"\"\"'s'");
-    example_tab[1] = malloc(strlen("ex\"a\"mple2") + 1);
-    if (example_tab[1])
-        strcpy(example_tab[1], "ex\"a\"mple2");
-    example_tab[2] = malloc(strlen("sample3") + 1);
-    if (example_tab[2])
-        strcpy(example_tab[2], "sample3");
-    example_tab[3] = NULL; // Terminate the array with NULL
-
-    // Appel de la fonction pour tester
-    quotes_var_handler(example_tab, &data);
-
-    // Libération de la mémoire allouée
-    for (int i = 0; example_tab[i] != NULL; i++)
-        free(example_tab[i]);
-    free(example_tab);
-    return 0;
-}
-*/
-
-
-
-
-
-
-/*
-rajouter la gestion du $? cela se fera dans var_len et put_var_in_tab
-{
-	comment le rajouter ?
-	si tab[i] = $ et que tab[i + 1] = ?, alors i += 2; 
-	else 
-	la len max est 3;
-	aller chercher data->exit_code, faire un putnbr_in_tab avec strlcat;
-}
-
-*/
-//verifier pq les v_e colles marchent une fois sur deux
-
-
 
 
 

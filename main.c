@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:29 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/29 21:11:05 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:44:19 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	empty_line(t_minishell *data)
 
 void	print_prompt(t_minishell *data)
 {
+		ft_SHLVL(data);
 		data->prompt = get_prompt();// recup le prompt
 		data->line = readline(data->prompt);// un input avec l'affichage du prompt
 		free(data->prompt);

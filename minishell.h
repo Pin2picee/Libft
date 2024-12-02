@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/02 13:51:53 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:42:03 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	update_or_add(t_env **env_list, const char *name, const char *value);
 void	ft_env(t_minishell *data);
 //-> ft_export
 void	ft_printf_export(t_minishell *data);
+void	ft_SHLVL(t_minishell *data);
 
 //-> ft_unset
 void 	unset_env_var(t_env **env_list, const char *name);

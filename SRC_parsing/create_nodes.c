@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:14:14 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/29 18:42:08 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:43:34 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ void	create_nodes(t_minishell *data)
 	{
 		if (tab[i] == '\'' || tab[i] == '"')
 		{
-			quote = tab[i];
-			i++;
+			quote = tab[i++];
 			while (tab[i] != quote)
 				i++;
 		}

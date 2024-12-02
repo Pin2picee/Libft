@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:59:14 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/29 21:02:35 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:42:41 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ void	init_data(t_minishell *data)
 	data->prompt = NULL;
 	data->var = NULL;
 	data->start_node = NULL;
+	ft_SHLVL(data);
 }
 

@@ -6,11 +6,34 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:19:16 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/29 21:17:58 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:43:26 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+// ajoute 1 au SHLVL a la creation du minishell
+
+void	ft_SHLVL(t_minishell *data)
+{
+	int	i;
+	t_env	*current;
+	int	tmp;
+	
+	current = data->var;
+	
+	while (current)
+	{
+		if (ft_strncmp("SHLVL", current->key, ft_strlen(current->key)))
+		{
+			tmp = ft_atoi(current->value) + 1;
+			free(current->value);
+			current->value = ft_itoa(tmp);
+			return ;
+		}
+		current = current->next;
+	}
+}
 
 t_env	*create_var(char *key, const char *value)
 {
