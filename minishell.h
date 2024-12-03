@@ -194,5 +194,6 @@ void 	manage_pipe_parent(t_minishell *data, int param);
 void	manage_pipe_fork(t_minishell *data, t_node **node);
 void    create_fork(t_minishell *data, t_node **node, pid_t *pid);
 void    close_pipe_fork(t_minishell *data, t_node *node, int param, int i);
+void	setup2(t_minishell *data);
 
 #endif

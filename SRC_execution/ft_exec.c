@@ -91,6 +91,9 @@ void	ft_exec(t_minishell *data, t_node *node) // To add to .h
 
 int	ft_pre_exec(t_minishell *data)
 {
+	int	child_pid;
+
+	child_pid = 0;
 	data->current_node = data->start_node;
 	if (data->node_nbr > 1)
 		manage_pipe_parent(data, 0);
@@ -99,11 +102,13 @@ int	ft_pre_exec(t_minishell *data)
 		manage_pipe_parent(data, 1);
 	else if (data->pid == 0)
 		ft_exec(data, data->current_node);
-	waitpid(-1, &data->status, 0);
+	//waitpid(-1, &data->status, 0);
+	while ((child_pid = waitpid(-1, &data->status, 0)) > 0);
 	if (data->node_nbr > 1)
 		free(data->pipe_tab);
 	data->pipe_tab = NULL;
 	data->pid = -2;
+	data->status = 0;
 	dup2(0, data->fd_stdin);
 	dup2(1, data->fd_stdout);
 	return (0);
@@ -118,7 +123,8 @@ define hook-stop
 refresh
 end
 refresh
-
+n
+n
 
 set detach-on-fork off
 set follow-fork-mode child

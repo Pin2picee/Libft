@@ -100,7 +100,7 @@ void	setup(t_minishell *data, char **envp, int i)
 		}
 		i++;
 	}
-	setup2(data);
+	convert_env_to_tab(data);
 	print_art();// fonction qui affiche le debut de  notre minishell en beaute
 }
 

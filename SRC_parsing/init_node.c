@@ -35,5 +35,7 @@ void	init_data(t_minishell *data)
 	data->var = NULL;
 	data->start_node = NULL;
 	ft_SHLVL(data);
+	setup2(data);
+	
 }
 
