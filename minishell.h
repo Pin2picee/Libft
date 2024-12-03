@@ -33,17 +33,6 @@ extern int	signal_handler;
 
 struct	s_minishell;
 
-typedef enum es_bin
-{
-	ECHO,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT
-}	t_e_bin;
-
 typedef struct s_env
 {
 	char	*key;
@@ -60,7 +49,6 @@ typedef struct s_nodes
 	int	fd_out;
 	int	pos; // ADDED
 	char	*cmd_path; // ADDED
-	t_e_bin	cmd_type;	// ADDED
 	char	*command;
 	char	**split;
 	struct	s_nodes *next;
@@ -186,10 +174,9 @@ void	ft_reset(t_minishell *data);// reset dans la boucle juste ma ligne et les n
 void	free_all(t_minishell *data);// reset tout pour CTRL + D et exit // suppr env et tout ca
 
 /*------A TRIER-----------*/
-int		ft_pre_exec(t_minishell *data);
-void	ft_exec(t_minishell *data, t_node *node);
+void	ft_exec(t_minishell *data);
 int		check_builtin(t_node *node, char *cmd);
-int		check_execve(t_minishell *data, char *cmd, t_node *current);
+void	check_execve(t_minishell *data, char *cmd, t_node *current);
 void 	manage_pipe_parent(t_minishell *data, int param);
 void	manage_pipe_fork(t_minishell *data, t_node **node);
 void    create_fork(t_minishell *data, t_node **node, pid_t *pid);

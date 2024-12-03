@@ -43,7 +43,7 @@ void    ft_exit_handler(t_node *node, int tmp_nb)
 void    ft_exit(t_node *node)
 {
 	if (node->data->start_node->next != NULL)// si pipe alors rien faire juste exit le processus enfant
-		exit(0);
+		return ;
 	else
 		ft_exit_handler(node, 0);
 

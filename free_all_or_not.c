@@ -84,13 +84,6 @@ void	free_all(t_minishell *data)
 		current = tmp; // je point sur le prochain
 	}
 	current_var = data->var;
-		while (current_var)
-		{
-			free_node_env(current_var);// free le contenu
-			tmp_var = current_var->next;// un tmp sur le prochain
-			free(current_var);//free le noeud
-			current_var = tmp_var;// mon pointeur = au prochaine
-		}
 	free_env_vars(data);//free env
 	free_tab(data->export);// free export
 }

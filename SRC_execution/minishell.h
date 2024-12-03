@@ -182,10 +182,9 @@ void	ft_reset(t_minishell *data);// reset dans la boucle juste ma ligne et les n
 void	free_all(t_minishell *data);// reset tout pour CTRL + D et exit // suppr env et tout ca
 
 /*------A TRIER-----------*/
-int		ft_pre_exec(t_minishell *data);
-void	ft_exec(t_minishell *data, t_node *node);
+int		ft_exec(t_minishell *data);
 int		check_builtin(t_node *node, char *cmd);
-int		check_execve(t_minishell *data, char *cmd, t_node *current);
+void	check_execve(t_minishell *data, char *cmd, t_node *current);
 void 	manage_pipe_parent(t_minishell *data, int param);
 void	manage_pipe_fork(t_minishell *data, t_node **node);
 void    create_fork(t_minishell *data, t_node **node, pid_t *pid);

@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-int	check_execve(t_minishell *data, char *cmd, t_node *current)
+void	check_execve(t_minishell *data, char *cmd, t_node *current)
 {
 	int	i;
 	int	found;
@@ -27,7 +27,7 @@ int	check_execve(t_minishell *data, char *cmd, t_node *current)
 	while (curr_env && strncmp(curr_env->key, "PATH", 4) != 0)
 	{
 		if (!curr_env)
-			return (0);
+			return ;
 		curr_env = curr_env->next;
 	}
 	all_path = ft_split(curr_env->value, ':');
@@ -49,47 +49,55 @@ int	check_execve(t_minishell *data, char *cmd, t_node *current)
 		free(all_path[i]);
 	free(all_path);
 	if (found != 0)
-		return (0);
-	return (1);
+		return ;
+	execve(current->cmd_path, current->split, data->envp);
 }
 
 int	check_builtin(t_node *node, char *cmd) // To add to .h
 {
-	if (strcmp(cmd, "echo") == 0)
-		node->cmd_type = ECHO;
-	else if (strcmp(cmd, "cd") == 0)
-		node->cmd_type = CD;
-	else if (strcmp(cmd, "pwd") == 0)
-		node->cmd_type = PWD;
-	else if (strcmp(cmd, "export") == 0)
-		node->cmd_type = EXPORT;
-	else if (strcmp(cmd, "unset") == 0)
-		node->cmd_type = UNSET;
-	else if (strcmp(cmd, "env") == 0)
-		node->cmd_type = ENV;
-	else if (strcmp(cmd, "exit") == 0)
-		node->cmd_type = EXIT;
+	// if (strcmp(cmd, "echo") == 0)
+	// 	ft_echo()
+	// else if (strcmp(cmd, "cd") == 0)
+	// 	ft_cd();
+	// else if (strcmp(cmd, "pwd") == 0)
+	// 	ft_pwd();
+	// else if (strcmp(cmd, "export") == 0)
+	// 	ft_export();
+	// else if (strcmp(cmd, "unset") == 0)
+	// 	ft_unset();
+	// else if (strcmp(cmd, "env") == 0)
+	// 	ft_env
+	if (strcmp(cmd, "exit") == 0)
+		ft_exit(node);
 	else
 		return (0);
 	return (1);
 }
 
-void	ft_exec(t_minishell *data, t_node *node) // To add to .h
+void    create_fork(t_minishell *data, t_node **node, pid_t *pid) // To add to .h / manage_pipe_and_fork
 {
-	int type;
-	int	i;
-
-	i = 0;
-	manage_pipe_fork(data, &node);
-	if (check_builtin(node, node->split[0]) == 1)
-		exit(0);
-	else if (check_execve(data, node->split[0], node) == 1)
-		execve(node->cmd_path, node->split, data->envp);
-	else
-		exit(0);
+    while (*node && *pid != 0)
+    {
+        if (*pid > 0)
+            (*node) = (*node)->next;
+        if (*pid > 0 && !(*node))
+            return;
+        if (*pid != 0)
+		{
+			if (check_builtin(*node, (*node)->split[0]) == 1)
+			{
+				(*node) = (*node)->next;
+				continue ;
+			}
+			*pid = fork();
+		}
+		if (*pid == -1)
+            exit(0);
+        usleep(50);
+    }
 }
 
-int	ft_pre_exec(t_minishell *data)
+void	ft_exec(t_minishell *data)
 {
 	int	child_pid;
 
@@ -101,8 +109,10 @@ int	ft_pre_exec(t_minishell *data)
 	if (data->pid != 0 && data->node_nbr > 1)
 		manage_pipe_parent(data, 1);
 	else if (data->pid == 0)
-		ft_exec(data, data->current_node);
-	//waitpid(-1, &data->status, 0);
+	{
+		manage_pipe_fork(data, &data->current_node);
+		check_execve(data, data->current_node->split[0], data->current_node);
+	}
 	while ((child_pid = waitpid(-1, &data->status, 0)) > 0);
 	if (data->node_nbr > 1)
 		free(data->pipe_tab);
@@ -111,7 +121,7 @@ int	ft_pre_exec(t_minishell *data)
 	data->status = 0;
 	dup2(0, data->fd_stdin);
 	dup2(1, data->fd_stdout);
-	return (0);
+	return ;
 }
 
 /*

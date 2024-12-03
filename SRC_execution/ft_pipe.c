@@ -85,22 +85,6 @@ void    manage_pipe_fork(t_minishell *data, t_node **node) // To add to .h / man
     //close((*node)->fd_out);
 }
 
-void    create_fork(t_minishell *data, t_node **node, pid_t *pid) // To add to .h / manage_pipe_and_fork
-{
-    while (*node && *pid != 0)
-    {
-        if (*pid > 0)
-            (*node) = (*node)->next;
-        if (*pid > 0 && !(*node))
-            return;
-        if (*pid != 0)
-            *pid = fork();
-        if (*pid == -1)
-            exit(0);
-        usleep(50);
-    }
-}
-
 void manage_pipe_parent(t_minishell *data, int param) // To add  to .h / manage_pipe_tab
 {
     int i;

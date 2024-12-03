@@ -72,7 +72,7 @@ int	main(int argc, char **argv, char **envp)
 				ft_unset(data.start_node);
 			else if (!ft_strncmp(data.start_node->split[0], "pwd", ft_strlen(data.start_node->split[0])))
 				ft_pwd();*/
-			ft_pre_exec(&data);
+			ft_exec(&data);
 		}
 		ft_reset(&data);//renitialise la data.line / les noeuds et les free
 	}

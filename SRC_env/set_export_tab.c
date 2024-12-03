@@ -55,9 +55,9 @@ size_t    fill_tab_element(char **tab, t_env *current, size_t i)
     size_t    key_len;
     size_t    value_len;
 
-    key_len = strlen(current->key);
+    key_len = ft_strlen(current->key);
     if (current->value)
-        value_len = strlen(current->value);
+        value_len = ft_strlen(current->value);
     else
         value_len = 0;
     if (current->value)
@@ -72,9 +72,8 @@ size_t    fill_tab_element(char **tab, t_env *current, size_t i)
     ft_strlcpy(tab[i], current->key, key_len + 1);
     if (current->value)
     {
-        ft_strlcat(tab[i], "=\"", key_len + 3);
+        ft_strlcat(tab[i], "=", key_len + 3);
         ft_strlcat(tab[i], current->value, key_len + value_len + 3);
-        ft_strlcat(tab[i], "\"", key_len + value_len + 4);
     }
     return (i + 1);
 }
