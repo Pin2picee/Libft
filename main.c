@@ -64,15 +64,15 @@ int	main(int argc, char **argv, char **envp)
 		add_history(data.line);
 		if (!parsing(&data))
 		{
-			if (!ft_strncmp(data.start_node->split[0], "export", ft_strlen(data.start_node->split[0])))
+			/*if (!ft_strncmp(data.start_node->split[0], "export", ft_strlen(data.start_node->split[0])))
 				ft_export(data.start_node);
 			else if (!ft_strncmp(data.start_node->split[0], "env", ft_strlen(data.start_node->split[0])))
 				ft_env(&data);
 			else if (!ft_strncmp(data.start_node->split[0], "unset", ft_strlen(data.start_node->split[0])))
 				ft_unset(data.start_node);
 			else if (!ft_strncmp(data.start_node->split[0], "pwd", ft_strlen(data.start_node->split[0])))
-				ft_pwd();
-			//execution(&data);
+				ft_pwd();*/
+			ft_pre_exec(&data);
 		}
 		ft_reset(&data);//renitialise la data.line / les noeuds et les free
 	}

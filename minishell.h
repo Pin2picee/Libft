@@ -33,6 +33,17 @@ extern int	signal_handler;
 
 struct	s_minishell;
 
+typedef enum es_bin
+{
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT
+}	t_e_bin;
+
 typedef struct s_env
 {
 	char	*key;
@@ -47,8 +58,11 @@ typedef struct s_nodes
 	char *hd;// Adil la modif ancien -> hd_end
 	int	fd_in;
 	int	fd_out;
+	int	pos; // Added
 	char	*command;
+	char	*cmd_path; // ADDED
 	char	**split;
+	t_e_bin	cmd_type;	// ADDED
 	struct	s_nodes *next;
 	struct s_minishell	*data;
 }				t_node;
@@ -56,6 +70,9 @@ typedef struct s_nodes
 // chaques noeuds est un entre pipe 
 typedef struct	s_minishell
 {
+	int		node_nbr; // ADDED
+	int		(*pipe_tab)[2]; // ADDED
+	t_node	*current_node; // ADDED
 	char	*line;
 	int		exit_code;
 	char	**envp;
@@ -158,5 +175,14 @@ void 	print_art(void);
 /*------FREE-----------*/
 void	ft_reset(t_minishell *data);// reset dans la boucle juste ma ligne et les noeuds
 void	free_all(t_minishell *data);// reset tout pour CTRL + D et exit // suppr env et tout ca
+
+/*------A TRIER-----------*/
+int		ft_pre_exec(t_minishell *data);
+void	ft_exec(t_minishell *data, t_node *node);
+int		check_builtin(t_node *node, char *cmd);
+int		check_execve(t_minishell *data, char *cmd, t_node *current);
+void 	manage_pipe_tab(t_minishell *data, int param);
+void    manage_pipe_and_fork(t_minishell *data, t_node **node, int param, pid_t *pid);
+void    close_pipe_fork(t_minishell *data, t_node *node, int param);
 
 #endif
