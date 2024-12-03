@@ -77,6 +77,7 @@ typedef struct	s_minishell
 	int	status; // ADDED
 	int	fd_stdin; //ADDED
 	int fd_stdout; // ADDED
+	t_node  *current_node; // ADDED
 	char	*line;
 	int		exit_code;
 	char	**envp;
@@ -115,11 +116,6 @@ int		split_minishell(t_node *node, char *sep, int i, int	j);
 char	*ft_clean_tab(char *str, int len, t_minishell *data);
 void	init_data(t_minishell *data);
 void	init_node(t_node *node);
-int		putnbr_in_tab(t_minishell *data, char *tab);
-int	chr_quotes_or_d(char *str);
-int	var_len(char *str, t_minishell *data, int *len);
-int	quotes_len(char *str, char quote, t_minishell *data, int *len);
-void	dollar_handler(char *str, int *len, t_minishell * data, int *i);
 
 
 /*- - - SRC_ENV - - -*/
@@ -133,7 +129,7 @@ void	free_tab(char **export);
 //-> set_env.c
 t_env	*create_var(char *key, const char *value);
 t_env	*get_env_var(t_env *var_data, const char *key);
-void	setup(t_minishell *data, char **envp, int i);
+void	setup(t_minishell *data, char **envp);
 
 
 //-> set_export_utils.c

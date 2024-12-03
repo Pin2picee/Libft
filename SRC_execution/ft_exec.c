@@ -80,7 +80,7 @@ void	ft_exec(t_minishell *data, t_node *node) // To add to .h
 	int	i;
 
 	i = 0;
-	//manage_pipe_and_fork(data, &node, 1, NULL);
+	manage_pipe_fork(data, &node);
 	if (check_builtin(node, node->split[0]) == 1)
 		exit(0);
 	else if (check_execve(data, node->split[0], node) == 1)
@@ -91,30 +91,21 @@ void	ft_exec(t_minishell *data, t_node *node) // To add to .h
 
 int	ft_pre_exec(t_minishell *data)
 {
-	pid_t   pid;
-	t_node  *current_node;
-	int	status;
-	int	fd_stdin;
-	int fd_stdout;
-
-	pid = -2;
-	status = 0;
-	fd_stdin = 0;
-	fd_stdout = 1;
-	current_node = data->start_node;
+	data->current_node = data->start_node;
 	if (data->node_nbr > 1)
-		manage_pipe_tab(data, 0);
-	manage_pipe_and_fork(data, &current_node, 0, &pid);
-	if (pid != 0 && data->node_nbr > 1)
-		manage_pipe_tab(data, 1);
-	else if (pid == 0)
-		ft_exec(data, current_node);
-	waitpid(-1, &status, 0);
-	dup2(0, fd_stdin);
-	dup2(1, fd_stdout);
+		manage_pipe_parent(data, 0);
+	create_fork(data, &data->current_node, &data->pid);
+	if (data->pid != 0 && data->node_nbr > 1)
+		manage_pipe_parent(data, 1);
+	else if (data->pid == 0)
+		ft_exec(data, data->current_node);
+	waitpid(-1, &data->status, 0);
 	if (data->node_nbr > 1)
 		free(data->pipe_tab);
 	data->pipe_tab = NULL;
+	data->pid = -2;
+	dup2(0, data->fd_stdin);
+	dup2(1, data->fd_stdout);
 	return (0);
 }
 
@@ -127,14 +118,7 @@ define hook-stop
 refresh
 end
 refresh
-n
-n
-n
-n
-n
-n
-n
-n
+
 
 set detach-on-fork off
 set follow-fork-mode child

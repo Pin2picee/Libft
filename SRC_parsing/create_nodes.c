@@ -50,6 +50,7 @@ void	append_nodes(t_minishell *data, int start, int end, char *tab)
 		return ;
 	new_node->fd_in = 0;
 	new_node->fd_out = 1;
+	new_node->pos = data->node_nbr;
 	new_node->next = NULL;
 	new_node->hd = NULL;
 	new_node->data = data;
@@ -70,6 +71,7 @@ void	create_nodes(t_minishell *data)
 	int	last;
 	char	quote;
 	
+	data->node_nbr = 1;
 	last = 0;
 	i = 0;
 	tab = data->line;
@@ -85,6 +87,7 @@ void	create_nodes(t_minishell *data)
 		if (tab[i] == '|')
 		{
 			append_nodes(data, last, i, tab);
+			data->node_nbr++;
 			last = i + 1;
 		}
 		i++;

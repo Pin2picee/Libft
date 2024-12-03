@@ -30,14 +30,12 @@ all : $(Name)
 $(Name): $(SRC_OBJ)
 	$(CC) $(FLAGS) $(SRC_OBJ) -lreadline -o $(Name)
 	@echo -n "$(GREEN)CREATION DE L'EXECUTABLE ->  minishell ...$(RESET)\n"
-	sleep 1
 	@$(PRINT_LOADING_BY_ADIL)
 	@echo -n "$(GREEN)SUCESS $(RESET)\n"
 
 clean :
 	rm -rf $(SRC_OBJ)
 	@echo -n "$(GREEN)cleaning up ...$(RESET)\n"
-	sleep 1
 	@echo -n "$(GREEN)Sucess$(RESET)\n"
 
 fclean : clean

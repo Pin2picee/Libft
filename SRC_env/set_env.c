@@ -66,12 +66,19 @@ t_env	*get_env_var(t_env *var_data, const char *key)
 	return (NULL);
 }
 
+void	setup2(t_minishell *data)
+{
+	data->pid = -2;
+	data->status = 0;
+	data->fd_stdin = 0;
+	data->fd_stdout = 1;
+}
+
 // fonction qui init env , setup le signal et affiche GLUANT
-void	setup(t_minishell *data, char **envp)
+void	setup(t_minishell *data, char **envp, int i)
 {
 	t_env	*current;
 	t_env	*new_var;
-	int		i;
 	char	*equal_sign;
 
 	i = 0;
@@ -93,8 +100,8 @@ void	setup(t_minishell *data, char **envp)
 		}
 		i++;
 	}
+	setup2(data);
 	print_art();// fonction qui affiche le debut de  notre minishell en beaute
 }
 
 // inclure le signe egale dans la key.
-

@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc != 1)
 		return (perror("Error\n"), 1);
-	setup(&data, envp);
+	setup(&data, envp, 0);
 	while (1)
 	{
 		print_prompt(&data);

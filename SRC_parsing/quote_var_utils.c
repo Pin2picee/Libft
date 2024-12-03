@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 int	putnbr_in_tab(t_minishell *data, char *tab)
 {
