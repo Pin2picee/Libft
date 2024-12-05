@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/27 13:44:23 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/05 21:46:44 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	do_fd(char *filename, int option, t_node *node,int len)
 		free(Error);
 		free(filename);
 		node->data->exit_code = 1;
-		exit(node->data->exit_code);
 	}
 	if (option == 4)
 		ft_here_doc(filename, node);//TODO -> 

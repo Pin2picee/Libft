@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhallou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 15:34:32 by nhallou           #+#    #+#             */
-/*   Updated: 2024/11/19 15:34:33 by nhallou          ###   ########.fr       */
+/*   Updated: 2024/12/05 22:03:32 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,20 @@
 
 void		manage_status(t_minishell *data)
 {
-
+	int signal_num;
+	
+	if (WIFEXITED(data->status)) 
+	{
+		// Si le fils s'est terminé normalement
+		data->exit_code = WEXITSTATUS(data->status);
+	}
+	else if (WIFSIGNALED(data->status))
+	{
+		// Si le fils a été tué par un signal
+		signal_num = WTERMSIG(data->status);
+		if (signal_num == SIGINT) 
+			data->exit_code = 130;
+	}
 }
 
 static void	reset_data(t_minishell *data)
@@ -98,12 +111,12 @@ void    manage_fork(t_minishell *data, t_node **node, pid_t *pid) // To add to .
 	if (data->node_nbr == 1 && manage_builtin(data, *node, (*node)->split[0]))
 		return ;
 	while (*node && *pid != 0)
-    {
-        if (*pid > 0)
-            (*node) = (*node)->next;
-        if (*pid > 0 && !(*node))
-            return;
-        if (*pid != 0)
+	{
+		if (*pid > 0)
+			(*node) = (*node)->next;
+		if (*pid > 0 && !(*node))
+			return;
+		if (*pid != 0)
 		{
 			*pid = fork();
 			if (*pid == 0)
@@ -120,8 +133,8 @@ void    manage_fork(t_minishell *data, t_node **node, pid_t *pid) // To add to .
 			}
 		}
 		if (*pid == -1)
-            exit(0); // Gestion d'erreur
-    }
+			exit(0); // Gestion d'erreur
+	}
 }
 
 void	ft_exec(t_minishell *data)
