@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nhallou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/14 17:11:23 by nhallou           #+#    #+#             */
+/*   Updated: 2024/11/14 17:11:24 by nhallou          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../minishell.h"
 
-void	ft_pwd(t_minishell *data)
+void	ft_pwd(void)
 {
-	char	*buffer;
+	char	cwd[PATH_MAX];
 
-	buffer = getcwd(NULL, 0);
-	printf("%s\n", buffer);
-	free(buffer);
-	data->exit_code = 0;
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		printf("%s\n", cwd);
+	else
+		printf("%s\n", "PWD ERROR");
 }

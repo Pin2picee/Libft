@@ -65,6 +65,7 @@ typedef struct	s_minishell
 	int	status; // ADDED
 	int	fd_stdin; //ADDED
 	int fd_stdout; // ADDED
+	int	child_pid; //ADDED
 	char	*line;
 	int		exit_code;
 	char	**envp;
@@ -157,10 +158,11 @@ void    setups_signals(void);
 
 /*---BULTINS---*/
 void	ft_echo(t_node *node);
+void	ft_cd(t_minishell *data, t_node *current_node);
 void	ft_env(t_minishell *data);
 void    ft_exit(t_node *node);
 void	ft_export(t_node *node, int i);
-void	ft_pwd(t_minishell *data);
+void	ft_pwd();
 void 	ft_unset(t_node *node);
 
 
@@ -175,12 +177,11 @@ void	free_all(t_minishell *data);// reset tout pour CTRL + D et exit // suppr en
 
 /*------A TRIER-----------*/
 void	ft_exec(t_minishell *data);
-int		check_builtin(t_node *node, char *cmd);
-void	check_execve(t_minishell *data, char *cmd, t_node *current);
+int		manage_builtin(t_minishell *data, t_node *node, char *cmd);
+int		manage_execve(t_minishell *data, char *cmd, t_node *current);
 void 	manage_pipe_parent(t_minishell *data, int param);
-void	manage_pipe_fork(t_minishell *data, t_node **node);
-void    create_fork(t_minishell *data, t_node **node, pid_t *pid);
-void    close_pipe_fork(t_minishell *data, t_node *node, int param, int i);
-void	setup2(t_minishell *data);
+void	manage_pipe(t_minishell *data, t_node **node);
+void    manage_fork(t_minishell *data, t_node **node, pid_t *pid);
+void    close_pipe(t_minishell *data, t_node *node, int param, int i);
 
 #endif

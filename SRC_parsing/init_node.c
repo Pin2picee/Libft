@@ -34,8 +34,10 @@ void	init_data(t_minishell *data)
 	data->prompt = NULL;
 	data->var = NULL;
 	data->start_node = NULL;
-	ft_SHLVL(data);
-	setup2(data);
-	
+	data->pid = -2;
+	data->status = 0;
+	data->fd_stdin = 0;
+	data->fd_stdout = 1;
+	data->child_pid = 0;
 }
 

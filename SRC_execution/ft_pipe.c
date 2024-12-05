@@ -13,7 +13,7 @@
 #include "../minishell.h"
 
 
-void    close_pipe_fork(t_minishell *data, t_node *node, int param, int i) // To add to .h
+void    close_pipe(t_minishell *data, t_node *node, int param, int i) // To add to .h
 {
     i = 0;
     if (param == 1)
@@ -54,19 +54,19 @@ void    close_pipe_fork(t_minishell *data, t_node *node, int param, int i) // To
     }
 }
 
-void    manage_pipe_fork(t_minishell *data, t_node **node) // To add to .h / manage_pipe_and_fork
+void    manage_pipe(t_minishell *data, t_node **node) // To add to .h / manage_pipe_and_fork
 {
     if (data->node_nbr > 1)
     {
         if ((*node) == data->start_node)
         {
-            close_pipe_fork(data, (*node), 1, 0);
+            close_pipe(data, (*node), 1, 0);
             dup2(data->pipe_tab[((*node)->pos - 1)][1], 1);
             close(data->pipe_tab[((*node)->pos - 1)][1]);
         }
         else if ((*node)->next && (*node) != data->start_node)
         {
-            close_pipe_fork(data, (*node), 2, 0);
+            close_pipe(data, (*node), 2, 0);
             dup2(data->pipe_tab[((*node)->pos - 2)][0], 0);
             dup2(data->pipe_tab[((*node)->pos - 1)][1], 1);
             close(data->pipe_tab[((*node)->pos - 2)][0]);
@@ -74,7 +74,7 @@ void    manage_pipe_fork(t_minishell *data, t_node **node) // To add to .h / man
         }
         else if     (!(*node)->next)
         {
-            close_pipe_fork(data, (*node), 3, 0);
+            close_pipe(data, (*node), 3, 0);
             dup2(data->pipe_tab[((*node)->pos - 2)][0], 0);
             close(data->pipe_tab[((*node)->pos - 2)][0]);
         }
@@ -90,26 +90,29 @@ void manage_pipe_parent(t_minishell *data, int param) // To add  to .h / manage_
     int i;
 
     i = 0;
-    if (param == 0 && data->node_nbr > 1)
+    if (data->node_nbr > 1 && data->pid != 0)
     {
-        data->pipe_tab = calloc((data->node_nbr - 1), sizeof(int[2]));
-        while (i < data->node_nbr - 1)
+        if (param == 0 && data->node_nbr > 1)
         {
-            if (pipe(data->pipe_tab[i]) == -1)
+            data->pipe_tab = calloc((data->node_nbr - 1), sizeof(int[2]));
+            while (i < data->node_nbr - 1)
             {
-                perror("Pipe error");
-                exit(EXIT_FAILURE);
+                if (pipe(data->pipe_tab[i]) == -1)
+                {
+                    perror("Pipe error");
+                    exit(EXIT_FAILURE);
+                }
+                i++;
             }
-            i++;
         }
-    }
-    else if (param == 1 && data->node_nbr > 1)
-    {
-        while (i < data->node_nbr - 1)
+        else if (param == 1 && data->node_nbr > 1)
         {
-            close(data->pipe_tab[i][0]);
-            close(data->pipe_tab[i][1]);
-            i++;
+            while (i < data->node_nbr - 1)
+            {
+                close(data->pipe_tab[i][0]);
+                close(data->pipe_tab[i][1]);
+                i++;
+            }
         }
     }
 }

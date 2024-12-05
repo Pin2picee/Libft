@@ -40,7 +40,6 @@ int	empty_line(t_minishell *data)
 
 void	print_prompt(t_minishell *data)
 {
-		ft_SHLVL(data);
 		data->prompt = get_prompt();// recup le prompt
 		data->line = readline(data->prompt);// un input avec l'affichage du prompt
 		free(data->prompt);
@@ -63,17 +62,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		add_history(data.line);
 		if (!parsing(&data))
-		{
-			/*if (!ft_strncmp(data.start_node->split[0], "export", ft_strlen(data.start_node->split[0])))
-				ft_export(data.start_node);
-			else if (!ft_strncmp(data.start_node->split[0], "env", ft_strlen(data.start_node->split[0])))
-				ft_env(&data);
-			else if (!ft_strncmp(data.start_node->split[0], "unset", ft_strlen(data.start_node->split[0])))
-				ft_unset(data.start_node);
-			else if (!ft_strncmp(data.start_node->split[0], "pwd", ft_strlen(data.start_node->split[0])))
-				ft_pwd();*/
 			ft_exec(&data);
-		}
 		ft_reset(&data);//renitialise la data.line / les noeuds et les free
 	}
 	free_all(&data);// free tous ma data et mes noeuds .

@@ -24,7 +24,7 @@ void	ft_SHLVL(t_minishell *data)
 	
 	while (current)
 	{
-		if (ft_strncmp("SHLVL", current->key, ft_strlen(current->key)))
+		if (ft_strncmp("SHLVL", current->key, ft_strlen(current->key)) == 0)
 		{
 			tmp = ft_atoi(current->value) + 1;
 			free(current->value);
@@ -66,14 +66,6 @@ t_env	*get_env_var(t_env *var_data, const char *key)
 	return (NULL);
 }
 
-void	setup2(t_minishell *data)
-{
-	data->pid = -2;
-	data->status = 0;
-	data->fd_stdin = 0;
-	data->fd_stdout = 1;
-}
-
 // fonction qui init env , setup le signal et affiche GLUANT
 void	setup(t_minishell *data, char **envp, int i)
 {
@@ -81,12 +73,12 @@ void	setup(t_minishell *data, char **envp, int i)
 	t_env	*new_var;
 	char	*equal_sign;
 
-	i = 0;
+	i = -1;
 	current = NULL;
 	data->var = NULL;
 	setups_signals();
 	init_data(data);
-	while (envp[i])
+	while (envp[++i])
 	{
 		equal_sign = strchr(envp[i], '=');
 		if (equal_sign)
@@ -98,8 +90,8 @@ void	setup(t_minishell *data, char **envp, int i)
 				current->next = new_var;
 			current = new_var;
 		}
-		i++;
 	}
+	ft_SHLVL(data);
 	convert_env_to_tab(data);
 	print_art();// fonction qui affiche le debut de  notre minishell en beaute
 }

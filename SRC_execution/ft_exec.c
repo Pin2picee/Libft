@@ -12,7 +12,22 @@
 
 #include "../minishell.h"
 
-void	check_execve(t_minishell *data, char *cmd, t_node *current)
+void		manage_status(t_minishell *data)
+{
+
+}
+
+static void	reset_data(t_minishell *data)
+{
+	data->pipe_tab = NULL;
+	data->pid = -2;
+	data->status = 0;
+	data->child_pid = 0;
+	dup2(0, data->fd_stdin);
+	dup2(1, data->fd_stdout);
+}
+
+int	manage_execve(t_minishell *data, char *cmd, t_node *current)
 {
 	int	i;
 	int	found;
@@ -22,19 +37,19 @@ void	check_execve(t_minishell *data, char *cmd, t_node *current)
 
 	i = -1;
 	found = -1;
-	
+
 	curr_env = data->var;
-	while (curr_env && strncmp(curr_env->key, "PATH", 4) != 0)
+	while (curr_env && ft_strncmp(curr_env->key, "PATH", 4) != 0)
 	{
 		if (!curr_env)
-			return ;
+			return (0);
 		curr_env = curr_env->next;
 	}
 	all_path = ft_split(curr_env->value, ':');
 	i = -1;
 	while(all_path[++i])
 	{
-		cmd_path = ft_calloc(sizeof(char), strlen(all_path[i]) + strlen(cmd) + 2);
+		cmd_path = ft_calloc(sizeof(char), ft_strlen(all_path[i]) + ft_strlen(cmd) + 2);
 		cmd_path = strcat(cmd_path, all_path[i]);
 		cmd_path = strcat(cmd_path, "/");
 		cmd_path = strcat(cmd_path, cmd);
@@ -49,34 +64,40 @@ void	check_execve(t_minishell *data, char *cmd, t_node *current)
 		free(all_path[i]);
 	free(all_path);
 	if (found != 0)
-		return ;
-	execve(current->cmd_path, current->split, data->envp);
-}
-
-int	check_builtin(t_node *node, char *cmd) // To add to .h
-{
-	// if (strcmp(cmd, "echo") == 0)
-	// 	ft_echo()
-	// else if (strcmp(cmd, "cd") == 0)
-	// 	ft_cd();
-	// else if (strcmp(cmd, "pwd") == 0)
-	// 	ft_pwd();
-	// else if (strcmp(cmd, "export") == 0)
-	// 	ft_export();
-	// else if (strcmp(cmd, "unset") == 0)
-	// 	ft_unset();
-	// else if (strcmp(cmd, "env") == 0)
-	// 	ft_env
-	if (strcmp(cmd, "exit") == 0)
-		ft_exit(node);
-	else
 		return (0);
+	execve(current->cmd_path, current->split, data->envp);
 	return (1);
 }
 
-void    create_fork(t_minishell *data, t_node **node, pid_t *pid) // To add to .h / manage_pipe_and_fork
+int	manage_builtin(t_minishell *data, t_node *node, char *cmd) // To add to .h
 {
-    while (*node && *pid != 0)
+	if (strcmp(cmd, "echo") == 0)
+		 	ft_echo(node);
+	else if (strcmp(cmd, "cd") == 0)
+	 	ft_cd(data, node);
+	if (strcmp(cmd, "pwd") == 0)
+		ft_pwd();
+	else if (strcmp(cmd, "export") == 0)
+	 	ft_export(node, 1);
+	else if (strcmp(cmd, "unset") == 0)
+	 	ft_unset(node);
+	else if (strcmp(cmd, "env") == 0)
+	 	ft_env(data);
+	else if (strcmp(cmd, "exit") == 0)
+		ft_exit(node);
+	if (strcmp(cmd, "echo") == 0 || strcmp(cmd, "cd") == 0 ||
+		strcmp(cmd, "pwd") == 0 || strcmp(cmd, "export") == 0 ||
+		strcmp(cmd, "unset") == 0 || strcmp(cmd, "env") == 0 ||
+		strcmp(cmd, "exit") == 0)
+		return (1);
+	return (0);
+}
+
+void    manage_fork(t_minishell *data, t_node **node, pid_t *pid) // To add to .h / manage_pipe_and_fork
+{
+	if (data->node_nbr == 1 && manage_builtin(data, *node, (*node)->split[0]))
+		return ;
+	while (*node && *pid != 0)
     {
         if (*pid > 0)
             (*node) = (*node)->next;
@@ -84,58 +105,48 @@ void    create_fork(t_minishell *data, t_node **node, pid_t *pid) // To add to .
             return;
         if (*pid != 0)
 		{
-			if (check_builtin(*node, (*node)->split[0]) == 1)
-			{
-				(*node) = (*node)->next;
-				continue ;
-			}
 			*pid = fork();
+			if (*pid == 0)
+			{
+				manage_pipe(data, &data->current_node);
+				if (manage_builtin(data, *node, (*node)->split[0]))
+					exit(0);
+				else if (manage_execve(data, data->current_node->split[0], data->current_node))
+					exit (0) ; // Gestion d'erreur
+				else if (!access((*node)->split[0], F_OK))
+					execve((*node)->split[0], (*node)->split, data->envp);// dans le cas d'un executable
+				printf("Minishell : %s : command not found .\n", (*node)->split[0]);
+				exit(127);
+			}
 		}
 		if (*pid == -1)
-            exit(0);
-        usleep(50);
+            exit(0); // Gestion d'erreur
     }
 }
 
 void	ft_exec(t_minishell *data)
 {
-	int	child_pid;
-
-	child_pid = 0;
 	data->current_node = data->start_node;
-	if (data->node_nbr > 1)
-		manage_pipe_parent(data, 0);
-	create_fork(data, &data->current_node, &data->pid);
-	if (data->pid != 0 && data->node_nbr > 1)
-		manage_pipe_parent(data, 1);
-	else if (data->pid == 0)
-	{
-		manage_pipe_fork(data, &data->current_node);
-		check_execve(data, data->current_node->split[0], data->current_node);
-	}
-	while ((child_pid = waitpid(-1, &data->status, 0)) > 0);
+	manage_pipe_parent(data, 0);
+	manage_fork(data, &data->current_node, &data->pid);
+	manage_pipe_parent(data, 1);
+	while ((data->child_pid = waitpid(-1, &data->status, 0)) > 0);
+	manage_status(data);
 	if (data->node_nbr > 1)
 		free(data->pipe_tab);
-	data->pipe_tab = NULL;
-	data->pid = -2;
-	data->status = 0;
-	dup2(0, data->fd_stdin);
-	dup2(1, data->fd_stdout);
+	reset_data(data);
 	return ;
 }
 
 /*
 set follow-fork-mode parent
-b ft_pre_exec
+b ft_exec
 r
-ls | ls
+pwd | pwd
 define hook-stop
 refresh
 end
 refresh
-n
-n
-
 set detach-on-fork off
 set follow-fork-mode child
 

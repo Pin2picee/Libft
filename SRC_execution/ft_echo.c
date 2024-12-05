@@ -15,7 +15,9 @@ int is_bn(char *str)
 			i++;
 		}
 	}
-    return (1);
+	else
+		return (1);
+    return (0);
 }
 
 void	ft_echo(t_node *node)
@@ -24,17 +26,19 @@ void	ft_echo(t_node *node)
     int flag_n;
 
     flag_n = is_bn(node->split[1]);// est ce que option -n ?
-    if (flag_n == 1)
+    if (flag_n == 0)
         i = 2;
     else
         i = 1;
     while(node->split[i])
     {
         ft_putstr_fd(node->split[i], node->fd_out);
+        if (!node->split[i + 1])
+        	break ;
         write(1, " ", 1);
         i++;
     }
-    if(!flag_n)
+    if(flag_n)
         write(1, "\n", 1);
     node->data->exit_code = 0;
 }
