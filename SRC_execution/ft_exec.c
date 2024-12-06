@@ -50,7 +50,6 @@ int	manage_execve(t_minishell *data, char *cmd, t_node *current)
 
 	i = -1;
 	found = -1;
-
 	curr_env = data->var;
 	while (curr_env && ft_strncmp(curr_env->key, "PATH", 4) != 0)
 	{
@@ -122,6 +121,8 @@ void    manage_fork(t_minishell *data, t_node **node, pid_t *pid) // To add to .
 			if (*pid == 0)
 			{
 				manage_pipe(data, &data->current_node);
+				if (!(*node)->split)
+					exit(0);
 				if (manage_builtin(data, *node, (*node)->split[0]))
 					exit(0);
 				else if (manage_execve(data, data->current_node->split[0], data->current_node))
@@ -140,8 +141,6 @@ void    manage_fork(t_minishell *data, t_node **node, pid_t *pid) // To add to .
 void	ft_exec(t_minishell *data)
 {
 	data->current_node = data->start_node;
-	while (!data->current_node->split)
-		data->current_node++;
 	manage_pipe_parent(data, 0);
 	manage_fork(data, &data->current_node, &data->pid);
 	manage_pipe_parent(data, 1);
