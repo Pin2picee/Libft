@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 15:34:32 by nhallou           #+#    #+#             */
-/*   Updated: 2024/12/05 22:03:32 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/06 11:22:22 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,8 @@ void    manage_fork(t_minishell *data, t_node **node, pid_t *pid) // To add to .
 void	ft_exec(t_minishell *data)
 {
 	data->current_node = data->start_node;
+	while (!data->current_node->split)
+		data->current_node++;
 	manage_pipe_parent(data, 0);
 	manage_fork(data, &data->current_node, &data->pid);
 	manage_pipe_parent(data, 1);

@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/05 21:46:44 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/06 11:04:08 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	do_fd(char *filename, int option, t_node *node,int len)
 		free(Error);
 		free(filename);
 		node->data->exit_code = 1;
+		return ;
 	}
 	if (option == 4)
 		ft_here_doc(filename, node);//TODO -> 
@@ -76,7 +77,7 @@ void	clean_commands(t_node *node, int i, int j)
 	char	*str;
 
 	str = ft_calloc((int)ft_strlen(node->command) + 1, sizeof(char));
-	while (node->command[i])
+	while (i < ft_strlen(node->command) && node->command[i])
 	{
 		while (node->command[i] && ft_strchr("<>", node->command[i]))
 			ft_pass_redirection(node->command, &i);// une fonction qui passe le file et les redirections
@@ -104,7 +105,7 @@ void	redirections_handler(t_node *node)
 	int	check;
 	
 	i = 0;
-	while (node->command[i])
+	while (i < ft_strlen(node->command) && node->command[i])
 	{
 		if (node->command[i] == '"' || node->command[i] == '\'')
 			i = quote_chr(node->command, i) + 1;
