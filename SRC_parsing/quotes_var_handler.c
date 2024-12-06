@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:28:33 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/12/02 16:38:10 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:04:45 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	put_var_in_tab(char *str, char *tab, t_minishell *data, int *j)
 	
 	v_e = data->var;
 	i = 0;
+	//if (str[i] == '?')
+	//	putnbr_in_tab(data, tab	);
 	while(str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 		i++;
 	if (i == 0 && str[0])
@@ -64,59 +66,65 @@ int	put_var_in_tab(char *str, char *tab, t_minishell *data, int *j)
 	return (i);
 }
 
+int	handle_var(char *str, char *tab, t_minishell *data, int *i, int *j)
+{
+	if (str[*i] == '?')
+	{
+		(*i)++;
+		*j += putnbr_in_tab(data, &tab[*j]);
+		return (1);
+	}
+	*i += put_var_in_tab(&str[*i], tab, data, j);
+	return (0);
+}
+
+void	handle_quotes(char *str, char *tab, t_minishell *data, int *i, int *j)
+{
+	char	quote;
+
+	quote = str[(*i)++];
+	while (str[*i] && str[*i] != quote)
+	{
+		if (quote == '"' && str[*i] == '$')
+		{
+			(*i)++;
+			handle_var(str, tab, data, i, j);
+			*i += ft_count_num(data->exit_code);
+		}
+		else
+			tab[(*j)++] = str[(*i)++];
+	}
+	if (str[*i] == quote)
+		(*i)++;
+}
+
 char	*ft_clean_tab(char *str, int len, t_minishell *data)
 {
 	char	*tab;
-	int	i;
-	int	j;
-	char	quote;
-	
+	int		i;
+	int		j;
+
 	i = 0;
 	j = 0;
-	tab = ft_calloc(len + 2, sizeof(char));
+	tab = ft_calloc(len + 1, sizeof(char));
 	if (!tab)
 		return (NULL);
 	while (str[i])
 	{
-		while(str[i] == '$')
+		if (str[i] == '$')
 		{
 			i++;
-			if (str[i] == '?')
-			{
-				i++;
-				j += putnbr_in_tab(data, &tab[j]);
-			}
-			i += put_var_in_tab(&str[i], tab, data, &j);
+			handle_var(str, tab, data, &i, &j);
 		}
-		while(str[i] == '\'' || str[i] == '"')
-		{
-			quote = str[i++];
-			while(str[i] && str[i] != quote)
-			{
-				if (quote == str[i])
-				{
-					i++;
-					break;
-				}
-				while(quote == '"' && str[i] == '$')
-				{
-					i++;
-					i += put_var_in_tab(&str[i], tab, data, &j);
-				}
-				if (!(quote == '"' && str[i] == '$'))
-					tab[j++] = str[i++];
-				if (quote == str[i])
-				{
-					i++;
-					break;
-				}
-			}
-		}
-		if (!ft_strchr("\'\"", str[i]))
-				tab[j++] = str[i++];
+		else if (str[i] == '\'' || str[i] == '"')
+			handle_quotes(str, tab, data, &i, &j);
+		else if (str[i])
+			tab[j++] = str[i++];
 	}
-	return (free(str), tab);
+	free(str);
+	return (tab);
 }
+
 
 void	quotes_var_handler(char **tab, t_minishell *data)
 {
@@ -126,11 +134,17 @@ void	quotes_var_handler(char **tab, t_minishell *data)
 	char	quote;
 
 	i = 0;
+	data->exit_code = 1547;
 	while(tab[i])
 	{
 		len = 0;
 		tab_len(&tab[i][0], &len, data);
-		if (len ==  0 && ft_strchr(tab[i], '$'))
+		if (ft_strncmp(tab[i], "\"\"", 2) == 0 || ft_strncmp(tab[i], "''", 2) == 0)
+		{
+			free(tab[i]);
+			tab[i] = ft_calloc(1, 1);
+		}
+		else if (len ==  0 && (ft_strchr(tab[i], '$') || ft_strchr(tab[i], '\'') || ft_strchr(tab[i], '"')))
 			tab[i] = ft_clean_tab(tab[i], len, data);
 		else if (len != 0)
 			tab[i] = ft_clean_tab(tab[i], len, data);

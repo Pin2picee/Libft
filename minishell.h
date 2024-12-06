@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/02 16:42:03 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:41:43 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ char	*get_prompt(void);
 /*---PARSING---*/
 void	create_nodes(t_minishell *data);
 int		parsing(t_minishell *data);
+int		ft_count_num(int nb);
 int		quote_chr(char *str, int i);
 int		pre_parsing(char *line); // verif le retour de readline pour voir les erreur qotes et pipes
 int		parsing(t_minishell *data);
@@ -157,7 +158,7 @@ void    setups_signals(void);
 
 
 /*---BULTINS---*/
-void	ft_echo(t_node *node);
+void	ft_echo(t_minishell *data, int i, int j, int option);
 void	ft_cd(t_minishell *data, t_node *current_node);
 void	ft_env(t_minishell *data);
 void    ft_exit(t_node *node);
@@ -177,11 +178,13 @@ void	free_all(t_minishell *data);// reset tout pour CTRL + D et exit // suppr en
 
 /*------A TRIER-----------*/
 void	ft_exec(t_minishell *data);
-int		manage_builtin(t_minishell *data, t_node *node, char *cmd);
-int		manage_execve(t_minishell *data, char *cmd, t_node *current);
-void 	manage_pipe_parent(t_minishell *data, int param);
-void	manage_pipe(t_minishell *data, t_node **node);
-void    manage_fork(t_minishell *data, t_node **node, pid_t *pid);
-void    close_pipe(t_minishell *data, t_node *node, int param, int i);
+int		manage_builtin(t_minishell *data);
+int		manage_execve(t_minishell *data);
+void 	manage_pipe_parent(t_minishell *data, int param, int i);
+void    manage_pipe(t_minishell *data);
+void    manage_fork(t_minishell *data);
+void    close_pipe(t_minishell *data, int param, int i);
+void	unlink_hd(t_minishell *data);
+void	create_hd(t_minishell *data);
 
 #endif

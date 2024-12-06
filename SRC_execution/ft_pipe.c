@@ -3,22 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhallou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 17:11:23 by nhallou           #+#    #+#             */
-/*   Updated: 2024/11/14 17:11:24 by nhallou          ###   ########.fr       */
+/*   Updated: 2024/12/06 18:26:36 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-void    close_pipe(t_minishell *data, t_node *node, int param, int i) // To add to .h
+static void close_pipe_case_2(t_minishell *data, int i)
 {
-    i = 0;
+    close(data->pipe_tab[(data->current_node->pos - 2)][1]);
+    close(data->pipe_tab[(data->current_node->pos - 1)][0]);
+    while (i <= data->node_nbr - 2)
+    {
+        if (i == data->current_node->pos - 2)
+        {
+            i += 2;
+            continue;
+        }
+        close(data->pipe_tab[i][0]);
+        close(data->pipe_tab[i][1]);
+        i++;
+    }
+}
+
+void    close_pipe(t_minishell *data, int param, int i)
+{
     if (param == 1)
     {
-        close(data->pipe_tab[node->pos - 1][0]);
+        close(data->pipe_tab[data->current_node->pos - 1][0]);
         while (++i <= data->node_nbr - 2)
         {
             close(data->pipe_tab[i][0]);
@@ -26,26 +41,12 @@ void    close_pipe(t_minishell *data, t_node *node, int param, int i) // To add 
         }
     }
     else if (param == 2)
-    {
-        close(data->pipe_tab[(node->pos - 2)][1]);
-        close(data->pipe_tab[(node->pos - 1)][0]);
-        while (i <= data->node_nbr - 2)
-        {
-            if (i == node->pos - 2)
-            {
-                i += 2;
-                continue;
-            }
-            close(data->pipe_tab[i][0]);
-            close(data->pipe_tab[i][1]);
-            i++;
-        }
-    }
+        close_pipe_case_2(data, i);
     else if (param == 3)
     {
 
-        close(data->pipe_tab[node->pos - 2][1]);
-        while (i < node->pos - 2)
+        close(data->pipe_tab[data->current_node->pos - 2][1]);
+        while (i < data->current_node->pos - 2)
         {
             close(data->pipe_tab[i][0]);
             close(data->pipe_tab[i][1]);
@@ -54,64 +55,57 @@ void    close_pipe(t_minishell *data, t_node *node, int param, int i) // To add 
     }
 }
 
-void    manage_pipe(t_minishell *data, t_node **node) // To add to .h / manage_pipe_and_fork
+void    manage_pipe(t_minishell *data)
 {
     if (data->node_nbr > 1)
     {
-        if ((*node) == data->start_node)
+        if (data->current_node == data->start_node)
         {
-            close_pipe(data, (*node), 1, 0);
-            dup2(data->pipe_tab[((*node)->pos - 1)][1], 1);
-            close(data->pipe_tab[((*node)->pos - 1)][1]);
+            close_pipe(data, 1, 0);
+            dup2(data->pipe_tab[(data->current_node->pos - 1)][1], 1);
+            close(data->pipe_tab[(data->current_node->pos - 1)][1]);
         }
-        else if ((*node)->next && (*node) != data->start_node)
+        else if (data->current_node->next && data->current_node != data->start_node)
         {
-            close_pipe(data, (*node), 2, 0);
-            dup2(data->pipe_tab[((*node)->pos - 2)][0], 0);
-            dup2(data->pipe_tab[((*node)->pos - 1)][1], 1);
-            close(data->pipe_tab[((*node)->pos - 2)][0]);
-            close(data->pipe_tab[((*node)->pos - 1)][1]);
+            close_pipe(data, 2, 0);
+            dup2(data->pipe_tab[(data->current_node->pos - 2)][0], 0);
+            dup2(data->pipe_tab[(data->current_node->pos - 1)][1], 1);
+            close(data->pipe_tab[(data->current_node->pos - 2)][0]);
+            close(data->pipe_tab[(data->current_node->pos - 1)][1]);
         }
-        else if     (!(*node)->next)
+        else if     (!data->current_node->next)
         {
-            close_pipe(data, (*node), 3, 0);
-            dup2(data->pipe_tab[((*node)->pos - 2)][0], 0);
-            close(data->pipe_tab[((*node)->pos - 2)][0]);
+            close_pipe(data, 3, 0);
+            dup2(data->pipe_tab[(data->current_node->pos - 2)][0], 0);
+            close(data->pipe_tab[(data->current_node->pos - 2)][0]);
         }
     }
-    dup2((*node)->fd_in, 0);
-    dup2((*node)->fd_out, 1);
-    //close((*node)->fd_in);
-    //close((*node)->fd_out);
+    dup2(data->current_node->fd_in, 0);
+    dup2(data->current_node->fd_out, 1);
 }
 
-void manage_pipe_parent(t_minishell *data, int param) // To add  to .h / manage_pipe_tab
+void manage_pipe_parent(t_minishell *data, int param, int i)
 {
-    int i;
-
-    i = 0;
     if (data->node_nbr > 1 && data->pid != 0)
     {
         if (param == 0 && data->node_nbr > 1)
         {
             data->pipe_tab = calloc((data->node_nbr - 1), sizeof(int[2]));
-            while (i < data->node_nbr - 1)
+            while (++i < data->node_nbr - 1)
             {
                 if (pipe(data->pipe_tab[i]) == -1)
                 {
                     perror("Pipe error");
                     exit(EXIT_FAILURE);
                 }
-                i++;
             }
         }
         else if (param == 1 && data->node_nbr > 1)
         {
-            while (i < data->node_nbr - 1)
+            while (++i < data->node_nbr - 1)
             {
                 close(data->pipe_tab[i][0]);
                 close(data->pipe_tab[i][1]);
-                i++;
             }
         }
     }

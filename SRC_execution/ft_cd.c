@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhallou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 17:11:23 by nhallou           #+#    #+#             */
-/*   Updated: 2024/11/14 17:11:24 by nhallou          ###   ########.fr       */
+/*   Updated: 2024/12/06 19:10:52 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void ft_cd(t_minishell *data, t_node *current_node)
 {
 	char	*path;
 	int	i;
-
-	i = 0;
 	path = NULL;
     if (!current_node->split[1] ||
         strcmp(current_node->split[1], "~")  == 0)
@@ -38,10 +36,11 @@ void ft_cd(t_minishell *data, t_node *current_node)
         path = ft_strdup(current_node->split[1]);
 	if (path)
 	{
+        update_or_add(&data->var, "OLDPWD", (getcwd(NULL, 4096)));
 		chdir(path);
         free(path);
     }
-
+    update_or_add(&data->var, "PWD", (getcwd(NULL, 4096)));
     return ;
 }
 

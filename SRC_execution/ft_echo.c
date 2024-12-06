@@ -1,44 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/04 13:17:07 by nhallou           #+#    #+#             */
+/*   Updated: 2024/12/06 17:10:54 by abelmoha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int is_bn(char *str)
+void	ft_echo(t_minishell *data, int i, int j, int option)
 {
-    int i;
-    if(!str)
-		return(0);
-	i = 1;
-	if(str[0] == '-')
+	if (!data->current_node->split[1])
 	{
-		while(str[i])
-		{
-			if(str[i] != 'n')
-				return(0);
-			i++;
-		}
+		write(1, "\n", 1);
+		return ;
 	}
-	else
-		return (1);
-    return (0);
-}
-
-void	ft_echo(t_node *node)
-{
-    int i;
-    int flag_n;
-
-    flag_n = is_bn(node->split[1]);// est ce que option -n ?
-    if (flag_n == 0)
-        i = 2;
-    else
-        i = 1;
-    while(node->split[i])
-    {
-        ft_putstr_fd(node->split[i], node->fd_out);
-        if (!node->split[i + 1])
-        	break ;
-        write(1, " ", 1);
-        i++;
-    }
-    if(flag_n)
-        write(1, "\n", 1);
-    node->data->exit_code = 0;
+	if (ft_strncmp(data->current_node->split[1], "-n", 2) == 0)
+	{
+		while (data->current_node->split[1] && data->current_node->split[1][++j] == 'n');
+		if (data->current_node->split[1][j] == '\0' && data->current_node->split[1][j - 1] == 'n')
+				option = 1;
+	}
+	while(data->current_node->split[++i + option])
+	{
+		ft_putstr_fd(data->current_node->split[i + option], data->current_node->fd_out);
+		if (!data->current_node->split[i + 1 + option])
+		{
+			if (option == 0)
+				ft_putstr_fd("\n", data->current_node->fd_out);
+			break ;
+		}
+		ft_putstr_fd(" ", data->current_node->fd_out);
+	}
 }

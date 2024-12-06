@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/06 12:16:36 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/06 19:17:24 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ int	go_redirection(char *name_f, char c, t_node *node, int i)
 	if (name_f[i] == '<' && name_f[i] == c)// si << here doc
 		option = 4;
 	if ((name_f[i + 1] == '>' || name_f[i + 1] == '<') && ft_strchr("><", name_f[i]))// le cas ou >>> ou <<<
-		return (ft_printf("test1\n"), -42);
+		return (ft_putstr_fd("more than 2 redirections characters", 2), -42);
 	if ((name_f[i] != c && ft_strchr("><", name_f[i])))// le cas ou >< ou ><
-		return (ft_printf("test2\n"), -42);
+		return (ft_putstr_fd("inverse redirections", 2), -42);
 	if (name_f[i] == ' ' || name_f[i] == '\t')
 	{
 		while (name_f[i] == ' ' || name_f[i] == '\t')//passe tant que espace si espace
 			i++;
 		if (ft_strchr("><", name_f[i]))// le cas ou >> >file ou l'inverse
-			return (ft_printf("fuck\n"), -42); // fonction printf
+			return (ft_putstr_fd("redirections problemes", 2), -42); // fonction printf
 	}
 	if (ft_strchr("\'\"", name_f[i + 1]) && name_f[i])
 		i++;//si append
@@ -76,7 +76,7 @@ void	clean_commands(t_node *node, int i, int j)
 {
 	char	*str;
 
-	str = ft_calloc((int)ft_strlen(node->command) + 1, sizeof(char));
+	str = ft_calloc((int)ft_strlen(node->command) + 2, sizeof(char));
 	while (i < ft_strlen(node->command) && node->command[i])
 	{
 		while (node->command[i] && ft_strchr("<>", node->command[i]))
@@ -87,7 +87,7 @@ void	clean_commands(t_node *node, int i, int j)
 				i = i + 2;
 			else
 			{
-				ft_strlcpy(str + j, node->command + i, quote_chr(node->command, i) - i + 2);// a verifier
+				ft_strlcpy(str + j, node->command + i, quote_chr(node->command, i) - i + 2);
 				j = ft_strlen(str);
 				i = quote_chr(node->command, i) + 1;
 			}
@@ -112,11 +112,10 @@ void	redirections_handler(t_node *node)
 		while (i < ft_strlen(node->command) && (node->command[i] == '>' || node->command[i] == '<') && node->command[i])
 		{
 			check = go_redirection(node->command + i + 1, node->command[i], node, 0);
-			if (check == (-42))// a voir car marche pas
+			if (check == (-42))
 			{
-				//fonction qui free tout
-				return ; // j'envoie juste le "> file" et il me renvoie apres le name_file
-			}	
+				return ;
+			}
 			i += check;
 		}
 		i++;
@@ -125,9 +124,3 @@ void	redirections_handler(t_node *node)
 		clean_commands(node, 0 , 0);
 	return ;
 }
-/*
-	-redirections_handler -> parcours ma chaine et fait envoie
-	 			les redirections dans redirections et les here_doc qu'il y a 
-	-redirections parcours ce qu'il y a apres un chevront 
-				et appel do_fd qui creer le fichier en fonction de la redirection precedente
-*/

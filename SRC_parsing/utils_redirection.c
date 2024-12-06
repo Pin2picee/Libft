@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:45:51 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/26 13:15:41 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/06 18:35:07 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,10 @@ void	ft_here_doc(char *final_word, t_node *node)
 	verif_here_doc(node);
 	while (1)
 	{
-		ft_printf("> ");
-		buf_line = get_next_line(0);
+		buf_line = readline(">");
 		if (buf_line != NULL)
 		{
-			if (ft_strlen(buf_line) - 1 == ft_strlen(final_word) && !ft_strncmp(buf_line, final_word, ft_strlen(buf_line) - 1))// si end
+			if (!ft_strncmp(buf_line, final_word, ft_strlen(buf_line)))// si end
 				break ;
 			buf_hd = ft_calloc(ft_strlen(node->hd) + 1, sizeof(char));
 			if (buf_hd == NULL)
@@ -106,7 +105,6 @@ void	ft_here_doc(char *final_word, t_node *node)
 			free(buf_hd);
 		}
 	}
-	get_next_line(-42);
 	free(buf_line);// On sort de la boucle seulement si mot de fin et si mot de fin alors il faut free(ma line)->get_next_line
 }
 // il faut supprimer le here_doc precedent dans le pipe seulement

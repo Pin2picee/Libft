@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:59:14 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/02 16:42:41 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:44:32 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	init_node(t_node *node)
 	node->fd_out = 1;
 	node->next = NULL;
 	node->split = NULL;
+	node->cmd_path = NULL;
+	
 }
 
 void	init_data(t_minishell *data)
