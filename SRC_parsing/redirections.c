@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/06 11:04:08 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/06 12:16:36 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ void	redirections_handler(t_node *node)
 	i = 0;
 	while (i < ft_strlen(node->command) && node->command[i])
 	{
-		if (node->command[i] == '"' || node->command[i] == '\'')
+		while (i < ft_strlen(node->command) && node->command[i] == '"' || node->command[i] == '\'')
 			i = quote_chr(node->command, i) + 1;
-		while ((node->command[i] == '>' || node->command[i] == '<') && node->command[i])
+		while (i < ft_strlen(node->command) && (node->command[i] == '>' || node->command[i] == '<') && node->command[i])
 		{
 			check = go_redirection(node->command + i + 1, node->command[i], node, 0);
 			if (check == (-42))// a voir car marche pas
