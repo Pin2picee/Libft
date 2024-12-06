@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:14:14 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/02 16:43:34 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/06 12:41:46 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	append_nodes(t_minishell *data, int start, int end, char *tab)
 	new_node->next = NULL;
 	new_node->hd = NULL;
 	new_node->data = data;
+	new_node->split = NULL;
 	if (data->start_node == NULL)
 		data->start_node = new_node;
 	else

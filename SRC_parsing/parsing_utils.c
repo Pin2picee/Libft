@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:45:22 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/26 11:34:20 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/06 12:27:40 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,13 @@ int	pipe_syntax(char *line)
 	if (line[i] && line[i] == '|')
 		return (1);
 	i = 0;
-	while (line[++i])
+	while (i < ft_strlen(line) && line[++i])
 	{
 		if (line[i] == '\'' || line[i] == '"')
+		{							
 			i = quote_chr(line, i);
+			continue;
+		}
 		if (line[i] && line[i] == '|')
 		{
 			i++;
@@ -87,10 +90,13 @@ int	redirections_syntax(char *line)
 	char quotes;
 
 	i = 0;
-	while (line[i])
+	while (i < ft_strlen(line) && line[i])
 	{
 		if (ft_strchr("\'\"", line[i]))
+		{
 			i = quote_chr(line, i) + 1;
+			continue;
+		}
 		if (line[i] && ft_strchr("<>", line[i]))
 		{
 			while (line[i] && ft_strchr("<> |", line[i]))
@@ -106,20 +112,22 @@ int	redirections_syntax(char *line)
 
 int	pre_parsing(char *line)
 {
-		if(quotes_syntax(line))
-		{
-			printf("Quotes are not close\n");
-			return (1);
-		}
-		if(pipe_syntax(line))
-		{
-			printf("Need cmd after pipe\n");
-			return (1);
-		}
-		if (redirections_syntax(line))
-		{
-			printf("problem redirections\n");
-			return (1);
-		}
-		return (0);
+	if (line[0] == '\0')
+		return (1);
+	if(quotes_syntax(line))
+	{
+		printf("Quotes are not close\n");
+		return (1);
+	}
+	if(pipe_syntax(line))
+	{
+		printf("Need cmd after pipe\n");
+		return (1);
+	}
+	if (redirections_syntax(line))
+	{
+		printf("problem redirections\n");
+		return (1);
+	}
+	return (0);
 }
