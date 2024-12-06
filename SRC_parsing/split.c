@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:17:02 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/06 13:04:12 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:44:47 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,3 +79,4 @@ void	split_and_clean(t_node *node)
 		quotes_var_handler(node->split, node->data);// -> mago ->enleve les quotes inutiles & attribue les valeurs des variables d'env
 }
 
+	
