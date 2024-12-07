@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:45:51 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 18:45:03 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 23:38:16 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ void	ft_pass_redirection(char *str, int *i)
 		(*i)++;
 	if (ft_strchr("\"\'", str[(*i)]))
 	{
-		while (ft_strchr("\"\'", str[(*i)]))
+		while (*i < ft_strlen(str) && str[(*i)] && ft_strchr("\"\'", str[(*i)]))
 		{
 			quote = str[(*i)++];
-			while (str[(*i)] != quote && str[(*i)])
+			while (*i < ft_strlen(str) && str[(*i)] && str[(*i)] != quote)
 				(*i)++;
 			(*i)++;
 		}

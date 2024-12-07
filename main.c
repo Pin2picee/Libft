@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:29 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 20:29:16 by mbetcher         ###   ########.fr       */
+/*   Updated: 2024/12/07 23:47:15 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	print_prompt(t_minishell *data)
 {
 	data->prompt = NULL;
 	data->prompt = get_prompt();
-	data->line = readline("$> ");
+	data->line = readline("👾🐉$> ");
 	free(data->prompt);
 	data->prompt = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 19:25:32 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 23:50:34 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ int	go_redirection(char *n_f, char c, t_node *node, int i)
 		option = 4;
 	if (((n_f[i + 1] == '>' || n_f[i + 1] == '<') && ft_strchr("><", n_f[i]))
 		|| (n_f[i] != c && ft_strchr("><", n_f[i])))
-		return (ft_putstr_fd("Probleme redirections\n", 2), -42);
+		return (ft_putstr_fd("PB : Probleme redirections\n", 2), -42);
 	if (n_f[i] == ' ' || n_f[i] == '\t')
 	{
 		while (n_f[i] == ' ' || n_f[i] == '\t')
 			i++;
 		if (ft_strchr("><", n_f[i]))
-			return (ft_putstr_fd("redirections problemes", 2), -42);
+			return (ft_putstr_fd("PB :redirections problemes\n", 2), -42);
 	}
 	if (n_f[i] && n_f[i + 1] && ft_strchr("\'\"", n_f[i + 1]))
 		i++;
