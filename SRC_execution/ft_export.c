@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:18:54 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/02 13:50:49 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 02:16:34 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,28 @@ void	ft_printf_export(t_minishell *data)
 }
 
 // FONCTION qui sera appele dans l'execution
-void	ft_export(t_node *node, int i)
+int	ft_export(t_node *node, int i, int	test)
 {
-	int		j;
 	char	*name;
 	char	*value;
 
 	if (node->split[1] == NULL)
-	{
-		ft_printf_export(node->data);
-		return ;
-	}
+		return (ft_printf_export(node->data), 1);
 	while (node->split[i])
 	{
-		j = 0;
-		if (!ft_strchr(node->split[i], '='))
+		if (!ft_strchr(node->split[i], '=') && !ft_isdigit(node->split[i][0]))
 			update_or_add(&(node->data->var), node->split[i], NULL);
-		else
+		else 
 		{
-				parse_name_value(node->split[i], &name, &value);// attribut la name et la valeur a mes variables
-				update_or_add(&(node->data->var), name, value);//ajoute ou met a jour ma variable d'environement
-				free(name);
-				free(value);
+				test = parse_name_value(node->split[i], &name, &value);// attribut la name et la valeur a mes variables
+				if (test && (!ft_isdigit(name[0])))
+					update_or_add(&(node->data->var), name, value);//ajoute ou met a jour ma variable d'environement
+				else
+					ft_putstr_fd("\033[34mexport: not a valid identifier\n\033[0m", 2);
+				if (test)
+					free(value);
+				if (test)
+					free(name);
 		}
 		i++;
 	}

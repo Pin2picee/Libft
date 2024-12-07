@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 10:45:45 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/26 13:15:22 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 01:00:56 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,12 @@ char	*get_prompt(void)
 	ft_strlcpy(prompt_clean, prompt, ft_strlen(prompt) + 1);
 	free(prompt);
 	return (prompt_clean[i++] = '$', prompt_clean[i] = ' ', prompt_clean);
+}
+
+void	ft_tkt(t_node *node)
+{
+	if (!node->hd)
+	{
+		node->hd = ft_calloc(1, 1);
+	}
 }

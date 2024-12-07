@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:45:51 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/06 18:35:07 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 01:45:17 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	ft_cpy_file(char *file, char *name_f, int *i, int j)
 {
 	char	quote;
 	
-	while (name_f[*i] == ' ' || name_f[*i] == '\t' || ft_strchr("><", name_f[*i]))
+	while (name_f[*i] && ft_strchr(">< \t", name_f[*i]))
 			(*i)++;
 	ft_bzero(file, FILENAME_MAX);
 	while (name_f[*i])
 	{
-		while (ft_strchr("\"\'", name_f[*i]) && name_f[*i])
+		while (name_f[*i] && ft_strchr("\"\'", name_f[*i]))
 		{
 			quote = name_f[*i];
 			file[j++] = name_f[(*i)++];
@@ -30,10 +30,10 @@ void	ft_cpy_file(char *file, char *name_f, int *i, int j)
 			if (ft_strchr("\"\'", name_f[*i]) && name_f[*i])
 				file[j++] = name_f[(*i)++];
 		}
-		if (name_f[*i] != ' ' && name_f[*i] && !ft_strchr("<>", name_f[*i]))
+		if (name_f[*i] && name_f[*i] != ' ' && !ft_strchr("<>", name_f[*i]))
 		{
-			while (name_f[*i] != ' ' && name_f[*i] != '\t'
-				&& name_f[*i] && !ft_strchr("><", name_f[*i]) && name_f[*i] != '|')
+			while (name_f[*i] && name_f[*i] != ' ' && name_f[*i] != '\t'
+				&& !ft_strchr("><", name_f[*i]) && name_f[*i] != '|')
 				file[j++] = name_f[(*i)++]; // copie du file
 		}
 		else
@@ -82,29 +82,32 @@ void	verif_here_doc(t_node *node)
 	node->hd = NULL;
 }
 
-void	ft_here_doc(char *final_word, t_node *node)
+int	ft_here_doc(char *final_word, t_node *node)
 {
 	char	*buf_line;
 	char	*buf_hd;
-	
+	char	*buf_line_with_newline;
+
+	buf_line = NULL;
 	verif_here_doc(node);
 	while (1)
 	{
-		buf_line = readline(">");
+		if (!(buf_line = readline(">")) && control_d_herdoc(buf_line, final_word, node))
+			break ;
 		if (buf_line != NULL)
 		{
-			if (!ft_strncmp(buf_line, final_word, ft_strlen(buf_line)))// si end
-				break ;
-			buf_hd = ft_calloc(ft_strlen(node->hd) + 1, sizeof(char));
-			if (buf_hd == NULL)
-				return ;
-			ft_strlcpy(buf_hd, node->hd, ft_strlen(node->hd) + 1);// on copie node->hd dans mon buf
-			free(node->hd);
-			node->hd = ft_strjoin(buf_hd, buf_line);// on join l'ancien ligne avec la nouvelle;
+			if (!ft_strncmp(buf_line, final_word, 1000))
+				return (free(buf_line), ft_tkt(node), 0);
+			buf_line_with_newline = ft_strjoin(buf_line, "\n");
 			free(buf_line);
+			buf_hd = ft_calloc(ft_strlen(node->hd) + 1, sizeof(char));
+			if (!buf_hd)
+				return (printf("error malloc"), 0);
+			ft_strlcpy(buf_hd, node->hd, ft_strlen(node->hd) + 1);
+			free(node->hd);
+			node->hd = ft_strjoin(buf_hd, buf_line_with_newline);
+			free(buf_line_with_newline);
 			free(buf_hd);
 		}
 	}
-	free(buf_line);// On sort de la boucle seulement si mot de fin et si mot de fin alors il faut free(ma line)->get_next_line
 }
-// il faut supprimer le here_doc precedent dans le pipe seulement

@@ -3,19 +3,19 @@
     Analyse une chaîne de la forme nom=valeur pour en extraire séparément le nom et la valeur.
 	Leak : a faire
 */
-int	parse_name_value(const char *arg, char **name, char **value)
+int	parse_name_value(char *arg, char **name, char **value)
 {
 	char	*equal_sign;
-	size_t	name_length;
+	int		name_length;
 
-	equal_sign = strchr(arg, '=');
+	equal_sign = ft_strchr(arg, '=');
 	if (!equal_sign)
 		return (0);
 	name_length = equal_sign - arg;
-	if (name_length == 0 || !ft_isalpha(arg[0]))
+	if (name_length == 0)
 		return (0);
-	*name = strndup(arg, name_length);
-	*value = strdup(equal_sign + 1);
+	*name = ft_strldup(arg, name_length);
+	*value = ft_strdup(equal_sign + 1);
 	if (!*name || !*value)
 	{
 		perror("malloc");

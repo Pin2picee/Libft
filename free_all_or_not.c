@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:35:21 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/29 20:58:58 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 00:45:32 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	free_node(t_node *node)
 		free(node->hd);
 	if (node->command)
 		free(node->command);
-	if (node->split[0])
+	if (node->split && node->split[0])
 	{
 		while(node->split[i])
 			free(node->split[i++]);

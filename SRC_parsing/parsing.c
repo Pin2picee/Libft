@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:31:03 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/26 13:15:42 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/06 20:01:55 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	parsing(t_minishell *data)
 	t_node	*node;
 	
 	data->start_node = NULL;
-	data->exit_code = 0;
 	if (pre_parsing(data->line)) // verif retour readline->main
 		return (1);
 	//init_node fonction qui init start node

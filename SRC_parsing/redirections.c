@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/06 19:17:24 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 02:15:48 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	go_redirection(char *name_f, char c, t_node *node, int i)
 	if (name_f[i] == '<' && name_f[i] == c)// si << here doc
 		option = 4;
 	if ((name_f[i + 1] == '>' || name_f[i + 1] == '<') && ft_strchr("><", name_f[i]))// le cas ou >>> ou <<<
-		return (ft_putstr_fd("more than 2 redirections characters", 2), -42);
+		return (ft_putstr_fd("\033[34mmore than 2 redirections characters\033[0m", 2), -42);
 	if ((name_f[i] != c && ft_strchr("><", name_f[i])))// le cas ou >< ou ><
 		return (ft_putstr_fd("inverse redirections", 2), -42);
 	if (name_f[i] == ' ' || name_f[i] == '\t')
@@ -67,7 +67,7 @@ int	go_redirection(char *name_f, char c, t_node *node, int i)
 		if (ft_strchr("><", name_f[i]))// le cas ou >> >file ou l'inverse
 			return (ft_putstr_fd("redirections problemes", 2), -42); // fonction printf
 	}
-	if (ft_strchr("\'\"", name_f[i + 1]) && name_f[i])
+	if ( name_f[i] && name_f[i + 1] && ft_strchr("\'\"", name_f[i + 1]))
 		i++;//si append
 	return (ft_cpy_file(file, name_f, &i, j), do_fd(ft_strdup(file), option, node, 0), i + 1); // creer le fichier avec append ou trunc et gere le here_doc
 }

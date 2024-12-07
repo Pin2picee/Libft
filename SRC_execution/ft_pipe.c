@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 17:11:23 by nhallou           #+#    #+#             */
-/*   Updated: 2024/12/06 18:26:36 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 02:22:19 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,12 @@ void    manage_pipe(t_minishell *data)
             close(data->pipe_tab[(data->current_node->pos - 2)][0]);
         }
     }
-    dup2(data->current_node->fd_in, 0);
-    dup2(data->current_node->fd_out, 1);
+	if (data->current_node->hd)
+		data->current_node->fd_in = open("hd", O_RDONLY);
+    if ((dup2(data->current_node->fd_in, 0) < 0) || (dup2(data->current_node->fd_out, 1) < 0))
+	    exit(data->exit_code);
+	if (data->current_node->hd)
+		close(data->current_node->fd_in);
 }
 
 void manage_pipe_parent(t_minishell *data, int param, int i)
@@ -95,7 +99,7 @@ void manage_pipe_parent(t_minishell *data, int param, int i)
             {
                 if (pipe(data->pipe_tab[i]) == -1)
                 {
-                    perror("Pipe error");
+                    perror("\033[34mPipe error\033[0m");
                     exit(EXIT_FAILURE);
                 }
             }

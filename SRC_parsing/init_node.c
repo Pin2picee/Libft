@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:59:14 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/06 17:44:32 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/06 22:31:02 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	init_node(t_node *node)
 void	init_data(t_minishell *data)
 {
 	data->envp = NULL;
-	data->exit_code = 0;
 	data->export = NULL;
 	data->line = NULL;
+	data->exit_code = 0;
 	data->prompt = NULL;
 	data->var = NULL;
 	data->start_node = NULL;

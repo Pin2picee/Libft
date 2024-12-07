@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:28:33 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/12/06 17:04:45 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/06 19:59:41 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ void	quotes_var_handler(char **tab, t_minishell *data)
 	char	quote;
 
 	i = 0;
-	data->exit_code = 1547;
 	while(tab[i])
 	{
 		len = 0;

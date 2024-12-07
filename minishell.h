@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/06 17:41:43 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 01:59:37 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		quote_chr(char *str, int i);
 void	ft_cpy_file(char *file, char *name_f, int *i, int j);
 int		go_redirection(char *name_f, char c, t_node *node, int i);
 void	init_j_and_option(int *i, int *option);//gagner des lignes
-void	ft_here_doc(char *final_word, t_node *node);
+int		ft_here_doc(char *final_word, t_node *node);
 int		redirections_syntax(char *line);
 int		split_minishell(t_node *node, char *sep, int i, int	j);
 char	*ft_clean_tab(char *str, int len, t_minishell *data);
@@ -135,7 +135,7 @@ char	**allocate_env_tab(size_t count);
 void	fill_env_tab(char **tab, t_env *env_list, size_t count);
 void	convert_env_to_tab(t_minishell *data);
 //-> set_export.c								
-int		parse_name_value(const char *arg, char **name, char **value);
+int	parse_name_value(char *arg, char **name, char **value);
 int		update_env_var(t_env *env_list, const char *name, const char *value);
 void	add_env_var(t_env **env_list, const char *name, const char *value);
 void	update_or_add(t_env **env_list, const char *name, const char *value);
@@ -155,6 +155,7 @@ void 	ft_unset(t_node *node);
 
 /* - - - SIGNALS - - - */
 void    setups_signals(void);
+int		control_d_herdoc(char *buf_line, char *wanted, t_node *node);
 
 
 /*---BULTINS---*/
@@ -162,7 +163,7 @@ void	ft_echo(t_minishell *data, int i, int j, int option);
 void	ft_cd(t_minishell *data, t_node *current_node);
 void	ft_env(t_minishell *data);
 void    ft_exit(t_node *node);
-void	ft_export(t_node *node, int i);
+int	ft_export(t_node *node, int i, int	test);
 void	ft_pwd();
 void 	ft_unset(t_node *node);
 
@@ -182,9 +183,10 @@ int		manage_builtin(t_minishell *data);
 int		manage_execve(t_minishell *data);
 void 	manage_pipe_parent(t_minishell *data, int param, int i);
 void    manage_pipe(t_minishell *data);
-void    manage_fork(t_minishell *data);
+int    manage_fork(t_minishell *data);
 void    close_pipe(t_minishell *data, int param, int i);
 void	unlink_hd(t_minishell *data);
 void	create_hd(t_minishell *data);
+void	ft_tkt(t_node *node);
 
 #endif

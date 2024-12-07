@@ -6,7 +6,7 @@ int	putnbr_in_tab(t_minishell *data, char *tab)
 	int		len;
 	
 	nb = ft_itoa(data->exit_code);
-	ft_strlcpy(tab, nb, 3);
+	ft_strlcpy(tab, nb, 4);
 	len = ft_strlen(nb);
 	free(nb);
 	return(len);

@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 15:34:32 by nhallou           #+#    #+#             */
-/*   Updated: 2024/12/06 18:11:39 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 02:13:49 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ void		manage_status_reset_data(t_minishell *data)
 	int signal_num;
 
 	if (WIFEXITED(data->status)) 
-	{
 		data->exit_code = WEXITSTATUS(data->status);
-	}
 	else if (WIFSIGNALED(data->status))
 	{
 		signal_num = WTERMSIG(data->status);
@@ -94,10 +92,12 @@ int	manage_execve(t_minishell *data)
 			return (0);
 		curr_env = curr_env->next;
 	}
+	if (curr_env == NULL)
+		return (0);
 	a_pth = ft_split(curr_env->value, ':');
 	path = check_cmd_path(data, path, a_pth, &found);
 	i = -1;
-	while(a_pth[++i])
+	while(a_pth && a_pth[++i])
 		free(a_pth[i]);
 	free(a_pth);
 	if (found != 0)
@@ -108,6 +108,10 @@ int	manage_execve(t_minishell *data)
 
 int	manage_builtin(t_minishell *data)
 {
+	if (data->pid && data->current_node->split == NULL)
+		return(0);
+	else if (!data->pid && data->current_node->split == NULL)
+		exit(data->exit_code);
 	if (strcmp(data->current_node->split[0], "echo") == 0)
 		 	ft_echo(data, 0, 0 , 0);
 	else if (strcmp(data->current_node->split[0], "cd") == 0)
@@ -115,7 +119,7 @@ int	manage_builtin(t_minishell *data)
 	if (strcmp(data->current_node->split[0], "pwd") == 0)
 		ft_pwd();
 	else if (strcmp(data->current_node->split[0], "export") == 0)
-	 	ft_export(data->current_node, 1);
+	 	ft_export(data->current_node, 1, 0);
 	else if (strcmp(data->current_node->split[0], "unset") == 0)
 	 	ft_unset(data->current_node);
 	else if (strcmp(data->current_node->split[0], "env") == 0)
@@ -133,34 +137,36 @@ int	manage_builtin(t_minishell *data)
 	return (0);
 }
 
-void    manage_fork(t_minishell *data)
+int    manage_fork(t_minishell *data)
 {
 	if (data->node_nbr == 1 && manage_builtin(data))
-		return ;
+		return (0);
 	while (data->current_node && data->pid != 0)
 	{
-		if (data->pid > 0)
-			data->current_node = data->current_node->next;
+
 		if (data->pid > 0 && !data->current_node)
-			return;
+			return (0);
 		if (data->pid != 0)
 		{
 			data->pid = fork();
 			if (data->pid == 0)
 			{
 				manage_pipe(data);
-				if (!data->current_node->split)
+				if (data->current_node->split == NULL)
 					exit(0);
 				if (manage_builtin(data))
 					exit(0);
 				else if (manage_execve(data))
-					exit (0) ;
+					return (perror("Minishell "), exit(0), 0);
 				else if (!access(data->current_node->split[0], F_OK))
 					execve(data->current_node->split[0],data->current_node->split, data->envp);
-				printf("%s : command not found .\n", data->current_node->split[0]);
-				exit(127);
+				else
+					return (ft_putstr_fd(data->current_node->split[0], 2), 
+						ft_putstr_fd("\033[34m: cmd not found ! \n\033[0m", 2), exit(127), 0);
 			}
 		}
+		if (data->pid > 0)
+			data->current_node = data->current_node->next;
 		if (data->pid == -1)
 			exit(0);
 	}
@@ -168,14 +174,17 @@ void    manage_fork(t_minishell *data)
 
 void	ft_exec(t_minishell *data)
 {
+	int	status;
+
 	data->current_node = data->start_node;
 	create_hd(data);
 	manage_pipe_parent(data, 0, -1);
 	manage_fork(data);
 	manage_pipe_parent(data, 1, -1);
-	unlink_hd(data);
-	while ((data->child_pid = waitpid(-1, &data->status, 0)) > 0);
+	while ((data->child_pid = waitpid(-1, &status, 0)) > 0)
+		data->status = status;
 	manage_status_reset_data(data);
+	unlink_hd(data);
 	reset_data(data);
 	return ;
 }

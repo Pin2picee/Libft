@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:14:14 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/06 17:45:45 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/06 20:01:28 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	create_nodes(t_minishell *data)
 	last = 0;
 	i = 0;
 	tab = data->line;
-	data->exit_code = 0;
 	while (tab[i])
 	{
 		if (tab[i] == '\'' || tab[i] == '"')
