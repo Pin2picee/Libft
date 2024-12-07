@@ -6,18 +6,18 @@
 /*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:29 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 17:51:29 by mbetcher         ###   ########.fr       */
+/*   Updated: 2024/12/07 20:29:16 by mbetcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// verifie si ctrl+d dans un here_doc je sais je suis trop chaud
 int	control_d_herdoc(char *buf_line, char *wanted, t_node *node)
 {
 	if (!buf_line)
 	{
-		ft_putstr_fd("Minishell: warning: here-document at line 1 delimited by end-of-file (wanted)\n", 2);
+		write(2, "Minishell: warning: here-document at line 1 "
+			"delimited by end-of-file (wanted)\n", 79);
 		if (node->hd)
 			free(node->hd);
 		node->hd = NULL;
@@ -56,8 +56,8 @@ int	empty_line(t_minishell *data)
 void	print_prompt(t_minishell *data)
 {
 	data->prompt = NULL;
-	data->prompt = get_prompt();// recup le prompt
-	data->line = readline("$> ");// un input avec l'affichage du prompt
+	data->prompt = get_prompt();
+	data->line = readline("$> ");
 	free(data->prompt);
 	data->prompt = NULL;
 }
@@ -65,13 +65,12 @@ void	print_prompt(t_minishell *data)
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	data;
-	int	i = 0;//test
-	
+
 	(void)argv;
 	if (argc != 1)
 		return (perror("Error\n"), 1);
 	setups_signals();
-	setup(&data, envp, 0);
+	setup(&data, envp, -1);
 	while (1)
 	{
 		print_prompt(&data);
@@ -81,8 +80,8 @@ int	main(int argc, char **argv, char **envp)
 		add_history(data.line);
 		if (!parsing(&data))
 			ft_exec(&data);
-		ft_reset(&data);//renitialise la data.line / les noeuds et les free
+		ft_reset(&data);
 	}
-	free_all(&data);// free tous ma data et mes noeuds .
+	free_all(&data);
 	return (0);
 }

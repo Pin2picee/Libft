@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strldup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 18:09:31 by Pin2picee         #+#    #+#             */
-/*   Updated: 2024/11/25 17:45:23 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 20:39:09 by mbetcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strldup(const char *s, int size)
 
 	i = 0;
 	if (size < 1)
-    	return (NULL);
+		return (NULL);
 	dst = malloc(sizeof(char) * (size) + 1);
 	if (dst == NULL)
 		return (NULL);
@@ -31,4 +31,3 @@ char	*ft_strldup(const char *s, int size)
 	dst[i] = '\0';
 	return (dst);
 }
-// la fonction malloc une chaine jusqu'a une certaine taille puis la copie jusqu'a la taille . 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 18:49:43 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/21 21:06:47 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/12/07 20:39:49 by mbetcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	*get_next_line(int fd)
 		free(stash);
 		return (NULL);
 	}
-		
 	extract_line(stash, &ligne);
 	clean_stash(&stash);
 	if (ligne[0] == '\0')

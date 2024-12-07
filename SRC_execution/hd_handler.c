@@ -3,25 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   hd_handler.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:49:21 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 00:16:44 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:48:41 by mbetcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void    create_hd(t_minishell *data)
+void	create_hd(t_minishell *data)
 {
-	t_node  *current;
+	t_node	*current;
 
 	current = data->start_node;
-	while(current)
+	while (current)
 	{
 		if (current->hd)
 		{
-			if ((current->fd_in = open("hd", O_CREAT | O_WRONLY | O_RDONLY, 0666)) < 0)
+			current->fd_in = open("hd", O_CREAT | O_WRONLY | O_RDONLY, 0666);
+			if (current->fd_in < 0)
 				perror("Minishell : Permission denied");
 			ft_putstr_fd(current->hd, current->fd_in);
 			close(current->fd_in);
@@ -29,12 +30,13 @@ void    create_hd(t_minishell *data)
 		current = current->next;
 	}
 }
+
 void	unlink_hd(t_minishell *data)
 {
 	t_node	*current;
 
 	current = data->start_node;
-	while(current)
+	while (current)
 	{
 		if (current->hd)
 		{

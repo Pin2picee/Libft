@@ -6,7 +6,7 @@
 /*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:19:08 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 16:58:48 by mbetcher         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:34:43 by mbetcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,11 @@ char	**allocate_env_tab(size_t count)
 	}
 	return (tab);
 }
-/*
-	Remplit un tableau alloué avec des chaînes formatées
-	Leak : a faire
-*/
 
-size_t    fill_tab_element(char **tab, t_env *current, size_t i)
+size_t	fill_tab_element(char **tab, t_env *current, size_t i)
 {
-	size_t    key_len;
-	size_t    value_len;
+	size_t	key_len;
+	size_t	value_len;
 
 	key_len = ft_strlen(current->key);
 	if (current->value)
@@ -78,10 +74,10 @@ size_t    fill_tab_element(char **tab, t_env *current, size_t i)
 	return (i + 1);
 }
 
-void    fill_env_tab(char **tab, t_env *env_list, size_t count)
+void	fill_env_tab(char **tab, t_env *env_list, size_t count)
 {
-	size_t    i;
-	t_env    *current;
+	size_t		i;
+	t_env		*current;
 
 	i = 0;
 	current = env_list;
@@ -92,10 +88,6 @@ void    fill_env_tab(char **tab, t_env *env_list, size_t count)
 	}
 	tab[i] = NULL;
 }
-/*
-	Convertie variables d'environnement (t_env) en deux tableaux de chaînes : envp et export.
-	Leak : a faire
-*/
 
 void	convert_env_to_tab(t_minishell *data)
 {
@@ -112,7 +104,7 @@ void	convert_env_to_tab(t_minishell *data)
 		data->export = NULL;
 	}
 	count = count_env_vars(data->var);
-	data->export = allocate_env_tab(count);// char **export
+	data->export = allocate_env_tab(count);
 	data->envp = allocate_env_tab(count);
 	fill_env_tab(data->export, data->var, count);
 	fill_env_tab(data->envp, data->var, count);

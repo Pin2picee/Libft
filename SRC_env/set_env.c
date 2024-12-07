@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:19:16 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/02 16:43:26 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:31:53 by mbetcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 // ajoute 1 au SHLVL a la creation du minishell
 
-void	ft_SHLVL(t_minishell *data)
+void	ft_shlvl(t_minishell *data)
 {
-	int	i;
+	int		i;
 	t_env	*current;
-	int	tmp;
-	
+	int		tmp;
+
 	current = data->var;
-	
 	while (current)
 	{
 		if (ft_strncmp("SHLVL", current->key, ft_strlen(current->key)) == 0)
@@ -73,7 +72,6 @@ void	setup(t_minishell *data, char **envp, int i)
 	t_env	*new_var;
 	char	*equal_sign;
 
-	i = -1;
 	current = NULL;
 	rl_catch_signals = 0;
 	data->var = NULL;
@@ -83,7 +81,8 @@ void	setup(t_minishell *data, char **envp, int i)
 		equal_sign = strchr(envp[i], '=');
 		if (equal_sign)
 		{
-			new_var = create_var(strndup(envp[i], equal_sign - envp[i]), equal_sign + 1);
+			new_var = create_var(strndup(envp[i], equal_sign
+						- envp[i]), equal_sign + 1);
 			if (!data->var)
 				data->var = new_var;
 			else
@@ -91,9 +90,7 @@ void	setup(t_minishell *data, char **envp, int i)
 			current = new_var;
 		}
 	}
-	ft_SHLVL(data);
+	ft_shlvl(data);
 	convert_env_to_tab(data);
-	print_art();// fonction qui affiche le debut de  notre minishell en beaute
+	print_art();
 }
-
-// inclure le signe egale dans la key.

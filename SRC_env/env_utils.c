@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/27 21:19:24 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/28 17:33:20 by abelmoha         ###   ########.fr       */
+/*   Created: 2024/12/07 18:33:22 by mbetcher          #+#    #+#             */
+/*   Updated: 2024/12/07 18:33:24 by mbetcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	free_env_vars(t_minishell *data)
 	}
 	data->var = NULL;
 }
+
 void	free_tab(char **export)
 {
 	int	i;

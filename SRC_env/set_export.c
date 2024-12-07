@@ -1,8 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_export.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/07 18:32:34 by mbetcher          #+#    #+#             */
+/*   Updated: 2024/12/07 18:33:05 by mbetcher         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
-/*
-    Analyse une chaîne de la forme nom=valeur pour en extraire séparément le nom et la valeur.
-	Leak : a faire
-*/
+
 int	parse_name_value(char *arg, char **name, char **value)
 {
 	char	*equal_sign;
@@ -23,9 +32,6 @@ int	parse_name_value(char *arg, char **name, char **value)
 	}
 	return (1);
 }
-/*
-    Met à jour une variable existante dans la liste chaînée t_env avec une nouvelle valeur.
-*/
 
 int	update_env_var(t_env *env_list, const char *name, const char *value)
 {
@@ -78,9 +84,6 @@ void	add_env_var(t_env **env_list, const char *name, const char *value)
 	new_var->next = *env_list;
 	*env_list = new_var;
 }
-/*
-    Met à jour une variable existante dans t_env, ou en ajoute une nouvelle si elle n'existe pas
-*/
 
 void	update_or_add(t_env **env_list, const char *name, const char *value)
 {

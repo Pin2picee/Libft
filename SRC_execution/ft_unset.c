@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/07 19:46:04 by mbetcher          #+#    #+#             */
+/*   Updated: 2024/12/07 19:46:56 by mbetcher         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void    unset_env_var(t_env **env_list, const char *name)
+void	unset_env_var(t_env **env_list, const char *name)
 {
-	t_env    *current;
-	t_env    *previous;
+	t_env	*current;
+	t_env	*previous;
 
 	current = *env_list;
 	previous = NULL;
@@ -25,15 +37,13 @@ void    unset_env_var(t_env **env_list, const char *name)
 	}
 }
 
-// fonction qui doit supprimer un env
-
-void ft_unset(t_node *node)
+void	ft_unset(t_node *node)
 {
 	int	i;
 
 	i = 1;
 	if (node->split[1] == NULL)
-		return;
+		return ;
 	while (node->split[i])
 	{
 		unset_env_var(&(node->data->var), node->split[i]);

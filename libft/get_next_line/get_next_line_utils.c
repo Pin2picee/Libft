@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 18:29:59 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/21 15:34:47 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/12/07 20:40:03 by mbetcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	generate_line(char **line, t_liste *stash)
 	}
 	*line = malloc(sizeof(char) * (len + 1));
 }
-
 
 void	free_stash(t_liste *stash)
 {
