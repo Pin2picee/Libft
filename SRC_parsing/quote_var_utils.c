@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:48:57 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 18:53:03 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 21:56:34 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ int	quotes_len(char *str, char quote, t_minishell *data, int *len)
 	{
 		if (quote == '"' && str[i] == '$')
 		{
-			i++;
-			i += var_len(&str[i], data, len);
+			dollar_handler(str, len, data, &i);
 			continue ;
 		}
 		else
@@ -90,7 +89,7 @@ void	dollar_handler(char *str, int *len, t_minishell *data, int *i)
 	(*i)++;
 	if (str[*i] == '?')
 	{
-		*(len) += 4;
+		*(len) += ft_count_num(data->exit_code);
 		(*i)++;
 	}
 	else

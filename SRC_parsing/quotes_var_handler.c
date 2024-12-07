@@ -6,69 +6,70 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:28:33 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/12/07 19:32:14 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 22:34:48 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	handle_var(char *str, char *tab, t_minishell *data, int *i, int *j)
+int	handle_var(t_quotes *q)
 {
-	if (str[*i] == '?')
+	if (q->str[q->i] == '?')
 	{
-		(*i)++;
-		*j += putnbr_in_tab(data, &tab[*j]);
+		q->i++;
+		putnbr_in_tab(q->data, &q->tab[q->j]);
+		q->j = ft_strlen(q->tab);
 		return (1);
 	}
-	*i += put_var_in_tab(&str[*i], tab, data, j);
+	q->i += put_var_in_tab(&q->str[q->i], q->tab, q->data, &q->j);
 	return (0);
 }
 
-void	handle_quotes(char *str, char *tab, t_minishell *data, int *i, int *j)
+void	handle_quotes(t_quotes *q)
 {
 	char	quote;
 
-	quote = str[(*i)++];
-	while (str[*i] && str[*i] != quote)
+	quote = q->str[q->i++];
+	while (q->str[q->i] && q->str[q->i] != quote)
 	{
-		if (quote == '"' && str[*i] == '$')
+		if (quote == '"' && q->str[q->i] == '$')
 		{
-			(*i)++;
-			handle_var(str, tab, data, i, j);
-			*i += ft_count_num(data->exit_code);
+			q->i++;
+			handle_var(q);
 		}
 		else
-			tab[(*j)++] = str[(*i)++];
+			q->tab[q->j++] = q->str[q->i++];
 	}
-	if (str[*i] == quote)
-		(*i)++;
+	if (q->str[q->i] == quote)
+		q->i++;
 }
 
 char	*ft_clean_tab(char *str, int len, t_minishell *data)
 {
-	char	*tab;
-	int		i;
-	int		j;
+	char		*tab;
+	t_quotes	q;
 
-	i = 0;
-	j = 0;
 	tab = ft_calloc(len + 1, sizeof(char));
 	if (!tab)
 		return (NULL);
-	while (str[i])
+	q.tab = tab;
+	q.str = str;
+	q.data = data;
+	q.i = 0;
+	q.j = 0;
+	while (q.str[q.i])
 	{
-		if (str[i] == '$')
+		if (q.str[q.i] == '$')
 		{
-			i++;
-			handle_var(str, tab, data, &i, &j);
+			q.i++;
+			handle_var(&q);
 		}
-		else if (str[i] == '\'' || str[i] == '"')
-			handle_quotes(str, tab, data, &i, &j);
-		else if (str[i])
-			tab[j++] = str[i++];
+		else if (q.str[q.i] == '\'' || q.str[q.i] == '"')
+			handle_quotes(&q);
+		else if (q.str[q.i])
+			q.tab[q.j++] = q.str[q.i++];
 	}
-	free(str);
-	return (tab);
+	return (free(str), tab);
 }
 
 void	quotes_var_handler(char **tab, t_minishell *data)

@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 19:30:49 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 20:47:33 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_env
 	struct s_env *next;
 }				t_env;
 
-
 typedef struct s_nodes
 {
 	char *hd;// Adil la modif ancien -> hd_end
@@ -75,6 +74,15 @@ typedef struct	s_minishell
 	char	*prompt;
 }				t_minishell;
 
+typedef struct s_quotes
+{
+    char    *str;
+    char    *tab;
+    t_minishell *data;
+    int     i;
+    int     j;
+} t_quotes;	
+
 /* FOR PROMPT*/
 char	*get_prompt(void);
 
@@ -97,7 +105,7 @@ void	split_and_clean(t_node *node);
 void	quotes_var_handler(char **tab, t_minishell *data);
 int		quote_chr(char *str, int i);
 void	ft_cpy_file(char *file, char *name_f, int *i, int j);
-int		go_redirection(char *name_f, char c, t_node *node, int i);
+int		go_redirection(char *n_f, char c, t_node *node, int i);
 void	init_j_and_option(int *i, int *option);//gagner des lignes
 int		ft_here_doc(char *final_word, t_node *node, char *buf_line, char *buf_hd);
 int		redirections_syntax(char *line);
