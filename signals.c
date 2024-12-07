@@ -1,4 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 11:35:21 by abelmoha          #+#    #+#             */
+/*   Updated: 2024/12/07 17:30:03 by mbetcher         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./minishell.h"
+
+
 
 /*
     Gestion pour SIGINT (ctrl+c)
@@ -8,7 +22,7 @@ void    ft_sigint(int signal)
     (void)signal;                           // (NULL) -> Pas de stockage des information de status
     if (waitpid(-1, NULL, WNOHANG) == -1)   // (WNOHANG) -> Pas bloquer l'appel si aucun procss fils n'a terminé
     {
-        write(1, "\n", 1);
+        ft_printf("^C\n");
         rl_on_new_line();               // Prepare readline pour une nouvelle ligne
         rl_replace_line("", 0);         // clean la ligne actuelle
         rl_redisplay();                 // Reaffiche le prompt
@@ -25,6 +39,7 @@ void    ft_sigquit(int signal)
 
 void    setups_signals(void)
 {
-    signal(SIGINT, ft_sigint);
-    signal(SIGQUIT, ft_sigquit);
+    signal(2, ft_sigint);
+    signal(3, ft_sigquit);
+    signal(SIGTSTP, ft_sigquit);
 }

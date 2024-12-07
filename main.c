@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:29 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 01:04:31 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 17:51:29 by mbetcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	control_d(t_minishell *data)
 		free_env_vars(data);
 		if (data->export)
 			free_tab(data->export);
+		if (data->envp)
+			free_tab(data->envp);
 		clear_history();
 		write(1, "exit\n", 5);
 		exit(errno);
@@ -53,9 +55,11 @@ int	empty_line(t_minishell *data)
 
 void	print_prompt(t_minishell *data)
 {
-		data->prompt = get_prompt();// recup le prompt
-		data->line = readline(data->prompt);// un input avec l'affichage du prompt
-		free(data->prompt);
+	data->prompt = NULL;
+	data->prompt = get_prompt();// recup le prompt
+	data->line = readline("$> ");// un input avec l'affichage du prompt
+	free(data->prompt);
+	data->prompt = NULL;
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -66,6 +70,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc != 1)
 		return (perror("Error\n"), 1);
+	setups_signals();
 	setup(&data, envp, 0);
 	while (1)
 	{

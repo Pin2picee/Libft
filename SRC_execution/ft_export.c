@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:18:54 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 02:16:34 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 16:48:01 by mbetcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	ft_printf_export(t_minishell *data)
 
 	i = 0;
 	// faut le trier dabord
-	//free_tab(data->export);
 	convert_env_to_tab(data);
 	bubble_sort(data->export);
 	while (data->export[i])

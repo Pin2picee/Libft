@@ -75,8 +75,8 @@ void	setup(t_minishell *data, char **envp, int i)
 
 	i = -1;
 	current = NULL;
+	rl_catch_signals = 0;
 	data->var = NULL;
-	setups_signals();
 	init_data(data);
 	while (envp[++i])
 	{
