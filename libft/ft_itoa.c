@@ -12,53 +12,52 @@
 
 #include "libft.h"
 
-int	ft_check_len(int nb)
+int	count_itoa(int n)
 {
-	size_t	compteur;
+	int	len;
 
-	compteur = 0;
-	if (nb == 0)
-		return (compteur + 1);
-	if (nb == -2147483648)
+	len = 0;
+	if (n == -2147483648)
 		return (11);
-	if (nb < 0)
+	if (n < 0)
 	{
-		compteur += 1;
-		nb = -nb;
+		n *= -1;
+		len++;
 	}
-	while (nb > 0)
+	else if (n == 0)
+		return (1);
+	while (n >= 1)
 	{
-		nb /= 10;
-		compteur++;
+		n = n / 10;
+		len++;
 	}
-	return (compteur);
+	return (len);
 }
 
 char	*ft_itoa(int n)
 {
-	char	*str;
-	long	nombre;
-	int		s_negative;
-	int		index;
+	int				len;
+	long int		n1;
+	char			*new;
+	int				i;
 
-	nombre = (long)n;
-	index = ft_check_len(n) - 1;
-	s_negative = 0;
-	str = malloc(ft_check_len(n) * sizeof(unsigned char) + 1);
-	if (!str)
+	i = 0;
+	n1 = n;
+	len = count_itoa(n);
+	new = malloc((len + 1) * sizeof(char));
+	if (new == NULL)
 		return (NULL);
-	if (nombre < 0)
+	if (n1 < 0)
 	{
-		nombre = -nombre ;
-		str[0] = '-';
-		s_negative += 1;
+		new[0] = '-';
+		n1 *= -1;
+		i++;
 	}
-	while (index >= s_negative)
+	new[len] = '\0';
+	while (--len >= i)
 	{
-		str[index] = nombre % 10 + '0';
-		nombre /= 10;
-		index--;
+		new[len] = (n1 % 10) + '0';
+		n1 = n1 / 10;
 	}
-	str[ft_check_len(n)] = '\0';
-	return (str);
+	return (new);
 }

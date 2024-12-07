@@ -75,7 +75,11 @@ void	free_all(t_minishell *data)
 		free(data->line);
 	if (!data->start_node)
 		return ;
+	if(data->start_node->next != NULL)
+		free(data->pipe_tab);
 	current = data->start_node;
+	free_tab(data->export);// free export
+	free_tab(data->envp);
 	while (current != NULL)
 	{
 		free_node(current);// free le contenu du noeuds
@@ -85,5 +89,5 @@ void	free_all(t_minishell *data)
 	}
 	current_var = data->var;
 	free_env_vars(data);//free env
-	free_tab(data->export);// free export
+	
 }

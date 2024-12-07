@@ -75,6 +75,8 @@ char	*check_cmd_path(t_minishell *data, char *path, char **a_pth, int *found)
 	return (path);
 }
 
+
+
 int	manage_execve(t_minishell *data)
 {
 	int	i;
@@ -108,10 +110,10 @@ int	manage_execve(t_minishell *data)
 
 int	manage_builtin(t_minishell *data)
 {
-	if (data->pid && data->current_node->split == NULL)
-		return(0);
-	else if (!data->pid && data->current_node->split == NULL)
-		exit(data->exit_code);
+	if (data->pid != 0 && data->current_node->split == NULL)
+		return(ft_putstr_fd("command not found : ''\n", 2), 0);
+	else if (data->pid == 0 && data->current_node->split == NULL)
+		exit(127);
 	if (strcmp(data->current_node->split[0], "echo") == 0)
 		 	ft_echo(data, 0, 0 , 0);
 	else if (strcmp(data->current_node->split[0], "cd") == 0)
@@ -139,6 +141,9 @@ int	manage_builtin(t_minishell *data)
 
 int    manage_fork(t_minishell *data)
 {
+	int	exit_code;
+	
+	exit_code = data->exit_code;
 	if (data->node_nbr == 1 && manage_builtin(data))
 		return (0);
 	while (data->current_node && data->pid != 0)
@@ -153,15 +158,15 @@ int    manage_fork(t_minishell *data)
 			{
 				manage_pipe(data);
 				if (data->current_node->split == NULL)
-					exit(0);
+					return (free_all(data), exit(127), 1);
 				if (manage_builtin(data))
-					exit(0);
+					return (free_all(data), exit(exit_code), 1);
 				else if (manage_execve(data))
-					return (perror("Minishell "), exit(0), 0);
-				else if (!access(data->current_node->split[0], F_OK))
+					return (perror("Minishell "), free_all(data), exit(0), 0);
+				else if (!access(data->current_node->split[0], F_OK) && ft_strncmp(data->current_node->split[0], "foo", 4200))
 					execve(data->current_node->split[0],data->current_node->split, data->envp);
 				else
-					return (ft_putstr_fd(data->current_node->split[0], 2), 
+					return (ft_putstr_fd(data->current_node->split[0], 2), free_all(data), 
 						ft_putstr_fd("\033[34m: cmd not found ! \n\033[0m", 2), exit(127), 0);
 			}
 		}
@@ -200,7 +205,19 @@ end
 refresh
 set detach-on-fork off
 set follow-fork-mode child
+void		manage_status_reset_data(t_minishell *data)
+{
+	int signal_num;
 
+	if (WIFEXITED(data->status)) 
+		data->exit_code = WEXITSTATUS(data->status);
+	else if (WIFSIGNALED(data->status))
+	{
+		signal_num = WTERMSIG(data->status);
+		if (signal_num == SIGINT) 
+			data->exit_code = 130;
+	}
+}
 */
 
 /*
