@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 09:41:44 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 01:59:37 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:30:49 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ char	*get_prompt(void);
 
 
 /*---PARSING---*/
-void	create_nodes(t_minishell *data);
+int	put_var_in_tab(char *str, char *tab, t_minishell *data, int *j);
+void	create_nodes(t_minishell *data, int i);
 int		parsing(t_minishell *data);
 int		ft_count_num(int nb);
 int		quote_chr(char *str, int i);
@@ -90,7 +91,6 @@ void	redirections_handler(t_node *node);
 int		pre_parsing(char *line); // verif le retour de readline pour voir les erreur qotes et pipes
 int		tab_len(char *str, int	*len, t_minishell *data);
 void	ft_pass_redirection(char *str, int *i);
-void	create_nodes(t_minishell *data);
 void	append_nodes(t_minishell *data, int start, int end, char *tab);
 void	add_line_to_node(t_node *node, int start, int end, char *line);
 void	split_and_clean(t_node *node);
@@ -99,17 +99,18 @@ int		quote_chr(char *str, int i);
 void	ft_cpy_file(char *file, char *name_f, int *i, int j);
 int		go_redirection(char *name_f, char c, t_node *node, int i);
 void	init_j_and_option(int *i, int *option);//gagner des lignes
-int		ft_here_doc(char *final_word, t_node *node);
+int		ft_here_doc(char *final_word, t_node *node, char *buf_line, char *buf_hd);
 int		redirections_syntax(char *line);
 int		split_minishell(t_node *node, char *sep, int i, int	j);
 char	*ft_clean_tab(char *str, int len, t_minishell *data);
 void	init_data(t_minishell *data);
 void	init_node(t_node *node);
 int		putnbr_in_tab(t_minishell *data, char *tab);
-int	chr_quotes_or_d(char *str);
-int	var_len(char *str, t_minishell *data, int *len);
-int	quotes_len(char *str, char quote, t_minishell *data, int *len);
+int		chr_quotes_or_d(char *str);
+int		var_len(char *str, t_minishell *data, int *len);
+int		quotes_len(char *str, char quote, t_minishell *data, int *len);
 void	dollar_handler(char *str, int *len, t_minishell * data, int *i);
+int	ft_count_num(int nb);
 
 
 /*- - - SRC_ENV - - -*/

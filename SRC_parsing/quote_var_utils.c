@@ -1,43 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quote_var_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/07 18:48:57 by abelmoha          #+#    #+#             */
+/*   Updated: 2024/12/07 18:53:03 by abelmoha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	putnbr_in_tab(t_minishell *data, char *tab)
 {
 	char	*nb;
 	int		len;
-	
+
 	nb = ft_itoa(data->exit_code);
 	ft_strlcpy(tab, nb, 4);
 	len = ft_strlen(nb);
 	free(nb);
-	return(len);
+	return (len);
 }
+
 int	chr_quotes_or_d(char *str)
 {
 	int	i;
-	
+
 	i = 0;
 	while (str[i])
 	{
-		if(str[i] == '\'' || str[i] == '"' || str[i] == '$')
+		if (str[i] == '\'' || str[i] == '"' || str[i] == '$')
 			return (1);
 		i++;
 	}
 	return (0);
 }
+
 int	var_len(char *str, t_minishell *data, int *len)
 {
-	int	i;
+	int		i;
 	t_env	*v_e;
-	
+
 	v_e = data->var;
 	i = 0;
-	while(str[i] && (isalnum(str[i]) || str[i] == '_'))
+	while (str[i] && (isalnum(str[i]) || str[i] == '_'))
 		i++;
 	if (i == 0 && str[0])
 		return (1);
-	while(v_e) 
+	while (v_e)
 	{
-		if (!ft_strncmp(v_e->key, str, ft_strlen(v_e->key)) && ft_strlen(v_e->key) == i)
+		if (!ft_strncmp(v_e->key, str, ft_strlen(v_e->key))
+			&& ft_strlen(v_e->key) == i)
 		{
 			(*len) += ft_strlen(v_e->value);
 			return (i);
@@ -45,22 +60,21 @@ int	var_len(char *str, t_minishell *data, int *len)
 		else
 			v_e = v_e->next;
 	}
-
 	return (i);
 }
 
 int	quotes_len(char *str, char quote, t_minishell *data, int *len)
 {
 	int	i;
-	
+
 	i = 1;
 	while (str[i] && str[i] != quote)
 	{
-		if(quote == '"' && str[i] == '$')
+		if (quote == '"' && str[i] == '$')
 		{
 			i++;
 			i += var_len(&str[i], data, len);
-			continue;
+			continue ;
 		}
 		else
 		{
@@ -71,9 +85,8 @@ int	quotes_len(char *str, char quote, t_minishell *data, int *len)
 	return (i + 1);
 }
 
-void	dollar_handler(char *str, int *len, t_minishell * data, int *i)
+void	dollar_handler(char *str, int *len, t_minishell *data, int *i)
 {
-	
 	(*i)++;
 	if (str[*i] == '?')
 	{
@@ -82,18 +95,4 @@ void	dollar_handler(char *str, int *len, t_minishell * data, int *i)
 	}
 	else
 		(*i) += var_len(&str[*i], data, len);
-}
-int	ft_count_num(int nb)
-{
-	int	i;
-	i = 0;
-
-	if (nb == 0)
-		return(1);
-	while (nb != 0)
-	{
-		nb /= 10;
-		i++;
-	}
-	return (i);
 }

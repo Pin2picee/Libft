@@ -6,17 +6,16 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:45:22 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/06 12:27:40 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:19:30 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//donne l'indice du prochaine ' ou "" si pas trouver alors -42
 int	quote_chr(char *str, int i)
 {
 	char	quote;
-	
+
 	quote = str[i];
 	i++;
 	while (str[i] && str[i] != quote)
@@ -29,12 +28,11 @@ int	quote_chr(char *str, int i)
 		return (-42);
 }
 
-//verifie si il y a bien des doublons de " ou ', si un seul alors probleme
 int	quotes_syntax(char *line)
 {
 	int	i;
-	int add_index;
-	
+	int	add_index;
+
 	i = 0;
 	while (line[i])
 	{
@@ -50,14 +48,8 @@ int	quotes_syntax(char *line)
 	return (0);
 }
 
-// verifie si premier caractere est pipe ou si dernier caractere est pipe
-int	pipe_syntax(char *line)
+int	pipe_syntax(char *line, int i, bool flag)
 {
-	int	i;
-	bool flag;
-    
-	flag = false;
-	i = 0;
 	if (!line || line[0] == '|')
 		return (1);
 	while (line[i] == ' ')
@@ -68,9 +60,9 @@ int	pipe_syntax(char *line)
 	while (i < ft_strlen(line) && line[++i])
 	{
 		if (line[i] == '\'' || line[i] == '"')
-		{							
+		{
 			i = quote_chr(line, i);
-			continue;
+			continue ;
 		}
 		if (line[i] && line[i] == '|')
 		{
@@ -78,7 +70,7 @@ int	pipe_syntax(char *line)
 			while (line[i] && line[i] == ' ')
 				i++;
 			if (line[i] == '\0' || line [i] == '|')
-				return(1);
+				return (1);
 		}
 	}
 	return (0);
@@ -86,8 +78,8 @@ int	pipe_syntax(char *line)
 
 int	redirections_syntax(char *line)
 {
-	int	i;
-	char quotes;
+	int		i;
+	char	quotes;
 
 	i = 0;
 	while (i < ft_strlen(line) && line[i])
@@ -95,7 +87,7 @@ int	redirections_syntax(char *line)
 		if (ft_strchr("\'\"", line[i]))
 		{
 			i = quote_chr(line, i) + 1;
-			continue;
+			continue ;
 		}
 		if (line[i] && ft_strchr("<>", line[i]))
 		{
@@ -114,12 +106,12 @@ int	pre_parsing(char *line)
 {
 	if (line[0] == '\0')
 		return (1);
-	if(quotes_syntax(line))
+	if (quotes_syntax(line))
 	{
 		printf("Quotes are not close\n");
 		return (1);
 	}
-	if(pipe_syntax(line))
+	if (pipe_syntax(line, 0, false))
 	{
 		printf("Need cmd after pipe\n");
 		return (1);

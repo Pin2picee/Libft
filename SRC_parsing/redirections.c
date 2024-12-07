@@ -6,72 +6,70 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:08:31 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 02:15:48 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:25:32 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// fonctions do_fd -> creer un file et qui creer les fd ou les ouvre et les mes dans les noeuds
-void	do_fd(char *filename, int option, t_node *node,int len)
+void	do_fd(char *filename, int option, t_node *node, int len)
 {
-	char	*Error;
+	char	*error;
 
 	if (!*filename)
 		return ;
 	tab_len(filename, &len, node->data);
 	if (len != 0)
-		filename = ft_clean_tab(filename, len, node->data);// clean les ""
+		filename = ft_clean_tab(filename, len, node->data);
 	if (option == 1)
-		node->fd_out = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0666); //TRUNC
+		node->fd_out = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0666);
 	if (option == 2)
-		node->fd_out = open(filename, O_CREAT | O_APPEND | O_WRONLY, 0666); // APPEND
+		node->fd_out = open(filename, O_CREAT | O_APPEND | O_WRONLY, 0666);
 	if (option == 3)
-		node->fd_in = open(filename, O_RDONLY); // FD_IN
+		node->fd_in = open(filename, O_RDONLY);
 	if (node->fd_in < 0 || node->fd_out < 0)
 	{
-		Error = ft_strjoin("Minishell: ", filename);
-		perror(Error);
-		free(Error);
+		error = ft_strjoin("Minishell: ", filename);
+		perror(error);
+		free(error);
 		free(filename);
 		node->data->exit_code = 1;
 		return ;
 	}
 	if (option == 4)
-		ft_here_doc(filename, node);//TODO -> 
+		ft_here_doc(filename, node, NULL, NULL);
 	free(filename);
 }
 
-// fonction qui recupere le filname et appel une fonction qui va creer un fichier au filname
-int	go_redirection(char *name_f, char c, t_node *node, int i)
+int	go_redirection(char *n_f, char c, t_node *node, int i)
 {
-	char file[FILENAME_MAX];
-	int	option;// 1 = trunc; 2 = append; 3 = redirection d'entre; 4 = here_doc 
-	int	j;
+	char	file[FILENAME_MAX];
+	int		option;
+	int		j;
 
-	init_j_and_option(&j, &option);//gagner des ligne -> oui gros rat
-	if (c == '<' && !ft_strchr("<>", name_f[i]))// si redire entre
+	init_j_and_option(&j, &option);
+	if (c == '<' && !ft_strchr("<>", n_f[i]))
 		option = 3;
-	if(name_f[i] == '>' && name_f[i] == c)// si >> append
+	if (n_f[i] == '>' && n_f[i] == c)
 		option = 2;
-	if (name_f[i] == '<' && name_f[i] == c)// si << here doc
+	if (n_f[i] == '<' && n_f[i] == c)
 		option = 4;
-	if ((name_f[i + 1] == '>' || name_f[i + 1] == '<') && ft_strchr("><", name_f[i]))// le cas ou >>> ou <<<
-		return (ft_putstr_fd("\033[34mmore than 2 redirections characters\033[0m", 2), -42);
-	if ((name_f[i] != c && ft_strchr("><", name_f[i])))// le cas ou >< ou ><
-		return (ft_putstr_fd("inverse redirections", 2), -42);
-	if (name_f[i] == ' ' || name_f[i] == '\t')
+	if (((n_f[i + 1] == '>' || n_f[i + 1] == '<') && ft_strchr("><", n_f[i]))
+		|| (n_f[i] != c && ft_strchr("><", n_f[i])))
+		return (ft_putstr_fd("Probleme redirections\n", 2), -42);
+	if (n_f[i] == ' ' || n_f[i] == '\t')
 	{
-		while (name_f[i] == ' ' || name_f[i] == '\t')//passe tant que espace si espace
+		while (n_f[i] == ' ' || n_f[i] == '\t')
 			i++;
-		if (ft_strchr("><", name_f[i]))// le cas ou >> >file ou l'inverse
-			return (ft_putstr_fd("redirections problemes", 2), -42); // fonction printf
+		if (ft_strchr("><", n_f[i]))
+			return (ft_putstr_fd("redirections problemes", 2), -42);
 	}
-	if ( name_f[i] && name_f[i + 1] && ft_strchr("\'\"", name_f[i + 1]))
-		i++;//si append
-	return (ft_cpy_file(file, name_f, &i, j), do_fd(ft_strdup(file), option, node, 0), i + 1); // creer le fichier avec append ou trunc et gere le here_doc
+	if (n_f[i] && n_f[i + 1] && ft_strchr("\'\"", n_f[i + 1]))
+		i++;
+	return (ft_cpy_file(file, n_f, &i, j),
+		do_fd(ft_strdup(file), option, node, 0), i + 1);
 }
-//la fonction clean_command renvoie la chaine sans > file
+
 void	clean_commands(t_node *node, int i, int j)
 {
 	char	*str;
@@ -80,14 +78,15 @@ void	clean_commands(t_node *node, int i, int j)
 	while (i < ft_strlen(node->command) && node->command[i])
 	{
 		while (node->command[i] && ft_strchr("<>", node->command[i]))
-			ft_pass_redirection(node->command, &i);// une fonction qui passe le file et les redirections
+			ft_pass_redirection(node->command, &i);
 		if (node->command[i] == '"' || node->command[i] == '\'')
 		{
 			if (node->command[i + 1] == node->command[i])
 				i = i + 2;
 			else
 			{
-				ft_strlcpy(str + j, node->command + i, quote_chr(node->command, i) - i + 2);
+				ft_strlcpy(str + j, node->command + i,
+					quote_chr(node->command, i) - i + 2);
 				j = ft_strlen(str);
 				i = quote_chr(node->command, i) + 1;
 			}
@@ -98,29 +97,31 @@ void	clean_commands(t_node *node, int i, int j)
 	free(node->command);
 	node->command = str;
 }
-// fonction principal
+
 void	redirections_handler(t_node *node)
 {
 	int	i;
 	int	check;
-	
+
 	i = 0;
 	while (i < ft_strlen(node->command) && node->command[i])
 	{
-		while (i < ft_strlen(node->command) && node->command[i] == '"' || node->command[i] == '\'')
+		while (i < ft_strlen(node->command)
+			&& node->command[i] == '"' || node->command[i] == '\'')
 			i = quote_chr(node->command, i) + 1;
-		while (i < ft_strlen(node->command) && (node->command[i] == '>' || node->command[i] == '<') && node->command[i])
+		while (i < ft_strlen(node->command)
+			&& (node->command[i] == '>'
+				|| node->command[i] == '<') && node->command[i])
 		{
-			check = go_redirection(node->command + i + 1, node->command[i], node, 0);
+			check = go_redirection(node->command + i + 1,
+					node->command[i], node, 0);
 			if (check == (-42))
-			{
 				return ;
-			}
 			i += check;
 		}
 		i++;
 	}
 	if (node->command)
-		clean_commands(node, 0 , 0);
+		clean_commands(node, 0, 0);
 	return ;
 }

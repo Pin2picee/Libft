@@ -6,17 +6,16 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:59:14 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/06 22:31:02 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:01:10 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
 void	init_node(t_node *node)
 {
 	if (node == NULL)
-		return;
+		return ;
 	node->hd = NULL;
 	node->command = NULL;
 	node->fd_in = 0;
@@ -24,7 +23,6 @@ void	init_node(t_node *node)
 	node->next = NULL;
 	node->split = NULL;
 	node->cmd_path = NULL;
-	
 }
 
 void	init_data(t_minishell *data)
@@ -42,4 +40,3 @@ void	init_data(t_minishell *data)
 	data->fd_stdout = 1;
 	data->child_pid = 0;
 }
-

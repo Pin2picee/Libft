@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:31:03 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/06 20:01:55 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:01:53 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	pipes_chr(char	*readline, int i)
 {
 	int	j;
-	
+
 	j = i + 1;
 	while (readline[j] && readline[j] != readline[i])
 		j++;
@@ -24,19 +24,19 @@ int	pipes_chr(char	*readline, int i)
 	else
 		return (-42);
 }
+
 int	parsing(t_minishell *data)
 {
 	t_node	*node;
-	
+
 	data->start_node = NULL;
-	if (pre_parsing(data->line)) // verif retour readline->main
+	if (pre_parsing(data->line))
 		return (1);
-	//init_node fonction qui init start node
-	create_nodes(data);
+	create_nodes(data, 0);
 	node = data->start_node;
-	while (node) //-> for every pipe : ligne clean et split clean
+	while (node)
 	{
-		split_and_clean(node);// clean redirections for command AND split AND clean quotes split
+		split_and_clean(node);
 		node = node->next;
 	}
 	return (0);

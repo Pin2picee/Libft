@@ -6,21 +6,21 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:14:14 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/06 20:01:28 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:59:48 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_node *find_last_nodes(t_node *node)
+t_node	*find_last_nodes(t_node *node)
 {
-    if (!node)
-        return NULL; 
-    while (node->next)
-    {
-        node = node->next;
-    }
-    return node;
+	if (!node)
+		return (NULL);
+	while (node->next)
+	{
+		node = node->next;
+	}
+	return (node);
 }
 
 void	add_line_to_node(t_node *node, int start, int end, char *line)
@@ -62,16 +62,14 @@ void	append_nodes(t_minishell *data, int start, int end, char *tab)
 	add_line_to_node(new_node, start, end, tab);
 }
 
-void	create_nodes(t_minishell *data)
+void	create_nodes(t_minishell *data, int i)
 {
 	char	*tab;
-	int	i;
-	int	last;
+	int		last;
 	char	quote;
-	
+
 	data->node_nbr = 1;
 	last = 0;
-	i = 0;
 	tab = data->line;
 	while (tab[i])
 	{

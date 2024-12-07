@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 10:45:45 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 17:42:48 by mbetcher         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:20:37 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ char	*get_prompt(void)
 	free(prompt);
 	return (prompt_clean);
 }
-
 
 void	ft_tkt(t_node *node)
 {

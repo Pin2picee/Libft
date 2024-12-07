@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:45:51 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 01:45:17 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:45:03 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	ft_cpy_file(char *file, char *name_f, int *i, int j)
 {
 	char	quote;
-	
+
 	while (name_f[*i] && ft_strchr(">< \t", name_f[*i]))
-			(*i)++;
+		(*i)++;
 	ft_bzero(file, FILENAME_MAX);
 	while (name_f[*i])
 	{
@@ -26,7 +26,7 @@ void	ft_cpy_file(char *file, char *name_f, int *i, int j)
 			quote = name_f[*i];
 			file[j++] = name_f[(*i)++];
 			while (name_f[*i] != quote && name_f[*i])
-				file[j++] = name_f[(*i)++]; // copie du file dans les quotes
+				file[j++] = name_f[(*i)++];
 			if (ft_strchr("\"\'", name_f[*i]) && name_f[*i])
 				file[j++] = name_f[(*i)++];
 		}
@@ -34,7 +34,7 @@ void	ft_cpy_file(char *file, char *name_f, int *i, int j)
 		{
 			while (name_f[*i] && name_f[*i] != ' ' && name_f[*i] != '\t'
 				&& !ft_strchr("><", name_f[*i]) && name_f[*i] != '|')
-				file[j++] = name_f[(*i)++]; // copie du file
+				file[j++] = name_f[(*i)++];
 		}
 		else
 			break ;
@@ -43,11 +43,11 @@ void	ft_cpy_file(char *file, char *name_f, int *i, int j)
 
 void	ft_pass_redirection(char *str, int *i)
 {
-	char quote;
-	
+	char	quote;
+
 	while (ft_strchr("><", str[(*i)]))
 		(*i)++;
-	while (str[(*i)] == ' ')	
+	while (str[(*i)] == ' ')
 		(*i)++;
 	if (ft_strchr("\"\'", str[(*i)]))
 	{
@@ -57,7 +57,6 @@ void	ft_pass_redirection(char *str, int *i)
 			while (str[(*i)] != quote && str[(*i)])
 				(*i)++;
 			(*i)++;
-	
 		}
 	}
 	while (!ft_strchr(">< ", str[(*i)]))
@@ -66,13 +65,12 @@ void	ft_pass_redirection(char *str, int *i)
 		return ;
 	while (ft_strchr(" \t", str[(*i)]) && str[(*i)])
 		(*i)++;
-
 }
 
 void	init_j_and_option(int *i, int *option)
 {
 	(*i) = 0;
-	(*option) = 1;//trunc
+	(*option) = 1;
 }
 
 void	verif_here_doc(t_node *node)
@@ -82,17 +80,16 @@ void	verif_here_doc(t_node *node)
 	node->hd = NULL;
 }
 
-int	ft_here_doc(char *final_word, t_node *node)
+int	ft_here_doc(char *final_word, t_node *node, char *buf_line, char *buf_hd)
 {
-	char	*buf_line;
-	char	*buf_hd;
 	char	*buf_line_with_newline;
 
 	buf_line = NULL;
 	verif_here_doc(node);
 	while (1)
 	{
-		if (!(buf_line = readline(">")) && control_d_herdoc(buf_line, final_word, node))
+		buf_line = readline(">");
+		if (control_d_herdoc(buf_line, final_word, node))
 			break ;
 		if (buf_line != NULL)
 		{
