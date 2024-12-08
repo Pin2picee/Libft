@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Pin2picee <Pin2picee@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 23:56:24 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/11/23 18:12:18 by Pin2picee        ###   ########.fr       */
+/*   Updated: 2024/12/08 15:11:20 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ void	*ft_memchr(const void *s, int c, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 char	*ft_strldup(const char *s, int size);//nouveau
+int		ft_strcmp(const char *s1, const char *s2);//nouveau
 
 #endif

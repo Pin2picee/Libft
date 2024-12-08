@@ -1,457 +1,457 @@
 Commande: ls | <infile <infile2 rev | cat >outfile76 > outfile77 -n >outfile78| rev
 Sortie Valgrind:
-==162498== Memcheck, a memory error detector
-==162498== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==162498== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==162498== Command: ../minishell
-==162498== 
+==233322== Memcheck, a memory error detector
+==233322== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==233322== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==233322== Command: ../minishell
+==233322== 
 Minishell: infile: No such file or directory
 Minishell: infile2: No such file or directory
-==162499== Memcheck, a memory error detector
-==162499== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==162499== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==162499== Command: /usr/bin/ls
-==162499== 
-==162502== Memcheck, a memory error detector
-==162502== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==162502== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==162502== Command: /usr/bin/rev
-==162502== 
-==162501== Memcheck, a memory error detector
-==162501== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==162501== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==162501== Command: /usr/bin/cat -n
-==162501== 
-==162500== 
-==162500== HEAP SUMMARY:
-==162500==     in use at exit: 208,275 bytes in 225 blocks
-==162500==   total heap usage: 818 allocs, 593 frees, 251,340 bytes allocated
-==162500== 
-==162500== LEAK SUMMARY:
-==162500==    definitely lost: 0 bytes in 0 blocks
-==162500==    indirectly lost: 0 bytes in 0 blocks
-==162500==      possibly lost: 0 bytes in 0 blocks
-==162500==    still reachable: 0 bytes in 0 blocks
-==162500==         suppressed: 208,275 bytes in 225 blocks
-==162500== 
-==162500== For lists of detected and suppressed errors, rerun with: -s
-==162500== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==162501== 
-==162501== HEAP SUMMARY:
-==162501==     in use at exit: 0 bytes in 0 blocks
-==162501==   total heap usage: 32 allocs, 32 frees, 798,707 bytes allocated
-==162501== 
-==162501== All heap blocks were freed -- no leaks are possible
-==162501== 
-==162501== For lists of detected and suppressed errors, rerun with: -s
-==162501== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==162502== 
-==162502== HEAP SUMMARY:
-==162502==     in use at exit: 0 bytes in 0 blocks
-==162502==   total heap usage: 36 allocs, 36 frees, 57,763 bytes allocated
-==162502== 
-==162502== All heap blocks were freed -- no leaks are possible
-==162502== 
-==162502== For lists of detected and suppressed errors, rerun with: -s
-==162502== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==162499== 
-==162499== Process terminating with default action of signal 13 (SIGPIPE)
-==162499==    at 0x49B1887: write (write.c:26)
-==162499==    by 0x4927EEC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1180)
-==162499==    by 0x49299E0: new_do_write (fileops.c:448)
-==162499==    by 0x49299E0: _IO_new_do_write (fileops.c:425)
-==162499==    by 0x49299E0: _IO_do_write@@GLIBC_2.2.5 (fileops.c:422)
-==162499==    by 0x49274D7: _IO_file_sync@@GLIBC_2.2.5 (fileops.c:798)
-==162499==    by 0x491C1A9: fflush (iofflush.c:40)
-==162499==    by 0x1139C8: ??? (in /usr/bin/ls)
-==162499==    by 0x113AF4: ??? (in /usr/bin/ls)
-==162499==    by 0x48E2494: __run_exit_handlers (exit.c:113)
-==162499==    by 0x48E260F: exit (exit.c:143)
-==162499==    by 0x48C6D96: (below main) (libc_start_call_main.h:74)
-==162499== 
-==162499== HEAP SUMMARY:
-==162499==     in use at exit: 29,207 bytes in 58 blocks
-==162499==   total heap usage: 65 allocs, 7 frees, 63,678 bytes allocated
-==162499== 
-==162499== LEAK SUMMARY:
-==162499==    definitely lost: 0 bytes in 0 blocks
-==162499==    indirectly lost: 0 bytes in 0 blocks
-==162499==      possibly lost: 0 bytes in 0 blocks
-==162499==    still reachable: 0 bytes in 0 blocks
-==162499==         suppressed: 29,207 bytes in 58 blocks
-==162499== 
-==162499== For lists of detected and suppressed errors, rerun with: -s
-==162499== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==162498== 
-==162498== HEAP SUMMARY:
-==162498==     in use at exit: 208,165 bytes in 222 blocks
-==162498==   total heap usage: 823 allocs, 601 frees, 255,533 bytes allocated
-==162498== 
-==162498== LEAK SUMMARY:
-==162498==    definitely lost: 0 bytes in 0 blocks
-==162498==    indirectly lost: 0 bytes in 0 blocks
-==162498==      possibly lost: 0 bytes in 0 blocks
-==162498==    still reachable: 0 bytes in 0 blocks
-==162498==         suppressed: 208,165 bytes in 222 blocks
-==162498== 
-==162498== For lists of detected and suppressed errors, rerun with: -s
-==162498== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==233323== Memcheck, a memory error detector
+==233323== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==233323== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==233323== Command: /usr/bin/ls
+==233323== 
+==233325== Memcheck, a memory error detector
+==233325== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==233325== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==233325== Command: /usr/bin/cat -n
+==233325== 
+==233326== Memcheck, a memory error detector
+==233326== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==233326== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==233326== Command: /usr/bin/rev
+==233326== 
+==233324== 
+==233324== HEAP SUMMARY:
+==233324==     in use at exit: 208,291 bytes in 225 blocks
+==233324==   total heap usage: 818 allocs, 593 frees, 251,435 bytes allocated
+==233324== 
+==233324== LEAK SUMMARY:
+==233324==    definitely lost: 0 bytes in 0 blocks
+==233324==    indirectly lost: 0 bytes in 0 blocks
+==233324==      possibly lost: 0 bytes in 0 blocks
+==233324==    still reachable: 0 bytes in 0 blocks
+==233324==         suppressed: 208,291 bytes in 225 blocks
+==233324== 
+==233324== For lists of detected and suppressed errors, rerun with: -s
+==233324== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==233325== 
+==233325== HEAP SUMMARY:
+==233325==     in use at exit: 0 bytes in 0 blocks
+==233325==   total heap usage: 32 allocs, 32 frees, 798,707 bytes allocated
+==233325== 
+==233325== All heap blocks were freed -- no leaks are possible
+==233325== 
+==233325== For lists of detected and suppressed errors, rerun with: -s
+==233325== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==233326== 
+==233326== HEAP SUMMARY:
+==233326==     in use at exit: 0 bytes in 0 blocks
+==233326==   total heap usage: 36 allocs, 36 frees, 57,763 bytes allocated
+==233326== 
+==233326== All heap blocks were freed -- no leaks are possible
+==233326== 
+==233326== For lists of detected and suppressed errors, rerun with: -s
+==233326== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==233323== 
+==233323== Process terminating with default action of signal 13 (SIGPIPE)
+==233323==    at 0x49B1887: write (write.c:26)
+==233323==    by 0x4927EEC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1180)
+==233323==    by 0x49299E0: new_do_write (fileops.c:448)
+==233323==    by 0x49299E0: _IO_new_do_write (fileops.c:425)
+==233323==    by 0x49299E0: _IO_do_write@@GLIBC_2.2.5 (fileops.c:422)
+==233323==    by 0x49274D7: _IO_file_sync@@GLIBC_2.2.5 (fileops.c:798)
+==233323==    by 0x491C1A9: fflush (iofflush.c:40)
+==233323==    by 0x1139C8: ??? (in /usr/bin/ls)
+==233323==    by 0x113AF4: ??? (in /usr/bin/ls)
+==233323==    by 0x48E2494: __run_exit_handlers (exit.c:113)
+==233323==    by 0x48E260F: exit (exit.c:143)
+==233323==    by 0x48C6D96: (below main) (libc_start_call_main.h:74)
+==233323== 
+==233323== HEAP SUMMARY:
+==233323==     in use at exit: 29,207 bytes in 58 blocks
+==233323==   total heap usage: 65 allocs, 7 frees, 63,678 bytes allocated
+==233323== 
+==233323== LEAK SUMMARY:
+==233323==    definitely lost: 0 bytes in 0 blocks
+==233323==    indirectly lost: 0 bytes in 0 blocks
+==233323==      possibly lost: 0 bytes in 0 blocks
+==233323==    still reachable: 0 bytes in 0 blocks
+==233323==         suppressed: 29,207 bytes in 58 blocks
+==233323== 
+==233323== For lists of detected and suppressed errors, rerun with: -s
+==233323== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==233322== 
+==233322== HEAP SUMMARY:
+==233322==     in use at exit: 208,181 bytes in 222 blocks
+==233322==   total heap usage: 823 allocs, 601 frees, 255,645 bytes allocated
+==233322== 
+==233322== LEAK SUMMARY:
+==233322==    definitely lost: 0 bytes in 0 blocks
+==233322==    indirectly lost: 0 bytes in 0 blocks
+==233322==      possibly lost: 0 bytes in 0 blocks
+==233322==    still reachable: 0 bytes in 0 blocks
+==233322==         suppressed: 208,181 bytes in 222 blocks
+==233322== 
+==233322== For lists of detected and suppressed errors, rerun with: -s
+==233322== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 
 Commande: ls |  rev |>outfile76 > outfile77 <infile <infile2 cat  -n >outfile78| rev
 Sortie Valgrind:
-==162506== Memcheck, a memory error detector
-==162506== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==162506== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==162506== Command: ../minishell
-==162506== 
+==233330== Memcheck, a memory error detector
+==233330== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==233330== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==233330== Command: ../minishell
+==233330== 
 Minishell: infile: No such file or directory
 Minishell: infile2: No such file or directory
 Minishell: outfile78: No such file or directory
-==162507== Memcheck, a memory error detector
-==162507== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==162507== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==162507== Command: /usr/bin/ls
-==162507== 
-==162508== Memcheck, a memory error detector
-==162508== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==162508== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==162508== Command: /usr/bin/rev
-==162508== 
-==162510== Memcheck, a memory error detector
-==162510== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==162510== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==162510== Command: /usr/bin/rev
-==162510== 
-==162509== 
-==162509== HEAP SUMMARY:
-==162509==     in use at exit: 208,276 bytes in 225 blocks
-==162509==   total heap usage: 819 allocs, 594 frees, 251,365 bytes allocated
-==162509== 
-==162509== LEAK SUMMARY:
-==162509==    definitely lost: 0 bytes in 0 blocks
-==162509==    indirectly lost: 0 bytes in 0 blocks
-==162509==      possibly lost: 0 bytes in 0 blocks
-==162509==    still reachable: 0 bytes in 0 blocks
-==162509==         suppressed: 208,276 bytes in 225 blocks
-==162509== 
-==162509== For lists of detected and suppressed errors, rerun with: -s
-==162509== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==162510== 
-==162510== HEAP SUMMARY:
-==162510==     in use at exit: 0 bytes in 0 blocks
-==162510==   total heap usage: 36 allocs, 36 frees, 57,763 bytes allocated
-==162510== 
-==162510== All heap blocks were freed -- no leaks are possible
-==162510== 
-==162510== For lists of detected and suppressed errors, rerun with: -s
-==162510== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==162508== 
-==162508== Process terminating with default action of signal 13 (SIGPIPE)
-==162508==    at 0x4985887: write (write.c:26)
-==162508==    by 0x48FBEEC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1180)
-==162508==    by 0x48FD9E0: new_do_write (fileops.c:448)
-==162508==    by 0x48FD9E0: _IO_new_do_write (fileops.c:425)
-==162508==    by 0x48FD9E0: _IO_do_write@@GLIBC_2.2.5 (fileops.c:422)
-==162508==    by 0x48F7255: _IO_wdo_write (wfileops.c:80)
-==162508==    by 0x48F76DE: _IO_wfile_sync (wfileops.c:486)
-==162508==    by 0x48F01A9: fflush (iofflush.c:40)
-==162508==    by 0x109B17: ??? (in /usr/bin/rev)
-==162508==    by 0x48B6494: __run_exit_handlers (exit.c:113)
-==162508==    by 0x48B660F: exit (exit.c:143)
-==162508==    by 0x489AD96: (below main) (libc_start_call_main.h:74)
-==162508== 
-==162508== HEAP SUMMARY:
-==162508==     in use at exit: 45,470 bytes in 36 blocks
-==162508==   total heap usage: 38 allocs, 2 frees, 78,243 bytes allocated
-==162508== 
-==162508== 11 bytes in 1 blocks are still reachable in loss record 1 of 14
-==162508==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==162508==    by 0x491958E: strdup (strdup.c:42)
-==162508==    by 0x48AED57: __textdomain (textdomain.c:94)
-==162508==    by 0x48AED57: textdomain (textdomain.c:64)
-==162508==    by 0x109476: ??? (in /usr/bin/rev)
-==162508==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
-==162508== 
-==162508== 12 bytes in 1 blocks are still reachable in loss record 2 of 14
-==162508==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==162508==    by 0x491958E: strdup (strdup.c:42)
-==162508==    by 0x48A931A: _nl_load_locale_from_archive (loadarchive.c:464)
-==162508==    by 0x48A80DF: _nl_find_locale (findlocale.c:152)
-==162508==    by 0x48A7856: setlocale (setlocale.c:337)
-==162508==    by 0x48A7856: setlocale (setlocale.c:217)
-==162508==    by 0x109458: ??? (in /usr/bin/rev)
-==162508==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
-==162508== 
-==162508== 12 bytes in 1 blocks are still reachable in loss record 3 of 14
-==162508==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==162508==    by 0x48A76EB: new_composite_name (setlocale.c:165)
-==162508==    by 0x48A7BAA: setlocale (setlocale.c:375)
-==162508==    by 0x48A7BAA: setlocale (setlocale.c:217)
-==162508==    by 0x109458: ??? (in /usr/bin/rev)
-==162508==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
-==162508== 
-==162508== 32 bytes in 1 blocks are still reachable in loss record 4 of 14
-==162508==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==162508==    by 0x4943C1F: __wcsmbs_load_conv (wcsmbsload.c:167)
-==162508==    by 0x494403A: get_gconv_fcts (wcsmbsload.h:73)
-==162508==    by 0x494403A: __wcsmbs_clone_conv (wcsmbsload.c:221)
-==162508==    by 0x48F7B28: _IO_fwide (iofwide.c:79)
-==162508==    by 0x48F34A8: _IO_getwline_info (iogetwline.c:54)
-==162508==    by 0x49A6D58: __fgetws_chk (fgetws_chk.c:37)
-==162508==    by 0x1095EE: ??? (in /usr/bin/rev)
-==162508==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
-==162508== 
-==162508== 35 bytes in 1 blocks are still reachable in loss record 5 of 14
-==162508==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==162508==    by 0x48AB5DE: set_binding_values.part.0 (bindtextdom.c:203)
-==162508==    by 0x48AB89B: set_binding_values (bindtextdom.c:322)
-==162508==    by 0x48AB89B: bindtextdomain (bindtextdom.c:320)
-==162508==    by 0x109467: ??? (in /usr/bin/rev)
-==162508==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
-==162508== 
-==162508== 120 bytes in 1 blocks are still reachable in loss record 6 of 14
-==162508==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==162508==    by 0x48A92FF: _nl_load_locale_from_archive (loadarchive.c:460)
-==162508==    by 0x48A80DF: _nl_find_locale (findlocale.c:152)
-==162508==    by 0x48A7856: setlocale (setlocale.c:337)
-==162508==    by 0x48A7856: setlocale (setlocale.c:217)
-==162508==    by 0x109458: ??? (in /usr/bin/rev)
-==162508==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
-==162508== 
-==162508== 144 bytes in 12 blocks are still reachable in loss record 7 of 14
-==162508==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==162508==    by 0x491958E: strdup (strdup.c:42)
-==162508==    by 0x48A7C84: setlocale (setlocale.c:366)
-==162508==    by 0x48A7C84: setlocale (setlocale.c:217)
-==162508==    by 0x109458: ??? (in /usr/bin/rev)
-==162508==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
-==162508== 
-==162508== 208 bytes in 1 blocks are still reachable in loss record 8 of 14
-==162508==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==162508==    by 0x48A69D6: __gconv_lookup_cache (gconv_cache.c:365)
-==162508==    by 0x489CB6E: __gconv_find_transform (gconv_db.c:732)
-==162508==    by 0x4943D4A: __wcsmbs_getfct (wcsmbsload.c:91)
-==162508==    by 0x4943D4A: __wcsmbs_load_conv (wcsmbsload.c:185)
-==162508==    by 0x494403A: get_gconv_fcts (wcsmbsload.h:73)
-==162508==    by 0x494403A: __wcsmbs_clone_conv (wcsmbsload.c:221)
-==162508==    by 0x48F7B28: _IO_fwide (iofwide.c:79)
-==162508==    by 0x48F34A8: _IO_getwline_info (iogetwline.c:54)
-==162508==    by 0x49A6D58: __fgetws_chk (fgetws_chk.c:37)
-==162508==    by 0x1095EE: ??? (in /usr/bin/rev)
-==162508==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
-==162508== 
-==162508== 208 bytes in 1 blocks are still reachable in loss record 9 of 14
-==162508==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==162508==    by 0x48A6AC0: __gconv_lookup_cache (gconv_cache.c:365)
-==162508==    by 0x489CB6E: __gconv_find_transform (gconv_db.c:732)
-==162508==    by 0x4943D8B: __wcsmbs_getfct (wcsmbsload.c:91)
-==162508==    by 0x4943D8B: __wcsmbs_load_conv (wcsmbsload.c:188)
-==162508==    by 0x494403A: get_gconv_fcts (wcsmbsload.h:73)
-==162508==    by 0x494403A: __wcsmbs_clone_conv (wcsmbsload.c:221)
-==162508==    by 0x48F7B28: _IO_fwide (iofwide.c:79)
-==162508==    by 0x48F34A8: _IO_getwline_info (iogetwline.c:54)
-==162508==    by 0x49A6D58: __fgetws_chk (fgetws_chk.c:37)
-==162508==    by 0x1095EE: ??? (in /usr/bin/rev)
-==162508==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
-==162508== 
-==162508== 3,728 bytes in 12 blocks are still reachable in loss record 10 of 14
-==162508==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==162508==    by 0x48A896E: _nl_intern_locale_data (loadlocale.c:97)
-==162508==    by 0x48A9370: _nl_load_locale_from_archive (loadarchive.c:477)
-==162508==    by 0x48A80DF: _nl_find_locale (findlocale.c:152)
-==162508==    by 0x48A7856: setlocale (setlocale.c:337)
-==162508==    by 0x48A7856: setlocale (setlocale.c:217)
-==162508==    by 0x109458: ??? (in /usr/bin/rev)
-==162508==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
-==162508== 
-==162508== 4,096 bytes in 1 blocks are still reachable in loss record 11 of 14
-==162508==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==162508==    by 0x48EFBA3: _IO_file_doallocate (filedoalloc.c:101)
-==162508==    by 0x48F0EFC: _IO_wfile_doallocate (wfiledoalloc.c:70)
-==162508==    by 0x48FECDF: _IO_doallocbuf (genops.c:347)
-==162508==    by 0x48F6563: _IO_wfile_underflow (wfileops.c:181)
-==162508==    by 0x48F4875: _IO_wdefault_uflow (wgenops.c:202)
-==162508==    by 0x48F33B6: _IO_getwline_info (iogetwline.c:61)
-==162508==    by 0x49A6D58: __fgetws_chk (fgetws_chk.c:37)
-==162508==    by 0x1095EE: ??? (in /usr/bin/rev)
-==162508==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
-==162508== 
-==162508== 4,096 bytes in 1 blocks are still reachable in loss record 12 of 14
-==162508==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==162508==    by 0x48EFBA3: _IO_file_doallocate (filedoalloc.c:101)
-==162508==    by 0x48F0EFC: _IO_wfile_doallocate (wfiledoalloc.c:70)
-==162508==    by 0x48F4B9D: _IO_wdoallocbuf (wgenops.c:369)
-==162508==    by 0x48F75F4: _IO_wfile_overflow (wfileops.c:420)
-==162508==    by 0x48F498E: __woverflow (wgenops.c:215)
-==162508==    by 0x48F498E: _IO_wdefault_xsputn (wgenops.c:315)
-==162508==    by 0x48F498E: _IO_wdefault_xsputn (wgenops.c:282)
-==162508==    by 0x48F78A8: _IO_wfile_xsputn (wfileops.c:1009)
-==162508==    by 0x48F78A8: _IO_wfile_xsputn (wfileops.c:955)
-==162508==    by 0x48F320F: fputws (iofputws.c:38)
-==162508==    by 0x109708: ??? (in /usr/bin/rev)
-==162508==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
-==162508== 
-==162508== 16,384 bytes in 1 blocks are still reachable in loss record 13 of 14
-==162508==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==162508==    by 0x48F0ECC: _IO_wfile_doallocate (wfiledoalloc.c:79)
-==162508==    by 0x48FECDF: _IO_doallocbuf (genops.c:347)
-==162508==    by 0x48F6563: _IO_wfile_underflow (wfileops.c:181)
-==162508==    by 0x48F4875: _IO_wdefault_uflow (wgenops.c:202)
-==162508==    by 0x48F33B6: _IO_getwline_info (iogetwline.c:61)
-==162508==    by 0x49A6D58: __fgetws_chk (fgetws_chk.c:37)
-==162508==    by 0x1095EE: ??? (in /usr/bin/rev)
-==162508==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
-==162508== 
-==162508== 16,384 bytes in 1 blocks are still reachable in loss record 14 of 14
-==162508==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==162508==    by 0x48F0ECC: _IO_wfile_doallocate (wfiledoalloc.c:79)
-==162508==    by 0x48F4B9D: _IO_wdoallocbuf (wgenops.c:369)
-==162508==    by 0x48F75F4: _IO_wfile_overflow (wfileops.c:420)
-==162508==    by 0x48F498E: __woverflow (wgenops.c:215)
-==162508==    by 0x48F498E: _IO_wdefault_xsputn (wgenops.c:315)
-==162508==    by 0x48F498E: _IO_wdefault_xsputn (wgenops.c:282)
-==162508==    by 0x48F78A8: _IO_wfile_xsputn (wfileops.c:1009)
-==162508==    by 0x48F78A8: _IO_wfile_xsputn (wfileops.c:955)
-==162508==    by 0x48F320F: fputws (iofputws.c:38)
-==162508==    by 0x109708: ??? (in /usr/bin/rev)
-==162508==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
-==162508== 
-==162508== LEAK SUMMARY:
-==162508==    definitely lost: 0 bytes in 0 blocks
-==162508==    indirectly lost: 0 bytes in 0 blocks
-==162508==      possibly lost: 0 bytes in 0 blocks
-==162508==    still reachable: 45,470 bytes in 36 blocks
-==162508==         suppressed: 0 bytes in 0 blocks
-==162508== 
-==162508== For lists of detected and suppressed errors, rerun with: -s
-==162508== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==162507== 
-==162507== HEAP SUMMARY:
-==162507==     in use at exit: 21,051 bytes in 28 blocks
-==162507==   total heap usage: 65 allocs, 37 frees, 63,678 bytes allocated
-==162507== 
-==162507== LEAK SUMMARY:
-==162507==    definitely lost: 0 bytes in 0 blocks
-==162507==    indirectly lost: 0 bytes in 0 blocks
-==162507==      possibly lost: 0 bytes in 0 blocks
-==162507==    still reachable: 0 bytes in 0 blocks
-==162507==         suppressed: 21,051 bytes in 28 blocks
-==162507== 
-==162507== For lists of detected and suppressed errors, rerun with: -s
-==162507== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==162506== 
-==162506== HEAP SUMMARY:
-==162506==     in use at exit: 208,165 bytes in 222 blocks
-==162506==   total heap usage: 824 allocs, 602 frees, 255,558 bytes allocated
-==162506== 
-==162506== LEAK SUMMARY:
-==162506==    definitely lost: 0 bytes in 0 blocks
-==162506==    indirectly lost: 0 bytes in 0 blocks
-==162506==      possibly lost: 0 bytes in 0 blocks
-==162506==    still reachable: 0 bytes in 0 blocks
-==162506==         suppressed: 208,165 bytes in 222 blocks
-==162506== 
-==162506== For lists of detected and suppressed errors, rerun with: -s
-==162506== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==233331== Memcheck, a memory error detector
+==233331== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==233331== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==233331== Command: /usr/bin/ls
+==233331== 
+==233332== Memcheck, a memory error detector
+==233332== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==233332== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==233332== Command: /usr/bin/rev
+==233332== 
+==233334== Memcheck, a memory error detector
+==233334== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==233334== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==233334== Command: /usr/bin/rev
+==233334== 
+==233333== 
+==233333== HEAP SUMMARY:
+==233333==     in use at exit: 208,292 bytes in 225 blocks
+==233333==   total heap usage: 819 allocs, 594 frees, 251,460 bytes allocated
+==233333== 
+==233333== LEAK SUMMARY:
+==233333==    definitely lost: 0 bytes in 0 blocks
+==233333==    indirectly lost: 0 bytes in 0 blocks
+==233333==      possibly lost: 0 bytes in 0 blocks
+==233333==    still reachable: 0 bytes in 0 blocks
+==233333==         suppressed: 208,292 bytes in 225 blocks
+==233333== 
+==233333== For lists of detected and suppressed errors, rerun with: -s
+==233333== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==233334== 
+==233334== HEAP SUMMARY:
+==233334==     in use at exit: 0 bytes in 0 blocks
+==233334==   total heap usage: 36 allocs, 36 frees, 57,763 bytes allocated
+==233334== 
+==233334== All heap blocks were freed -- no leaks are possible
+==233334== 
+==233334== For lists of detected and suppressed errors, rerun with: -s
+==233334== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==233332== 
+==233332== Process terminating with default action of signal 13 (SIGPIPE)
+==233332==    at 0x4985887: write (write.c:26)
+==233332==    by 0x48FBEEC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1180)
+==233332==    by 0x48FD9E0: new_do_write (fileops.c:448)
+==233332==    by 0x48FD9E0: _IO_new_do_write (fileops.c:425)
+==233332==    by 0x48FD9E0: _IO_do_write@@GLIBC_2.2.5 (fileops.c:422)
+==233332==    by 0x48F7255: _IO_wdo_write (wfileops.c:80)
+==233332==    by 0x48F76DE: _IO_wfile_sync (wfileops.c:486)
+==233332==    by 0x48F01A9: fflush (iofflush.c:40)
+==233332==    by 0x109B17: ??? (in /usr/bin/rev)
+==233332==    by 0x48B6494: __run_exit_handlers (exit.c:113)
+==233332==    by 0x48B660F: exit (exit.c:143)
+==233332==    by 0x489AD96: (below main) (libc_start_call_main.h:74)
+==233332== 
+==233332== HEAP SUMMARY:
+==233332==     in use at exit: 45,470 bytes in 36 blocks
+==233332==   total heap usage: 38 allocs, 2 frees, 78,243 bytes allocated
+==233332== 
+==233332== 11 bytes in 1 blocks are still reachable in loss record 1 of 14
+==233332==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==233332==    by 0x491958E: strdup (strdup.c:42)
+==233332==    by 0x48AED57: __textdomain (textdomain.c:94)
+==233332==    by 0x48AED57: textdomain (textdomain.c:64)
+==233332==    by 0x109476: ??? (in /usr/bin/rev)
+==233332==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
+==233332== 
+==233332== 12 bytes in 1 blocks are still reachable in loss record 2 of 14
+==233332==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==233332==    by 0x491958E: strdup (strdup.c:42)
+==233332==    by 0x48A931A: _nl_load_locale_from_archive (loadarchive.c:464)
+==233332==    by 0x48A80DF: _nl_find_locale (findlocale.c:152)
+==233332==    by 0x48A7856: setlocale (setlocale.c:337)
+==233332==    by 0x48A7856: setlocale (setlocale.c:217)
+==233332==    by 0x109458: ??? (in /usr/bin/rev)
+==233332==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
+==233332== 
+==233332== 12 bytes in 1 blocks are still reachable in loss record 3 of 14
+==233332==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==233332==    by 0x48A76EB: new_composite_name (setlocale.c:165)
+==233332==    by 0x48A7BAA: setlocale (setlocale.c:375)
+==233332==    by 0x48A7BAA: setlocale (setlocale.c:217)
+==233332==    by 0x109458: ??? (in /usr/bin/rev)
+==233332==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
+==233332== 
+==233332== 32 bytes in 1 blocks are still reachable in loss record 4 of 14
+==233332==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==233332==    by 0x4943C1F: __wcsmbs_load_conv (wcsmbsload.c:167)
+==233332==    by 0x494403A: get_gconv_fcts (wcsmbsload.h:73)
+==233332==    by 0x494403A: __wcsmbs_clone_conv (wcsmbsload.c:221)
+==233332==    by 0x48F7B28: _IO_fwide (iofwide.c:79)
+==233332==    by 0x48F34A8: _IO_getwline_info (iogetwline.c:54)
+==233332==    by 0x49A6D58: __fgetws_chk (fgetws_chk.c:37)
+==233332==    by 0x1095EE: ??? (in /usr/bin/rev)
+==233332==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
+==233332== 
+==233332== 35 bytes in 1 blocks are still reachable in loss record 5 of 14
+==233332==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==233332==    by 0x48AB5DE: set_binding_values.part.0 (bindtextdom.c:203)
+==233332==    by 0x48AB89B: set_binding_values (bindtextdom.c:322)
+==233332==    by 0x48AB89B: bindtextdomain (bindtextdom.c:320)
+==233332==    by 0x109467: ??? (in /usr/bin/rev)
+==233332==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
+==233332== 
+==233332== 120 bytes in 1 blocks are still reachable in loss record 6 of 14
+==233332==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==233332==    by 0x48A92FF: _nl_load_locale_from_archive (loadarchive.c:460)
+==233332==    by 0x48A80DF: _nl_find_locale (findlocale.c:152)
+==233332==    by 0x48A7856: setlocale (setlocale.c:337)
+==233332==    by 0x48A7856: setlocale (setlocale.c:217)
+==233332==    by 0x109458: ??? (in /usr/bin/rev)
+==233332==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
+==233332== 
+==233332== 144 bytes in 12 blocks are still reachable in loss record 7 of 14
+==233332==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==233332==    by 0x491958E: strdup (strdup.c:42)
+==233332==    by 0x48A7C84: setlocale (setlocale.c:366)
+==233332==    by 0x48A7C84: setlocale (setlocale.c:217)
+==233332==    by 0x109458: ??? (in /usr/bin/rev)
+==233332==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
+==233332== 
+==233332== 208 bytes in 1 blocks are still reachable in loss record 8 of 14
+==233332==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==233332==    by 0x48A69D6: __gconv_lookup_cache (gconv_cache.c:365)
+==233332==    by 0x489CB6E: __gconv_find_transform (gconv_db.c:732)
+==233332==    by 0x4943D4A: __wcsmbs_getfct (wcsmbsload.c:91)
+==233332==    by 0x4943D4A: __wcsmbs_load_conv (wcsmbsload.c:185)
+==233332==    by 0x494403A: get_gconv_fcts (wcsmbsload.h:73)
+==233332==    by 0x494403A: __wcsmbs_clone_conv (wcsmbsload.c:221)
+==233332==    by 0x48F7B28: _IO_fwide (iofwide.c:79)
+==233332==    by 0x48F34A8: _IO_getwline_info (iogetwline.c:54)
+==233332==    by 0x49A6D58: __fgetws_chk (fgetws_chk.c:37)
+==233332==    by 0x1095EE: ??? (in /usr/bin/rev)
+==233332==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
+==233332== 
+==233332== 208 bytes in 1 blocks are still reachable in loss record 9 of 14
+==233332==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==233332==    by 0x48A6AC0: __gconv_lookup_cache (gconv_cache.c:365)
+==233332==    by 0x489CB6E: __gconv_find_transform (gconv_db.c:732)
+==233332==    by 0x4943D8B: __wcsmbs_getfct (wcsmbsload.c:91)
+==233332==    by 0x4943D8B: __wcsmbs_load_conv (wcsmbsload.c:188)
+==233332==    by 0x494403A: get_gconv_fcts (wcsmbsload.h:73)
+==233332==    by 0x494403A: __wcsmbs_clone_conv (wcsmbsload.c:221)
+==233332==    by 0x48F7B28: _IO_fwide (iofwide.c:79)
+==233332==    by 0x48F34A8: _IO_getwline_info (iogetwline.c:54)
+==233332==    by 0x49A6D58: __fgetws_chk (fgetws_chk.c:37)
+==233332==    by 0x1095EE: ??? (in /usr/bin/rev)
+==233332==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
+==233332== 
+==233332== 3,728 bytes in 12 blocks are still reachable in loss record 10 of 14
+==233332==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==233332==    by 0x48A896E: _nl_intern_locale_data (loadlocale.c:97)
+==233332==    by 0x48A9370: _nl_load_locale_from_archive (loadarchive.c:477)
+==233332==    by 0x48A80DF: _nl_find_locale (findlocale.c:152)
+==233332==    by 0x48A7856: setlocale (setlocale.c:337)
+==233332==    by 0x48A7856: setlocale (setlocale.c:217)
+==233332==    by 0x109458: ??? (in /usr/bin/rev)
+==233332==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
+==233332== 
+==233332== 4,096 bytes in 1 blocks are still reachable in loss record 11 of 14
+==233332==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==233332==    by 0x48EFBA3: _IO_file_doallocate (filedoalloc.c:101)
+==233332==    by 0x48F0EFC: _IO_wfile_doallocate (wfiledoalloc.c:70)
+==233332==    by 0x48FECDF: _IO_doallocbuf (genops.c:347)
+==233332==    by 0x48F6563: _IO_wfile_underflow (wfileops.c:181)
+==233332==    by 0x48F4875: _IO_wdefault_uflow (wgenops.c:202)
+==233332==    by 0x48F33B6: _IO_getwline_info (iogetwline.c:61)
+==233332==    by 0x49A6D58: __fgetws_chk (fgetws_chk.c:37)
+==233332==    by 0x1095EE: ??? (in /usr/bin/rev)
+==233332==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
+==233332== 
+==233332== 4,096 bytes in 1 blocks are still reachable in loss record 12 of 14
+==233332==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==233332==    by 0x48EFBA3: _IO_file_doallocate (filedoalloc.c:101)
+==233332==    by 0x48F0EFC: _IO_wfile_doallocate (wfiledoalloc.c:70)
+==233332==    by 0x48F4B9D: _IO_wdoallocbuf (wgenops.c:369)
+==233332==    by 0x48F75F4: _IO_wfile_overflow (wfileops.c:420)
+==233332==    by 0x48F498E: __woverflow (wgenops.c:215)
+==233332==    by 0x48F498E: _IO_wdefault_xsputn (wgenops.c:315)
+==233332==    by 0x48F498E: _IO_wdefault_xsputn (wgenops.c:282)
+==233332==    by 0x48F78A8: _IO_wfile_xsputn (wfileops.c:1009)
+==233332==    by 0x48F78A8: _IO_wfile_xsputn (wfileops.c:955)
+==233332==    by 0x48F320F: fputws (iofputws.c:38)
+==233332==    by 0x109708: ??? (in /usr/bin/rev)
+==233332==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
+==233332== 
+==233332== 16,384 bytes in 1 blocks are still reachable in loss record 13 of 14
+==233332==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==233332==    by 0x48F0ECC: _IO_wfile_doallocate (wfiledoalloc.c:79)
+==233332==    by 0x48FECDF: _IO_doallocbuf (genops.c:347)
+==233332==    by 0x48F6563: _IO_wfile_underflow (wfileops.c:181)
+==233332==    by 0x48F4875: _IO_wdefault_uflow (wgenops.c:202)
+==233332==    by 0x48F33B6: _IO_getwline_info (iogetwline.c:61)
+==233332==    by 0x49A6D58: __fgetws_chk (fgetws_chk.c:37)
+==233332==    by 0x1095EE: ??? (in /usr/bin/rev)
+==233332==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
+==233332== 
+==233332== 16,384 bytes in 1 blocks are still reachable in loss record 14 of 14
+==233332==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==233332==    by 0x48F0ECC: _IO_wfile_doallocate (wfiledoalloc.c:79)
+==233332==    by 0x48F4B9D: _IO_wdoallocbuf (wgenops.c:369)
+==233332==    by 0x48F75F4: _IO_wfile_overflow (wfileops.c:420)
+==233332==    by 0x48F498E: __woverflow (wgenops.c:215)
+==233332==    by 0x48F498E: _IO_wdefault_xsputn (wgenops.c:315)
+==233332==    by 0x48F498E: _IO_wdefault_xsputn (wgenops.c:282)
+==233332==    by 0x48F78A8: _IO_wfile_xsputn (wfileops.c:1009)
+==233332==    by 0x48F78A8: _IO_wfile_xsputn (wfileops.c:955)
+==233332==    by 0x48F320F: fputws (iofputws.c:38)
+==233332==    by 0x109708: ??? (in /usr/bin/rev)
+==233332==    by 0x489AD8F: (below main) (libc_start_call_main.h:58)
+==233332== 
+==233332== LEAK SUMMARY:
+==233332==    definitely lost: 0 bytes in 0 blocks
+==233332==    indirectly lost: 0 bytes in 0 blocks
+==233332==      possibly lost: 0 bytes in 0 blocks
+==233332==    still reachable: 45,470 bytes in 36 blocks
+==233332==         suppressed: 0 bytes in 0 blocks
+==233332== 
+==233332== For lists of detected and suppressed errors, rerun with: -s
+==233332== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==233331== 
+==233331== HEAP SUMMARY:
+==233331==     in use at exit: 21,051 bytes in 28 blocks
+==233331==   total heap usage: 65 allocs, 37 frees, 63,678 bytes allocated
+==233331== 
+==233331== LEAK SUMMARY:
+==233331==    definitely lost: 0 bytes in 0 blocks
+==233331==    indirectly lost: 0 bytes in 0 blocks
+==233331==      possibly lost: 0 bytes in 0 blocks
+==233331==    still reachable: 0 bytes in 0 blocks
+==233331==         suppressed: 21,051 bytes in 28 blocks
+==233331== 
+==233331== For lists of detected and suppressed errors, rerun with: -s
+==233331== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==233330== 
+==233330== HEAP SUMMARY:
+==233330==     in use at exit: 208,181 bytes in 222 blocks
+==233330==   total heap usage: 824 allocs, 602 frees, 255,670 bytes allocated
+==233330== 
+==233330== LEAK SUMMARY:
+==233330==    definitely lost: 0 bytes in 0 blocks
+==233330==    indirectly lost: 0 bytes in 0 blocks
+==233330==      possibly lost: 0 bytes in 0 blocks
+==233330==    still reachable: 0 bytes in 0 blocks
+==233330==         suppressed: 208,181 bytes in 222 blocks
+==233330== 
+==233330== For lists of detected and suppressed errors, rerun with: -s
+==233330== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 
 Commande: ls | <infile2 rev | > outfile77 <infile  >outfile76 cat  -n >outfile78| rev
 Sortie Valgrind:
-==162514== Memcheck, a memory error detector
-==162514== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==162514== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==162514== Command: ../minishell
-==162514== 
+==233338== Memcheck, a memory error detector
+==233338== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==233338== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==233338== Command: ../minishell
+==233338== 
 Minishell: infile2: No such file or directory
 Minishell: infile: No such file or directory
 Minishell: outfile76: No such file or directory
 Minishell: outfile78: No such file or directory
-==162515== Memcheck, a memory error detector
-==162515== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==162515== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==162515== Command: /usr/bin/ls
-==162515== 
-==162518== Memcheck, a memory error detector
-==162518== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==162518== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==162518== Command: /usr/bin/rev
-==162518== 
-==162517== 
-==162517== HEAP SUMMARY:
-==162517==     in use at exit: 208,277 bytes in 225 blocks
-==162517==   total heap usage: 820 allocs, 595 frees, 251,390 bytes allocated
-==162517== 
-==162516== 
-==162516== HEAP SUMMARY:
-==162516==     in use at exit: 208,277 bytes in 225 blocks
-==162516==   total heap usage: 820 allocs, 595 frees, 251,390 bytes allocated
-==162516== 
-==162517== LEAK SUMMARY:
-==162517==    definitely lost: 0 bytes in 0 blocks
-==162517==    indirectly lost: 0 bytes in 0 blocks
-==162517==      possibly lost: 0 bytes in 0 blocks
-==162517==    still reachable: 0 bytes in 0 blocks
-==162517==         suppressed: 208,277 bytes in 225 blocks
-==162517== 
-==162517== For lists of detected and suppressed errors, rerun with: -s
-==162517== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==162516== LEAK SUMMARY:
-==162516==    definitely lost: 0 bytes in 0 blocks
-==162516==    indirectly lost: 0 bytes in 0 blocks
-==162516==      possibly lost: 0 bytes in 0 blocks
-==162516==    still reachable: 0 bytes in 0 blocks
-==162516==         suppressed: 208,277 bytes in 225 blocks
-==162516== 
-==162516== For lists of detected and suppressed errors, rerun with: -s
-==162516== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==162518== 
-==162518== HEAP SUMMARY:
-==162518==     in use at exit: 0 bytes in 0 blocks
-==162518==   total heap usage: 36 allocs, 36 frees, 57,763 bytes allocated
-==162518== 
-==162518== All heap blocks were freed -- no leaks are possible
-==162518== 
-==162518== For lists of detected and suppressed errors, rerun with: -s
-==162518== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==162515== 
-==162515== Process terminating with default action of signal 13 (SIGPIPE)
-==162515==    at 0x49B1887: write (write.c:26)
-==162515==    by 0x4927EEC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1180)
-==162515==    by 0x49299E0: new_do_write (fileops.c:448)
-==162515==    by 0x49299E0: _IO_new_do_write (fileops.c:425)
-==162515==    by 0x49299E0: _IO_do_write@@GLIBC_2.2.5 (fileops.c:422)
-==162515==    by 0x49274D7: _IO_file_sync@@GLIBC_2.2.5 (fileops.c:798)
-==162515==    by 0x491C1A9: fflush (iofflush.c:40)
-==162515==    by 0x1139C8: ??? (in /usr/bin/ls)
-==162515==    by 0x113AF4: ??? (in /usr/bin/ls)
-==162515==    by 0x48E2494: __run_exit_handlers (exit.c:113)
-==162515==    by 0x48E260F: exit (exit.c:143)
-==162515==    by 0x48C6D96: (below main) (libc_start_call_main.h:74)
-==162515== 
-==162515== HEAP SUMMARY:
-==162515==     in use at exit: 29,207 bytes in 58 blocks
-==162515==   total heap usage: 65 allocs, 7 frees, 63,678 bytes allocated
-==162515== 
-==162515== LEAK SUMMARY:
-==162515==    definitely lost: 0 bytes in 0 blocks
-==162515==    indirectly lost: 0 bytes in 0 blocks
-==162515==      possibly lost: 0 bytes in 0 blocks
-==162515==    still reachable: 0 bytes in 0 blocks
-==162515==         suppressed: 29,207 bytes in 58 blocks
-==162515== 
-==162515== For lists of detected and suppressed errors, rerun with: -s
-==162515== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==162514== 
-==162514== HEAP SUMMARY:
-==162514==     in use at exit: 208,165 bytes in 222 blocks
-==162514==   total heap usage: 825 allocs, 603 frees, 255,583 bytes allocated
-==162514== 
-==162514== LEAK SUMMARY:
-==162514==    definitely lost: 0 bytes in 0 blocks
-==162514==    indirectly lost: 0 bytes in 0 blocks
-==162514==      possibly lost: 0 bytes in 0 blocks
-==162514==    still reachable: 0 bytes in 0 blocks
-==162514==         suppressed: 208,165 bytes in 222 blocks
-==162514== 
-==162514== For lists of detected and suppressed errors, rerun with: -s
-==162514== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==233339== Memcheck, a memory error detector
+==233339== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==233339== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==233339== Command: /usr/bin/ls
+==233339== 
+==233342== Memcheck, a memory error detector
+==233342== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==233342== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==233342== Command: /usr/bin/rev
+==233342== 
+==233340== 
+==233340== HEAP SUMMARY:
+==233340==     in use at exit: 208,293 bytes in 225 blocks
+==233340==   total heap usage: 820 allocs, 595 frees, 251,485 bytes allocated
+==233340== 
+==233340== LEAK SUMMARY:
+==233340==    definitely lost: 0 bytes in 0 blocks
+==233340==    indirectly lost: 0 bytes in 0 blocks
+==233340==      possibly lost: 0 bytes in 0 blocks
+==233340==    still reachable: 0 bytes in 0 blocks
+==233340==         suppressed: 208,293 bytes in 225 blocks
+==233340== 
+==233340== For lists of detected and suppressed errors, rerun with: -s
+==233341== 
+==233340== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==233341== HEAP SUMMARY:
+==233341==     in use at exit: 208,293 bytes in 225 blocks
+==233341==   total heap usage: 820 allocs, 595 frees, 251,485 bytes allocated
+==233341== 
+==233341== LEAK SUMMARY:
+==233341==    definitely lost: 0 bytes in 0 blocks
+==233341==    indirectly lost: 0 bytes in 0 blocks
+==233341==      possibly lost: 0 bytes in 0 blocks
+==233341==    still reachable: 0 bytes in 0 blocks
+==233341==         suppressed: 208,293 bytes in 225 blocks
+==233341== 
+==233341== For lists of detected and suppressed errors, rerun with: -s
+==233341== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==233342== 
+==233342== HEAP SUMMARY:
+==233342==     in use at exit: 0 bytes in 0 blocks
+==233342==   total heap usage: 36 allocs, 36 frees, 57,763 bytes allocated
+==233342== 
+==233342== All heap blocks were freed -- no leaks are possible
+==233342== 
+==233342== For lists of detected and suppressed errors, rerun with: -s
+==233342== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==233339== 
+==233339== Process terminating with default action of signal 13 (SIGPIPE)
+==233339==    at 0x49B1887: write (write.c:26)
+==233339==    by 0x4927EEC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1180)
+==233339==    by 0x49299E0: new_do_write (fileops.c:448)
+==233339==    by 0x49299E0: _IO_new_do_write (fileops.c:425)
+==233339==    by 0x49299E0: _IO_do_write@@GLIBC_2.2.5 (fileops.c:422)
+==233339==    by 0x49274D7: _IO_file_sync@@GLIBC_2.2.5 (fileops.c:798)
+==233339==    by 0x491C1A9: fflush (iofflush.c:40)
+==233339==    by 0x1139C8: ??? (in /usr/bin/ls)
+==233339==    by 0x113AF4: ??? (in /usr/bin/ls)
+==233339==    by 0x48E2494: __run_exit_handlers (exit.c:113)
+==233339==    by 0x48E260F: exit (exit.c:143)
+==233339==    by 0x48C6D96: (below main) (libc_start_call_main.h:74)
+==233339== 
+==233339== HEAP SUMMARY:
+==233339==     in use at exit: 29,207 bytes in 58 blocks
+==233339==   total heap usage: 65 allocs, 7 frees, 63,678 bytes allocated
+==233339== 
+==233339== LEAK SUMMARY:
+==233339==    definitely lost: 0 bytes in 0 blocks
+==233339==    indirectly lost: 0 bytes in 0 blocks
+==233339==      possibly lost: 0 bytes in 0 blocks
+==233339==    still reachable: 0 bytes in 0 blocks
+==233339==         suppressed: 29,207 bytes in 58 blocks
+==233339== 
+==233339== For lists of detected and suppressed errors, rerun with: -s
+==233339== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==233338== 
+==233338== HEAP SUMMARY:
+==233338==     in use at exit: 208,181 bytes in 222 blocks
+==233338==   total heap usage: 825 allocs, 603 frees, 255,695 bytes allocated
+==233338== 
+==233338== LEAK SUMMARY:
+==233338==    definitely lost: 0 bytes in 0 blocks
+==233338==    indirectly lost: 0 bytes in 0 blocks
+==233338==      possibly lost: 0 bytes in 0 blocks
+==233338==    still reachable: 0 bytes in 0 blocks
+==233338==         suppressed: 208,181 bytes in 222 blocks
+==233338== 
+==233338== For lists of detected and suppressed errors, rerun with: -s
+==233338== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:22:09 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/12/07 20:35:06 by mbetcher         ###   ########.fr       */
+/*   Updated: 2024/12/08 15:02:24 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	ft_exit_handler(t_node *node, int tmp_nb)
 	}
 	else if (!str_is_digit(node->split[1]))
 	{
-		if (atoi(node->split[1]) < 0)
-			exit (atoi(node->split[1]));
+		if (ft_atoi(node->split[1]) < 0)
+			exit (ft_atoi(node->split[1]));
 		printf("minishell: exit %s: numeric argument is required\n",
 			node->split[1]);
 		free_and_exit(node, 2);

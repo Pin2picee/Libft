@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:19:16 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 18:31:53 by mbetcher         ###   ########.fr       */
+/*   Updated: 2024/12/08 14:59:12 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ t_env	*create_var(char *key, const char *value)
 		printf("Erreur : malloc a échoué\n");
 		exit (1);
 	}
-	new_var->key = strdup(key);
-	new_var->value = strdup(value);
+	new_var->key = ft_strdup(key);
+	new_var->value = ft_strdup(value);
 	new_var->next = NULL;
 	free(key);
 	return (new_var);
@@ -58,7 +58,7 @@ t_env	*get_env_var(t_env *var_data, const char *key)
 	current = var_data;
 	while (current)
 	{
-		if (strcmp(current->key, key) == 0)
+		if (ft_strcmp(current->key, key) == 0)
 			return (current);
 		current = current->next;
 	}
@@ -78,7 +78,7 @@ void	setup(t_minishell *data, char **envp, int i)
 	init_data(data);
 	while (envp[++i])
 	{
-		equal_sign = strchr(envp[i], '=');
+		equal_sign = ft_strchr(envp[i], '=');
 		if (equal_sign)
 		{
 			new_var = create_var(strndup(envp[i], equal_sign

@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:52:26 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 21:17:55 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/08 14:40:43 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	tab_len(char *str, int	*len, t_minishell *data)
 
 	i = 0;
 	flag = chr_quotes_or_d(str);
-	while (str[i])
+	while (i < ft_strlen(str) && str[i])
 	{
 		if (str[i] == '$')
 		{

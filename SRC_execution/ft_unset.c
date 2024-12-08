@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:46:04 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/12/07 19:46:56 by mbetcher         ###   ########.fr       */
+/*   Updated: 2024/12/08 15:02:58 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	unset_env_var(t_env **env_list, const char *name)
 	previous = NULL;
 	while (current)
 	{
-		if (strcmp(current->key, name) == 0)
+		if (ft_strcmp(current->key, name) == 0)
 		{
 			if (previous)
 				previous->next = current->next;

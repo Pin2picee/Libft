@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:02:04 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/12/07 20:30:13 by mbetcher         ###   ########.fr       */
+/*   Updated: 2024/12/08 15:20:24 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	verif_builtin(t_minishell *data)
 {
-	if (strcmp(data->current_node->split[0], "echo") == 0
-		|| strcmp(data->current_node->split[0], "cd") == 0
-		|| strcmp(data->current_node->split[0], "pwd") == 0
-		|| strcmp(data->current_node->split[0], "export") == 0
-		|| strcmp(data->current_node->split[0], "unset") == 0
-		|| strcmp(data->current_node->split[0], "env") == 0
-		|| strcmp(data->current_node->split[0], "exit") == 0)
+	if (ft_strcmp(data->current_node->split[0], "echo") == 0
+		|| ft_strcmp(data->current_node->split[0], "cd") == 0
+		|| ft_strcmp(data->current_node->split[0], "pwd") == 0
+		|| ft_strcmp(data->current_node->split[0], "export") == 0
+		|| ft_strcmp(data->current_node->split[0], "unset") == 0
+		|| ft_strcmp(data->current_node->split[0], "env") == 0
+		|| ft_strcmp(data->current_node->split[0], "exit") == 0)
 		return (1);
 	return (0);
 }
@@ -39,8 +39,13 @@ int	child_handler(t_minishell *data, int exit_code)
 		execve(data->current_node->split[0],
 			data->current_node->split, data->envp);
 	else
-		return (ft_putstr_fd(data->current_node->split[0], 2), free_all(data),
-			ft_putstr_fd(" : cmd not found !\n", 2), exit(127), 0);
+	{
+		ft_putstr_fd(data->current_node->split[0], 2);
+		free_all(data);
+		ft_putstr_fd(" : cmd not found !\n", 2);
+		exit(127);
+		return (0);
+	}
 }
 
 void	manage_status_reset_data(t_minishell *data)
@@ -66,9 +71,9 @@ char	*check_cmd_path(t_minishell *data, char *path, char **a_pth, int *found)
 	{
 		path = ft_calloc(sizeof(char), ft_strlen(a_pth[i])
 				+ ft_strlen(data->current_node->split[0]) + 2);
-		path = strcat(path, a_pth[i]);
-		path = strcat(path, "/");
-		path = strcat(path, data->current_node->split[0]);
+		ft_strlcat(path, a_pth[i], 4096);
+		ft_strlcat(path, "/", 4096);
+		ft_strlcat(path, data->current_node->split[0], 4096);
 		*found = access(path, F_OK);
 		if (*found == 0)
 		{

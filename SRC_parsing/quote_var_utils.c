@@ -6,7 +6,7 @@
 /*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:48:57 by abelmoha          #+#    #+#             */
-/*   Updated: 2024/12/07 21:56:34 by abelmoha         ###   ########.fr       */
+/*   Updated: 2024/12/08 15:04:41 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	var_len(char *str, t_minishell *data, int *len)
 
 	v_e = data->var;
 	i = 0;
-	while (str[i] && (isalnum(str[i]) || str[i] == '_'))
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 		i++;
 	if (i == 0 && str[0])
 		return (1);

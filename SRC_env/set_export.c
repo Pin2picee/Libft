@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:32:34 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/12/07 18:33:05 by mbetcher         ###   ########.fr       */
+/*   Updated: 2024/12/08 15:00:00 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	update_env_var(t_env *env_list, const char *name, const char *value)
 	current = env_list;
 	while (current)
 	{
-		if (strcmp(current->key, name) == 0)
+		if (ft_strcmp(current->key, name) == 0)
 		{
 			if (value)
 			{

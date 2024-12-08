@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 15:34:32 by nhallou           #+#    #+#             */
-/*   Updated: 2024/12/07 20:27:16 by mbetcher         ###   ########.fr       */
+/*   Updated: 2024/12/08 15:02:03 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,19 @@ int	manage_builtin(t_minishell *data)
 		return (ft_putstr_fd("command not found : ''\n", 2), 0);
 	else if (data->pid == 0 && data->current_node->split == NULL)
 		exit(127);
-	if (strcmp(data->current_node->split[0], "echo") == 0)
+	if (ft_strcmp(data->current_node->split[0], "echo") == 0)
 		ft_echo(data, 0, 0, 0);
-	else if (strcmp(data->current_node->split[0], "cd") == 0)
+	else if (ft_strcmp(data->current_node->split[0], "cd") == 0)
 		ft_cd(data, data->current_node, 0);
-	if (strcmp(data->current_node->split[0], "pwd") == 0)
+	if (ft_strcmp(data->current_node->split[0], "pwd") == 0)
 		ft_pwd();
-	else if (strcmp(data->current_node->split[0], "export") == 0)
+	else if (ft_strcmp(data->current_node->split[0], "export") == 0)
 		ft_export(data->current_node, 1, 0);
-	else if (strcmp(data->current_node->split[0], "unset") == 0)
+	else if (ft_strcmp(data->current_node->split[0], "unset") == 0)
 		ft_unset(data->current_node);
-	else if (strcmp(data->current_node->split[0], "env") == 0)
+	else if (ft_strcmp(data->current_node->split[0], "env") == 0)
 		ft_env(data);
-	else if (strcmp(data->current_node->split[0], "exit") == 0)
+	else if (ft_strcmp(data->current_node->split[0], "exit") == 0)
 		ft_exit(data->current_node);
 	return (verif_builtin(data));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_export_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbetcher <mbetcher@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelmoha <abelmoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:33:36 by mbetcher          #+#    #+#             */
-/*   Updated: 2024/12/07 18:33:38 by mbetcher         ###   ########.fr       */
+/*   Updated: 2024/12/08 14:59:47 by abelmoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	bubble_sort(char **export)
 		i = 0;
 		while (i < n - 1)
 		{
-			if (strcmp(export[i], export[i + 1]) > 0)
+			if (ft_strcmp(export[i], export[i + 1]) > 0)
 			{
 				swap_strings(&export[i], &export[i + 1]);
 				swapped = 1;
