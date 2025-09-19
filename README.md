@@ -17,4 +17,5 @@ Le projet a pour objectif de **comprendre en profondeur le fonctionnement d’un
 
 ## Installation
 1. Clone le dépôt :
+   
 git clone https://github.com/tonpseudo/minishell.git
