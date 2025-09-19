@@ -1,7 +1,5 @@
 # Minishell
 
-![Minishell Demo](# Minishell
-
 ![Minishell Demo](https://github.com/user-attachments/assets/f47fce82-81af-4d6e-8dce-167a87d76238)  
 *Exemple animé du Minishell en action*
 
