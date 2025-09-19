@@ -2,7 +2,7 @@
 
 ![Minishell Demo](# Minishell
 
-![Minishell Demo](https://github.com/user-attachments/assets/a76d8cd8-05e7-4e84-b5dc-851cdcd4a684)  
+![Minishell Demo](![1_Awi84KRY_5cFk9P0cIhtrw](https://github.com/user-attachments/assets/f47fce82-81af-4d6e-8dce-167a87d76238))  
 *Exemple animé du Minishell en action*
 
 ## Description
